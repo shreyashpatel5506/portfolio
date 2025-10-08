@@ -1,6 +1,8 @@
 "use client"
 import { useState } from 'react';
 import Link from "next/link";
+import logo from "../../public/Portfolio_logo-removebg-preview.png"
+import Image from 'next/image'
 
 // A simple component for the close icon (X)
 const CloseIcon = () => (
@@ -24,19 +26,22 @@ export default function Navigation() {
     const NavLinks = ({ onItemClick }) => (
         <>
             <li>
-                <Link href="#" onClick={onItemClick} className="block py-2 px-3 text-accent rounded md:bg-transparent md:p-0" aria-current="page">Home</Link>
+                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-accent rounded md:bg-transparent md:p-0" aria-current="page">Home</Link>
             </li>
             <li>
-                <Link href="#" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">About</Link>
+                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Skills</Link>
             </li>
             <li>
-                <Link href="#" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Services</Link>
+                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Projects</Link>
             </li>
             <li>
-                <Link href="#" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Pricing</Link>
+                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">experience</Link>
             </li>
             <li>
-                <Link href="#" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Contact</Link>
+                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">awards</Link>
+            </li>
+            <li>
+                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Contact</Link>
             </li>
         </>
     );
@@ -48,9 +53,18 @@ export default function Navigation() {
 
                     {/* Logo and Site Title */}
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
+                        {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" /> */}
+                        <Image
+                            src={logo}
+                            width={75}
+                            height={75}
+                            alt='LogoofPortFolio'
+                            quality={100}
+                            placeholder="blur"
+                            loading="lazy"
+                        />
                         <span className="self-center text-primary font-heading text-2xl font-semibold whitespace-nowrap">
-                            YourApp
+                            Shreyash
                         </span>
                     </Link>
 
