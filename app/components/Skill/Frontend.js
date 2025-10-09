@@ -1,7 +1,7 @@
 import React from "react";
 import { FaHtml5, FaCss3Alt, FaJsSquare, FaReact } from "react-icons/fa";
 import { SiNextdotjs, SiTailwindcss } from "react-icons/si";
-
+import { motion } from "motion/react"
 const frontendSkills = [
     { icon: <FaHtml5 className="text-[#E44D26]" />, level: 90, name: "HTML5" },
     { icon: <FaCss3Alt className="text-[#1572B6]" />, level: 90, name: "CSS3" },
@@ -13,9 +13,12 @@ const frontendSkills = [
 
 export default function Frontend() {
     return (
-        <div className="flex  gap-8 justify-center items-center">
+        <div className="flex  gap-8 justify-center items-center flex-wrap">
             {frontendSkills.map((skill, i) => (
-                <div
+                <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                     key={i}
                     className="group relative flex flex-col items-center gap-2 bg-[#1E293B] p-5 rounded-xl w-28 h-28 transition-all duration-300  hover:scale-110 hover:shadow-lg"
                 >
@@ -27,8 +30,9 @@ export default function Frontend() {
                     </div>
 
                     <span className="text-sm text-gray-300">{skill.name}</span>
-                </div>
-            ))}
-        </div>
+                </motion.div>
+            ))
+            }
+        </div >
     );
 }

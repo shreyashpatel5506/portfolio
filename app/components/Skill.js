@@ -26,41 +26,30 @@ const Skill = () => {
     const tabs = ["Frontend", "Backend", "Database", "Tools"];
 
     return (
-        <section
-            id="skills"
-            className="min-h-screen bg-[#0F172A] text-white py-16 px-6 md:px-12 border-t border-[#30A585]"
-        >
-            <h1 className="text-4xl md:text-5xl font-bold text-center mb-12 tracking-wide">
-                <span className="text-[#30A585]">My</span> Skills
-            </h1>
+        <div className="pt-10 pb-10 px-6 md:px-10 bg-[#1A1A2E]">
+            <h1 className="text-2xl text-center pb-10 text-white font-semibold">Skills</h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-10 max-w-6xl mx-auto">
-                {/* Left Side Tabs */}
-                <div className="md:col-span-1 flex md:flex-col flex-row justify-center md:justify-start items-center md:items-start gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                {/* Left Side Buttons */}
+                <div className="flex flex-col gap-4 items-start justify-start md:col-span-1">
                     {tabs.map((tab) => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
-                            className={`relative group text-lg font-semibold px-4 py-2 transition-all duration-300 ${activeTab === tab
-                                ? "text-[#30A585]"
+                            className={`ghost-button text-lg font-semibold transition-all duration-300 ${activeTab === tab
+                                ? "text-[#30A585] border-l-4 border-[#30A585] pl-2"
                                 : "text-gray-400 hover:text-[#30A585]"
                                 }`}
                         >
                             {tab}
-                            <span
-                                className={`absolute bottom-0 left-0 h-[2px] bg-[#30A585] transition-all duration-300 ${activeTab === tab ? "w-full" : "w-0 group-hover:w-full"
-                                    }`}
-                            ></span>
                         </button>
                     ))}
                 </div>
 
-                {/* Right Side Skills Display */}
-                <div className="md:col-span-4 bg-[#1E293B] rounded-2xl p-6 md:p-10 shadow-xl shadow-black/40">
-                    {renderTab()}
-                </div>
+                {/* Right Side Display */}
+                <div className="md:col-span-3 w-full">{renderTab()}</div>
             </div>
-        </section>
+        </div>
     );
 };
 
