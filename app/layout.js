@@ -3,6 +3,7 @@ import "./globals.css";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import Skill from "./components/Skill";
+import ThreeBackground from "./components/ThreeBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased  bg-[#1A1A2E]`}>
-
+        <ThreeBackground />
         <Navigation />
         <section>
           <Home />
