@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
+import Skill from "./components/Skill";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,9 @@ export default function RootLayout({ children }) {
         <Navigation />
         <section>
           <Home />
+        </section>
+        <section>
+          <Skill />
         </section>
         {children}
       </body>
