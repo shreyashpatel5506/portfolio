@@ -80,3 +80,44 @@ body {
   box-shadow: 0 0 15px var(--accent-primary);
   transform: translateY(-2px);
 }
+
+/* --- The Ghost Button Style --- */
+.ghost-button {
+  /* Sizing and Spacing */
+  padding: 12px 28px;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  /* Adds to the techy feel */
+
+  /* Colors and Border (Default State) */
+  background-color: transparent;
+  border: 2px solid #2EEAAB;
+  color: #2EEAAB;
+
+  /* Font and Text */
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 500;
+  text-transform: uppercase;
+
+  /* Other Properties */
+  cursor: pointer;
+  border-radius: 4px;
+
+  /* This makes the hover effect smooth */
+  transition: all 0.3s ease-in-out;
+}
+
+/* --- Hover State --- */
+.ghost-button:hover {
+  background-color: #2EEAAB;
+  color: #0B111E;
+  /* Changes text to the dark background color */
+  box-shadow: 0 0 15px rgba(46, 234, 171, 0.6);
+  /* Adds a neon glow */
+}
+
+/* --- Active State (when clicking) --- */
+.ghost-button:active {
+  transform: scale(0.97);
+  /* Gives a nice "press" effect */
+}
