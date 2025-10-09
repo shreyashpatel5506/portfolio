@@ -47,7 +47,7 @@ const Skill = () => {
                 </div>
 
                 {/* Right Side Display */}
-                <div className="md:col-span-3 w-full">{renderTab()}</div>
+                <div className="md:col-span-3 min-w-3/4">{renderTab()}</div>
             </div>
         </div>
     );

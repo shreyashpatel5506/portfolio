@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <>
 
-      <div className='z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 p-4'>
+      <div className='z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 p-4  bg-[#1A1A2E]'>
 
         {/* Coding-related image on the left */}
         <motion.div className="flex-shrink-0"
