@@ -20,8 +20,8 @@ export default function Tools() {
                         opacity: 1,
                         y: 0,
 
-                        scale: 1.15,
-                        rotate: 5,
+                        scale: 1.09,
+                        rotate: 3,
                         skew: "5deg, 5deg",
                         boxShadow: "0 0 20px #30A585",
                     }}
@@ -32,25 +32,25 @@ export default function Tools() {
                         scale: {
                             repeat: Infinity,
                             repeatType: "reverse",
-                            duration: 2,
+                            duration: 3.5,
                             ease: "easeInOut"
                         },
                         rotate: {
                             repeat: Infinity,
                             repeatType: "reverse",
-                            duration: 2,
+                            duration: 3.5,
                             ease: "easeInOut"
                         },
                         skew: {
                             repeat: Infinity,
                             repeatType: "reverse",
-                            duration: 2,
+                            duration: 3.5,
                             ease: "easeInOut"
                         },
                         boxShadow: {
                             repeat: Infinity,
                             repeatType: "reverse",
-                            duration: 2,
+                            duration: 3.5,
                             ease: "easeInOut"
                         },
                     }}
