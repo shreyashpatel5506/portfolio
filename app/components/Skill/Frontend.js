@@ -16,27 +16,55 @@ export default function Frontend() {
         <div className="flex  gap-8 justify-center items-center flex-wrap">
             {frontendSkills.map((skill, i) => (
                 <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
                     key={i}
-                    className="group relative flex flex-col items-center gap-2 bg-[#0F172A] p-5 rounded-xl w-28 h-28 shadow-md cursor-pointer"
-                    whileHover={{
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{
+                        opacity: 1,
+                        y: 0,
+                        // These are the properties that will loop
                         scale: 1.15,
-                        rotate: 5, // slight rotation
-                        skew: "5deg, 5deg", // skew effect
+                        rotate: 5,
+                        skew: "5deg, 5deg",
                         boxShadow: "0 0 20px #30A585",
                     }}
-                    whileTap={{ scale: 0.95 }} // click feedback
+                    transition={{
+                        // Default transition for the initial animation (opacity, y)
+                        duration: 0.6,
+                        ease: "easeOut",
+
+                        // We define specific, repeating transitions for the looping properties.
+                        // "repeatType: 'reverse'" makes the animation go back and forth smoothly.
+                        scale: {
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            duration: 2,
+                            ease: "easeInOut"
+                        },
+                        rotate: {
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            duration: 2,
+                            ease: "easeInOut"
+                        },
+                        skew: {
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            duration: 2,
+                            ease: "easeInOut"
+                        },
+                        boxShadow: {
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            duration: 2,
+                            ease: "easeInOut"
+                        },
+                    }}
+                    className="flex flex-col items-center gap-2 bg-[#0F172A] p-5 rounded-xl w-32 h-32 shadow-md"
                 >
-
-
-                    {/* Hover overlay with percentage */}
-                    <div className="group relative flex flex-col items-center gap-2 bg-[#0F172A] p-5 rounded-xl w-28 h-32 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_#30A585]">
-                        <div className="text-5xl">{skill.icon}</div>
-                        <span className="text-sm text-[#30A585] font-semibold">{skill.level}%</span>
-                        <span className="text-sm text-gray-300">{skill.name}</span>
-                    </div>
+                    {/* I've also simplified the inner content slightly */}
+                    <div className="text-5xl">{skill.icon}</div>
+                    <span className="text-sm text-[#30A585] font-semibold">{skill.level}%</span>
+                    <span className="text-sm text-gray-300">{skill.name}</span>
                 </motion.div>
             ))
             }
