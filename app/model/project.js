@@ -4,7 +4,7 @@ const projectSchema = new mongoose.Schema(
     {
         PostImage: {
             type: String,
-            trim: true, // removes extra spaces
+            trim: true,
         },
         ProjectName: {
             type: String,
@@ -29,11 +29,10 @@ const projectSchema = new mongoose.Schema(
         },
     },
     {
-        timestamps: true, // adds createdAt and updatedAt automatically
+        timestamps: true,
     }
 );
 
-// Prevent recompilation errors in Next.js (hot reload)
 const Project = mongoose.models.Project || mongoose.model("Project", projectSchema);
 
 export default Project;

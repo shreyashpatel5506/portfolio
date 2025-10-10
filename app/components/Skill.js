@@ -18,7 +18,7 @@ const Skill = () => {
 
     return (
         <div className="pt-10 pb-10 px-6 md:px-10 bg-[#1A1A2E] text-white">
-            <h1 className="text-2xl text-center pb-10 font-semibold">Skills</h1>
+            <h1 className="text-5xl text-center pb-10 font-semibold">Skills</h1>
 
             {/* Tab Buttons */}
             <div className="flex justify-center gap-4 flex-wrap mb-10">

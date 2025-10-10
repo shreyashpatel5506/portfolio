@@ -4,6 +4,7 @@ import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import Skill from "./components/Skill";
 import ThreeBackground from "./components/ThreeBackground";
+import Project from "./components/Project";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,11 @@ export default function RootLayout({ children }) {
 
         <section>
           <Skill />
-        </section>   {children}
+        </section>
+        <section>
+          <Project />
+        </section>
+        {children}
       </body>
     </html>
   );
