@@ -2,6 +2,7 @@
 import React from 'react'
 import motion from 'motion'
 import { useEffect, useState } from "react";
+import Image from 'next/image';
 const Project = () => {
     const [projects, setProjects] = useState([]);
     useEffect(() => {
@@ -23,7 +24,24 @@ const Project = () => {
             <h1 className="text-5xl text-center pb-10 font-semibold">Projects</h1>
             <div className='flex flex-row flex-wrap justify-evenly items-baseline'>
                 {projects.map((proj) => (
-                    <div key={proj._id} > {proj.ProjectNaem}</div>
+                    <div key={proj._id} >
+                        <Image
+                            src={proj.PostImage}
+                            width={200}
+                            height={200}
+                            quality={100}
+                            alt='projectImage'
+                        />
+                        {proj.ProjectName}
+                        <br />
+                        {proj.GithubURL}
+                        <br />
+                        {proj.LinkedinPostURL}
+                        <br />
+                        {proj.LiveSiteURL}
+                        <br />
+                        {proj.Technologies}
+                    </div>
                 ))}
             </div>
         </div>
