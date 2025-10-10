@@ -1,39 +1,61 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Frontend from "./Skill/Frontend";
 import Backend from "./Skill/Backend";
 import Database from "./Skill/Database";
 import Tools from "./Skill/Tools";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Skill = () => {
+    const [activeTab, setActiveTab] = useState("frontend");
+
+    const tabs = [
+        { key: "frontend", label: "Frontend", component: <Frontend /> },
+        { key: "backend", label: "Backend", component: <Backend /> },
+        { key: "database", label: "Database", component: <Database /> },
+        { key: "tools", label: "Tools", component: <Tools /> },
+    ];
+
     return (
-        <div className="pt-10 pb-10 px-6 md:px-10 bg-[#1A1A2E]">
-            <h1 className="text-2xl text-center pb-10 text-white font-semibold">Skills</h1>
+        <div className="pt-10 pb-10 px-6 md:px-10 bg-[#1A1A2E] text-white">
+            <h1 className="text-2xl text-center pb-10 font-semibold">Skills</h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                {/* Frontend */}
-                <div>
-                    <h2 className="text-xl text-[#30A585] font-semibold mb-4">Frontend</h2>
-                    <Frontend />
-                </div>
+            {/* Tab Buttons */}
+            <div className="flex justify-center gap-4 flex-wrap mb-10">
+                {tabs.map((tab) => (
+                    <button
+                        key={tab.key}
+                        onClick={() => setActiveTab(tab.key)}
+                        className={`px-5 py-2 rounded-full font-medium transition-all duration-300 ${activeTab === tab.key
+                            ? "bg-[#30A585] text-white shadow-lg scale-105"
+                            : "bg-[#0F3460] text-gray-300 hover:bg-[#16213E]"
+                            }`}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
+            </div>
 
-                {/* Backend */}
-                <div>
-                    <h2 className="text-xl text-[#30A585] font-semibold mb-4">Backend</h2>
-                    <Backend />
-                </div>
+            {/* Animated Content */}
+            <div className="relative min-h-[200px]">
+                <AnimatePresence mode="wait">
+                    {tabs.map(
+                        (tab) =>
+                            activeTab === tab.key && (
+                                <motion.div
+                                    key={tab.key}
+                                    initial={{ opacity: 0, x: 40 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -40 }}
+                                    transition={{ duration: 0.4 }}
+                                    className="absolute w-full"
+                                >
 
-                {/* Database */}
-                <div>
-                    <h2 className="text-xl text-[#30A585] font-semibold mb-4">Database</h2>
-                    <Database />
-                </div>
-
-                {/* Tools */}
-                <div>
-                    <h2 className="text-xl text-[#30A585] font-semibold mb-4">Tools</h2>
-                    <Tools />
-                </div>
+                                    {tab.component}
+                                </motion.div>
+                            )
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );

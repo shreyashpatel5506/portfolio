@@ -18,13 +18,20 @@ export default function Tools() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     key={i}
-                    className="group relative flex flex-col items-center gap-2 bg-[#0F172A] p-5 rounded-xl w-28 h-28 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_#30A585]"
+                    className="group relative flex flex-col items-center gap-2 bg-[#0F172A] p-5 rounded-xl w-28 h-28 shadow-md cursor-pointer"
+                    whileHover={{
+                        scale: 1.15,
+                        rotate: 5, // slight rotation
+                        skew: "5deg, 5deg", // skew effect
+                        boxShadow: "0 0 20px #30A585",
+                    }}
+                    whileTap={{ scale: 0.95 }} // click feedback
                 >
-                    <div className="text-5xl">{tool.icon}</div>
-                    <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 flex items-center justify-center text-[#30A585] font-semibold text-lg rounded-xl transition">
-                        {tool.level}%
+                    <div className="group relative flex flex-col items-center gap-2 bg-[#0F172A] p-5 rounded-xl w-28 h-32 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_15px_#30A585]">
+                        <div className="text-5xl">{tool.icon}</div>
+                        <span className="text-sm text-[#30A585] font-semibold">{tool.level}%</span>
+                        <span className="text-sm text-gray-300">{tool.name}</span>
                     </div>
-                    <span className="text-sm text-gray-300">{tool.name}</span>
                 </motion.div>
             ))}
         </div>
