@@ -2,7 +2,9 @@ import uploadOnCloudinary from '@/app/cloudinary';
 import connectMongo from '@/app/db';
 import Project from '@/app/model/project';
 import { NextResponse } from "next/server";
-
+import { writeFile } from 'fs/promises';
+import path from 'path';
+import os from "os";
 
 export async function POST(req) {
     try {
@@ -10,20 +12,25 @@ export async function POST(req) {
         // take input from user
         const formData = await req.formData();
 
-        const FilePath = formData.get("filePath");
+        const imageFile = formData.get("file");
         const ProjectName = formData.get("ProjectName");
         const GithubURL = formData.get("GithubURL")
         const LinkedinPostURL = formData.get("LinkedinPostURL");
         const LiveSiteURL = formData.get("LiveSiteURL");
         const Technologies = JSON.parse(formData.get("Technologies") || "[]");
 
-        let PostImage = "";
-        if (FilePath) {
-            PostImage = uploadOnCloudinary(FilePath);
+        let PostImageURL = "";
+
+        if (imageFile && typeof imageFile.arrayBuffer === 'function') {
+            const bytes = await imageFile.arrayBuffer();
+            const buffer = Buffer.from(bytes);
+            const tempFilePath = path.join(os.tmpdir(), imageFile.name);
+            await writeFile(tempFilePath, buffer);
+            PostImageURL = await uploadOnCloudinary(tempFilePath);
         }
         const newProject = await Project.create({
             ProjectName,
-            PostImage,
+            PostImage: PostImageURL,
             GithubURL,
             LinkedinPostURL,
             LiveSiteURL,

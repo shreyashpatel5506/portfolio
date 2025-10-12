@@ -33,7 +33,7 @@ const Project = () => {
                             alt='projectImage'
                         />
                         {proj.ProjectName}
-                        <br />
+                        <br />x
                         {proj.GithubURL}
                         <br />
                         {proj.LinkedinPostURL}
