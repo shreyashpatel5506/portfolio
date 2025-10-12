@@ -23,8 +23,8 @@ export default function ProjectFormPage() {
         const formData = new FormData();
         if (file) formData.append("file", file);
         formData.append("ProjectName", form.ProjectName);
-        formData.append('ProjectDescription', formData.ProjectDescription);
-        formData.append('ProjectFeatures', (formData.ProjectFeatures.split(",")));
+        formData.append('ProjectDescription', form.ProjectDescription);
+        formData.append('ProjectFeatures', (form.ProjectFeatures.split(",")));
         formData.append("GithubURL", form.GithubURL);
         formData.append("LinkedinPostURL", form.LinkedinPostURL);
         formData.append("LiveSiteURL", form.LiveSiteURL);
@@ -117,7 +117,7 @@ export default function ProjectFormPage() {
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+                    className="w-full bg-blues-600 text-white p-2 rounded hover:bg-blue-700"
                 >
                     Submit
                 </button>

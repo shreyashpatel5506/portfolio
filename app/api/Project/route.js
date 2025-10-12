@@ -1,6 +1,6 @@
 import uploadOnCloudinary from '@/app/cloudinary';
 import connectMongo from '@/app/db';
-import Project from '@/app/model/project';
+import Projects from '@/app/model/project';
 import { NextResponse } from "next/server";
 import { writeFile } from 'fs/promises';
 import path from 'path';
@@ -30,7 +30,7 @@ export async function POST(req) {
             await writeFile(tempFilePath, buffer);
             PostImageURL = await uploadOnCloudinary(tempFilePath);
         }
-        const newProject = await Project.create({
+        const newProject = await Projects.create({
             ProjectName,
             ProjectDescription,
             ProjectFeatures,
@@ -51,7 +51,7 @@ export async function POST(req) {
 export async function GET() {
     try {
         await connectMongo();
-        const projects = await Project.find().sort({ createdAt: -1 })
+        const projects = await Projects.find().sort({ createdAt: -1 })
         return Response.json({ success: true, projects }, { status: 200 });
     } catch (error) {
         console.error("❌ Error Fetching project:", error);
