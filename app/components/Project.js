@@ -97,23 +97,30 @@ export default function Project() {
                 <Drawer.Portal>
                     <Drawer.Overlay className="fixed inset-0 bg-black/40 data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut" />
                     <Drawer.Content
-                        className="bg-[#121C33] h-fit fixed bottom-0 left-0 right-0 outline-none rounded-t-xl 
-                        max-h-[60vh] overflow-y-auto shadow-xl 
-                        data-[state=open]:animate-slideUp data-[state=closed]:animate-slideDown"
+                        className="bg-[#121C33] fixed bottom-0 left-0 right-0 
+  outline-none rounded-t-xl shadow-xl 
+  h-auto max-h-[85vh] 
+  overflow-hidden 
+  data-[state=open]:animate-slideUp 
+  data-[state=closed]:animate-slideDown"
                     >
                         {selected && (
                             <div className="flex flex-col md:flex-row">
                                 {/* Details */}
-                                <div className="p-6 flex-1 md:pr-4">
+                                <div className="p-6 flex-1 md:pr-4 overflow-y-auto md:overflow-visible">
                                     <h2 className="text-2xl font-bold mb-2">{selected.ProjectName}</h2>
                                     <p className="text-gray-400 mb-4">{selected.ProjectDescription}</p>
 
-                                    <h3 className="font-semibold text-lg mb-2">Features:</h3>
-                                    <ul className="list-disc list-inside text-gray-300 mb-4">
-                                        {selected.ProjectFeatures?.map((feature, i) => (
-                                            <li key={i}>{feature}</li>
-                                        ))}
-                                    </ul>
+                                    {selected.ProjectFeatures?.length > 0 && (
+                                        <>
+                                            <h3 className="font-semibold text-lg mb-2">Features:</h3>
+                                            <ul className="list-disc list-inside text-gray-300 mb-4">
+                                                {selected.ProjectFeatures.map((feature, i) => (
+                                                    <li key={i}>{feature}</li>
+                                                ))}
+                                            </ul>
+                                        </>
+                                    )}
 
                                     <div className="flex flex-wrap gap-2 mb-4">
                                         {selected.Technologies?.map((tech, i) => (
@@ -126,7 +133,7 @@ export default function Project() {
                                         ))}
                                     </div>
 
-                                    <div className="flex gap-4">
+                                    <div className="flex flex-wrap gap-4">
                                         {selected.GithubURL && (
                                             <a href={selected.GithubURL} target="_blank" rel="noreferrer">
                                                 <Button><Github size={16} className="mr-2" /> GitHub</Button>
@@ -157,6 +164,7 @@ export default function Project() {
                             </div>
                         )}
                     </Drawer.Content>
+
                 </Drawer.Portal>
             </Drawer.Root>
         </div>
