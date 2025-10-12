@@ -33,7 +33,12 @@ const Project = () => {
                             alt='projectImage'
                         />
                         {proj.ProjectName}
-                        <br />x
+                        <br />
+                        {proj.ProjectDescription}
+                        <br>
+                        </br>
+                        {proj.ProjectFeatures}
+                        <br />
                         {proj.GithubURL}
                         <br />
                         {proj.LinkedinPostURL}

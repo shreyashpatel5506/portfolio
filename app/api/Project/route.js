@@ -14,6 +14,8 @@ export async function POST(req) {
 
         const imageFile = formData.get("file");
         const ProjectName = formData.get("ProjectName");
+        const ProjectDescription = formData.get("ProjectDescription");
+        const ProjectFeatures = formData.get("ProjectFeatures" || "[]")
         const GithubURL = formData.get("GithubURL")
         const LinkedinPostURL = formData.get("LinkedinPostURL");
         const LiveSiteURL = formData.get("LiveSiteURL");
@@ -30,6 +32,8 @@ export async function POST(req) {
         }
         const newProject = await Project.create({
             ProjectName,
+            ProjectDescription,
+            ProjectFeatures,
             PostImage: PostImageURL,
             GithubURL,
             LinkedinPostURL,

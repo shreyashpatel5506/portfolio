@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { type } from "os";
 
 const projectSchema = new mongoose.Schema(
     {
@@ -10,6 +11,14 @@ const projectSchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true,
+        },
+        ProjectDescription: {
+            type: String,
+            required: true,
+        },
+        ProjectFeatures: {
+            type: [String],
+            default: []
         },
         GithubURL: {
             type: String,

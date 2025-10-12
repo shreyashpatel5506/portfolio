@@ -5,6 +5,8 @@ export default function ProjectFormPage() {
     const [file, setFile] = useState(null);
     const [form, setForm] = useState({
         ProjectName: "",
+        ProjectDescription: "",
+        ProjectFeatures: "",
         GithubURL: "",
         LinkedinPostURL: "",
         LiveSiteURL: "",
@@ -21,6 +23,8 @@ export default function ProjectFormPage() {
         const formData = new FormData();
         if (file) formData.append("file", file);
         formData.append("ProjectName", form.ProjectName);
+        formData.append('ProjectDescription', formData.ProjectDescription);
+        formData.append('ProjectFeatures', (formData.ProjectFeatures.split(",")));
         formData.append("GithubURL", form.GithubURL);
         formData.append("LinkedinPostURL", form.LinkedinPostURL);
         formData.append("LiveSiteURL", form.LiveSiteURL);
@@ -51,6 +55,22 @@ export default function ProjectFormPage() {
                     name="ProjectName"
                     placeholder="Project Name"
                     value={form.ProjectName}
+                    onChange={handleChange}
+                    className="w-full mb-3 p-2 border rounded"
+                    required
+                />
+                <input
+                    name="ProjectDescription"
+                    placeholder="ProjectDescription"
+                    value={form.ProjectDescription}
+                    onChange={handleChange}
+                    className="w-full mb-3 p-2 border rounded"
+                    required
+                />
+                <input
+                    name="ProjectFeatures"
+                    placeholder="ProjectFeatures"
+                    value={form.ProjectFeatures}
                     onChange={handleChange}
                     className="w-full mb-3 p-2 border rounded"
                     required
