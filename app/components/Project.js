@@ -34,7 +34,7 @@ export default function Project() {
     }, []);
 
     return (
-        <div className="pt-16 pb-20 px-6 md:px-10 bg-[#0F1629] text-white min-h-screen">
+        <div className="pt-16 pb-20 px-15 md:px-10 bg-[#0F1629] text-white min-h-screen">
             <h1 className="text-5xl text-center pb-12 font-semibold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 Projects
             </h1>
