@@ -6,6 +6,7 @@ import Skill from "./components/Skill";
 import ThreeBackground from "./components/ThreeBackground";
 import Project from "./components/Project";
 import Experience from "./components/Expierence";
+import Contact from "./components/Contact";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,10 +44,10 @@ export default function RootLayout({ children }) {
         <section id="experience">
           <Experience />
         </section>
-        <section id="contact" className="text-center py-20">
-          {/* You can replace this with your actual Contact component later */}
-          <h2 className="text-4xl font-bold text-white">Contact Me</h2>
+        <section>
+          <Contact />
         </section>
+
         {children}
       </body>
     </html>
