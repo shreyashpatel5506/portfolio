@@ -48,8 +48,9 @@ export default function Navigation() {
 
     return (
         <>
-            <nav className="bg-secondary border-b border-divider sticky top-0 z-40">
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <nav className="bg-[#0F1629] border-b border-divider sticky top-0 z-40">
+                <div className="max-w-screen-xl flex flex-wrap 
+                bg-[#0F1629] items-center justify-between mx-auto p-4">
 
                     {/* Logo and Site Title */}
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
@@ -72,7 +73,8 @@ export default function Navigation() {
                     <button
                         onClick={() => setIsMenuOpen(true)}
                         type="button"
-                        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-secondary rounded-lg md:hidden hover:bg-primary focus:outline-none focus:ring-2 focus:ring-accent"
+                        className="inline-flex 
+                        bg-[#0F1629] items-center p-2 w-10 h-10 justify-center text-sm text-secondary rounded-lg md:hidden hover:bg-primary focus:outline-none focus:ring-2 focus:ring-accent"
                         aria-controls="navbar-default"
                         aria-expanded={isMenuOpen}
                     >
@@ -81,8 +83,10 @@ export default function Navigation() {
                     </button>
 
                     {/* Desktop Navigation Links */}
-                    <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-                        <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-divider rounded-lg bg-secondary md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent">
+                    <div className="hidden w-full md:block 
+                    md:w-auto" id="navbar-default">
+                        <ul className="font-medium flex 
+                        flex-col p-4 md:p-0 mt-4 border border-divider rounded-lg bg-[#0F1629] md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent">
                             <NavLinks />
                         </ul>
                     </div>
@@ -93,14 +97,14 @@ export default function Navigation() {
 
             {/* Overlay */}
             <div
-                className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 md:hidden ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                className={`fixed inset-0 bg-[#0F1629] z-40 transition-opacity duration-300 md:hidden ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                     }`}
                 onClick={() => setIsMenuOpen(false)}
             ></div>
 
             {/* Sidenav Container */}
             <div
-                className={`fixed top-0 left-0 h-full w-64 bg-secondary shadow-xl z-50 transform transition-transform duration-300 ease-in-out md:hidden ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed top-0 left-0 h-full w-64 bg-[#0F1629] shadow-xl z-50 transform transition-transform duration-300 ease-in-out md:hidden ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
             >
                 {/* Sidenav Header */}
