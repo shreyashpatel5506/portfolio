@@ -18,7 +18,7 @@ const Skill = () => {
     ];
 
     return (
-        <section className="pt-16 pb-10 px-4 sm:px-8 md:px-12 lg:px-20 bg-[#0F1629] text-white flex flex-col items-center">
+        <section className="pt-16 pb-20 md:pb-12 px-4 sm:px-8 md:px-6 lg:px-20 bg-[#0F1629] text-white flex flex-col items-center">
             <h1 className="text-4xl sm:text-5xl font-semibold mb-10 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent text-center">
                 Skills
             </h1>
@@ -30,7 +30,7 @@ const Skill = () => {
                         key={tab.key}
                         onClick={() => setActiveTab(tab.key)}
                         className={`px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300
-              ${activeTab === tab.key
+                            ${activeTab === tab.key
                                 ? "bg-[#30A585] text-white shadow-lg scale-105"
                                 : "bg-[#0F3460] text-gray-300 hover:bg-[#16213E]"
                             }`}
