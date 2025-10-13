@@ -2,10 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { Github, Linkedin, ExternalLink } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 import { Drawer } from 'vaul';
 
-// Simple reusable button component
 const Button = ({ children, className = "", onClick }) => (
     <button
         onClick={onClick}
@@ -34,24 +33,24 @@ export default function Project() {
     }, []);
 
     return (
-        <div className="relative z-10 pt-28 md:pt-15 pb-24 px-4 md:px-10 bg-[#0F1629] text-white min-h-screen">
+        <div className="relative z-10 pt-28 md:pt-20 pb-24 px-4 md:px-10 bg-[#0F1629] text-white min-h-screen">
             <h1 className="text-4xl md:text-5xl text-center mt-10 md:mt-4 pb-10 font-semibold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 Projects
             </h1>
 
             {/* Project Grid */}
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
                 {projects.map((proj) => (
                     <div
                         key={proj._id}
                         onClick={() => setSelected(proj)}
-                        className="relative group bg-gradient-to-br from-[#1B233A] to-[#151B2E] rounded-2xl overflow-hidden shadow-lg hover:shadow-cyan-500/40 cursor-pointer transition-all duration-300 max-w-xs sm:max-w-sm w-full sm:hover:-translate-y-1"
+                        className="relative group bg-gradient-to-br from-[#1B233A] to-[#151B2E] rounded-2xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 w-full max-w-xs sm:max-w-sm sm:hover:-translate-y-1"
                     >
                         {/* Project Image */}
                         <div className="h-48 sm:h-52 w-full relative overflow-hidden">
                             <Image
                                 src={proj.PostImage}
-                                alt="projectImage"
+                                alt={proj.ProjectName}
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                             />
@@ -60,10 +59,10 @@ export default function Project() {
 
                         {/* Project Info */}
                         <div className="p-5 text-center">
-                            <h2 className="text-lg sm:text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors duration-300">
+                            <h2 className="text-lg sm:text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors duration-300 break-words">
                                 {proj.ProjectName}
                             </h2>
-                            <p className="text-gray-400 text-sm line-clamp-3">
+                            <p className="text-gray-400 text-sm line-clamp-3 break-words">
                                 {proj.ProjectDescription}
                             </p>
                             <div className="flex flex-wrap justify-center gap-2 mt-4">
@@ -78,7 +77,7 @@ export default function Project() {
                             </div>
                         </div>
 
-                        {/* Hover Overlay (Buttons) */}
+                        {/* Hover Overlay */}
                         <div className="absolute inset-0 bg-black/70 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
                             {proj.GithubURL && (
                                 <a href={proj.GithubURL} target="_blank" rel="noreferrer">
@@ -105,32 +104,22 @@ export default function Project() {
                     <Drawer.Overlay className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut" />
 
                     <Drawer.Content
-                        className="
-                    fixed z-50 bottom-0 left-0 right-0 
-                    bg-[#121C33] outline-none rounded-t-2xl shadow-xl 
-                    transition-all duration-300
-                    md:max-h-[85vh] md:h-auto
-                    h-[60vh] sm:h-[65vh]
-                    overflow-hidden 
-                    data-[state=open]:animate-slideUp 
-                    data-[state=closed]:animate-slideDown"
+                        className="fixed z-50 bottom-0 left-0 right-0 bg-[#121C33] outline-none rounded-t-2xl shadow-xl transition-all duration-300 md:max-h-[85vh] md:h-auto h-[65vh] sm:h-[70vh] overflow-hidden data-[state=open]:animate-slideUp data-[state=closed]:animate-slideDown"
                     >
                         {selected && (
                             <div className="flex flex-col md:flex-row w-full h-full">
                                 {/* Info */}
                                 <div className="p-6 md:p-10 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-600 scrollbar-track-transparent">
-                                    <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                                    <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent break-words">
                                         {selected.ProjectName}
                                     </h2>
-                                    <p className="text-gray-300 text-sm md:text-base mt-2 leading-relaxed">
+                                    <p className="text-gray-300 text-sm md:text-base mt-2 leading-relaxed break-words">
                                         {selected.ProjectDescription}
                                     </p>
 
                                     {selected.ProjectFeatures?.length > 0 && (
                                         <div className="mt-4">
-                                            <h3 className="font-semibold text-lg text-cyan-400 mb-1">
-                                                Features
-                                            </h3>
+                                            <h3 className="font-semibold text-lg text-cyan-400 mb-1">Features</h3>
                                             <ul className="list-disc list-inside text-gray-300 space-y-1">
                                                 {selected.ProjectFeatures.map((feature, i) => (
                                                     <li key={i}>{feature}</li>
@@ -168,11 +157,11 @@ export default function Project() {
                                     </div>
                                 </div>
 
-                                {/* Image (Desktop Only) */}
+                                {/* Image */}
                                 <div className="hidden md:block relative w-full md:w-1/2 h-64 md:h-auto">
                                     <Image
                                         src={selected.PostImage}
-                                        alt="projectImage"
+                                        alt={selected.ProjectName}
                                         fill
                                         className="object-cover rounded-t-2xl md:rounded-t-none md:rounded-l-2xl"
                                     />
@@ -183,6 +172,5 @@ export default function Project() {
                 </Drawer.Portal>
             </Drawer.Root>
         </div>
-
     );
 }

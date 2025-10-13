@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import Frontend from "./Skill/Frontend";
@@ -30,7 +30,7 @@ const Skill = () => {
                     <button
                         key={tab.key}
                         onClick={() => setActiveTab(tab.key)}
-                        className={`px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 
+                        className={`px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300
               ${activeTab === tab.key
                                 ? "bg-[#30A585] text-white shadow-lg scale-105"
                                 : "bg-[#0F3460] text-gray-300 hover:bg-[#16213E]"
@@ -53,7 +53,7 @@ const Skill = () => {
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: -50 }}
                                     transition={{ duration: 0.4, ease: "easeInOut" }}
-                                    className="absolute w-full flex justify-center"
+                                    className="absolute w-full flex justify-center px-2 sm:px-4"
                                 >
                                     {tab.component}
                                 </motion.div>
