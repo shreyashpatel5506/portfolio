@@ -34,7 +34,7 @@ export default function Project() {
     }, []);
 
     return (
-        <div className="pt-20 md:pt-16 pb-24 px-4 md:px-10 bg-[#0F1629] text-white min-h-screen">
+        <div className="relative z-10 pt-28 md:pt- md:mt-15 pb-24 px-4 md:px-10 bg-[#0F1629] text-white min-h-screen">
             <h1 className="text-4xl md:text-5xl text-center mt-10 md:mt-4 pb-10 font-semibold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 Projects
             </h1>
@@ -45,8 +45,9 @@ export default function Project() {
                     <div
                         key={proj._id}
                         onClick={() => setSelected(proj)}
-                        className="relative group bg-gradient-to-br from-[#1B233A] to-[#151B2E] rounded-2xl overflow-hidden shadow-lg hover:shadow-cyan-500/40 cursor-pointer transition-all duration-300 max-w-xs sm:max-w-sm w-full hover:-translate-y-1"
+                        className="relative group bg-gradient-to-br from-[#1B233A] to-[#151B2E] rounded-2xl overflow-hidden shadow-lg hover:shadow-cyan-500/40 cursor-pointer transition-all duration-300 max-w-xs sm:max-w-sm w-full sm:hover:-translate-y-1"
                     >
+                        {/* Project Image */}
                         <div className="h-48 sm:h-52 w-full relative overflow-hidden">
                             <Image
                                 src={proj.PostImage}
@@ -57,11 +58,14 @@ export default function Project() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                         </div>
 
+                        {/* Project Info */}
                         <div className="p-5 text-center">
                             <h2 className="text-lg sm:text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors duration-300">
                                 {proj.ProjectName}
                             </h2>
-                            <p className="text-gray-400 text-sm line-clamp-3">{proj.ProjectDescription}</p>
+                            <p className="text-gray-400 text-sm line-clamp-3">
+                                {proj.ProjectDescription}
+                            </p>
                             <div className="flex flex-wrap justify-center gap-2 mt-4">
                                 {proj.Technologies?.map((tech, i) => (
                                     <span
@@ -74,6 +78,7 @@ export default function Project() {
                             </div>
                         </div>
 
+                        {/* Hover Overlay (Buttons) */}
                         <div className="absolute inset-0 bg-black/70 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
                             {proj.GithubURL && (
                                 <a href={proj.GithubURL} target="_blank" rel="noreferrer">
@@ -97,19 +102,18 @@ export default function Project() {
             {/* Drawer */}
             <Drawer.Root open={!!selected} onOpenChange={setSelected}>
                 <Drawer.Portal>
-                    <Drawer.Overlay className="fixed inset-0 bg-black/40 backdrop-blur-sm data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut" />
+                    <Drawer.Overlay className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut" />
 
                     <Drawer.Content
                         className="
-        bg-[#121C33] 
-        fixed bottom-0 left-0 right-0 
-        outline-none rounded-t-2xl shadow-xl 
-        transition-all duration-300
-        md:max-h-[85vh] md:h-auto
-        h-[60vh] sm:h-[65vh]
-        overflow-hidden 
-        data-[state=open]:animate-slideUp 
-        data-[state=closed]:animate-slideDown"
+                    fixed z-50 bottom-0 left-0 right-0 
+                    bg-[#121C33] outline-none rounded-t-2xl shadow-xl 
+                    transition-all duration-300
+                    md:max-h-[85vh] md:h-auto
+                    h-[60vh] sm:h-[65vh]
+                    overflow-hidden 
+                    data-[state=open]:animate-slideUp 
+                    data-[state=closed]:animate-slideDown"
                     >
                         {selected && (
                             <div className="flex flex-col md:flex-row w-full h-full">
@@ -164,7 +168,7 @@ export default function Project() {
                                     </div>
                                 </div>
 
-                                {/* Image */}
+                                {/* Image (Desktop Only) */}
                                 <div className="hidden md:block relative w-full md:w-1/2 h-64 md:h-auto">
                                     <Image
                                         src={selected.PostImage}
@@ -179,7 +183,6 @@ export default function Project() {
                 </Drawer.Portal>
             </Drawer.Root>
         </div>
-
 
     );
 }
