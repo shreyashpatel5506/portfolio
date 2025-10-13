@@ -16,14 +16,10 @@ const socialLinks = [
     },
     {
         icon: <Twitter size={20} />,
-        href: 'https://twitter.com/your-twitter-handle', // <-- Replace with your Twitter link
+        href: 'https://x.com/Shreyas02138161', // <-- Replace with your Twitter link
         label: 'Twitter',
     },
-    {
-        icon: <Instagram size={20} />,
-        href: 'https://instagram.com/your-instagram-handle', // <-- Replace with your Instagram link
-        label: 'Instagram',
-    },
+
 ];
 
 const Footer = () => {
