@@ -2,10 +2,11 @@
 import React from "react";
 import Typewriter from "./Typewriter";
 import { motion } from "framer-motion";
-
+import ThreeBackground from './ThreeBackground'; // Adjust the path if it's in another folder
 const Home = () => {
   return (
     <section className="z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-4 sm:px-6 md:px-10 lg:px-20 py-12 md:py-20 bg-[#0F1629]">
+      <ThreeBackground />
       {/* Left Image */}
       <motion.div
         className="flex-shrink-0"

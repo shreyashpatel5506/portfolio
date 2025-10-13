@@ -1,111 +1,170 @@
 "use client";
-import React, { Suspense, useRef, useMemo } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, Stars, Html, useGLTF } from "@react-three/drei";
-import { MeshWobbleMaterial } from "@react-three/drei";
+import React, { useRef, useMemo } from "react";
+import { Canvas, useFrame, useThree } from "react-three-fiber";
+import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 
-// Floating shape component (cube/sphere/cone)
-function FloatingShape({ type = "box", color = "#00ffd5", position = [0, 0, 0], speed = 0.5, scale = 1 }) {
-    const mesh = useRef();
-    const [, yOff] = position;
-    const hover = useRef(false);
-    const baseScale = scale;
+// --- Vanta-like "Net" Effect Component ---
+// This component generates the points and the lines connecting them.
+function NetEffect({
+    color = 0x260dd2,
+    points = 7.0,
+    maxDistance = 14.0,
+    spacing = 20.0,
+    mouseControls = true,
+}) {
+    const { size, mouse } = useThree(); // Access viewport size and mouse coordinates
+    const pointsRef = useRef();
+    const linesRef = useRef();
 
-    // Pointer handlers
-    const onPointerOver = (e) => {
-        e.stopPropagation();
-        hover.current = true;
-        // enable pointer events when hovered
-        e.target.style.cursor = 'pointer';
-    };
-    const onPointerOut = (e) => {
-        e.stopPropagation();
-        hover.current = false;
-    };
-
-    useFrame((state, delta) => {
-        if (!mesh.current) return;
-        // rotations
-        mesh.current.rotation.x += 0.18 * delta * speed;
-        mesh.current.rotation.y += 0.12 * delta * speed;
-        // floating motion
-        mesh.current.position.y = yOff + Math.sin(state.clock.elapsedTime * speed) * 0.28;
-
-        // smooth scale and emissive intensity lerp
-        const targetScale = hover.current ? baseScale * 1.18 : baseScale;
-        mesh.current.scale.x += (targetScale - mesh.current.scale.x) * Math.min(0.1, delta * 6);
-        mesh.current.scale.y += (targetScale - mesh.current.scale.y) * Math.min(0.1, delta * 6);
-        mesh.current.scale.z += (targetScale - mesh.current.scale.z) * Math.min(0.1, delta * 6);
-        if (mesh.current.material) {
-            const targetEmissive = hover.current ? 0.45 : 0.12;
-            mesh.current.material.emissiveIntensity += (targetEmissive - mesh.current.material.emissiveIntensity) * Math.min(0.08, delta * 6);
+    // Memoize the particles to avoid re-calculating on every render
+    const particles = useMemo(() => {
+        const numPoints = points * (size.width / 100);
+        const particles = [];
+        for (let i = 0; i < numPoints; i++) {
+            const x = (Math.random() - 0.5) * spacing * (size.width / 100);
+            const y = (Math.random() - 0.5) * spacing * (size.height / 100);
+            const z = (Math.random() - 0.5) * spacing;
+            particles.push({
+                position: new THREE.Vector3(x, y, z),
+                velocity: new THREE.Vector3((Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1, (Math.random() - 0.5) * 0.1),
+            });
         }
+        return particles;
+    }, [points, size.width, size.height, spacing]);
+
+    // Animation loop
+    useFrame((state, delta) => {
+        if (!pointsRef.current || !linesRef.current) return;
+
+        const pointPositions = pointsRef.current.geometry.attributes.position;
+        const linePositions = linesRef.current.geometry.attributes.position;
+
+        // --- Mouse Interaction ---
+        // Create a 3D vector for the mouse position
+        const mousePosition = new THREE.Vector3(
+            mouse.x * size.width / 2,
+            mouse.y * size.height / 2,
+            0
+        );
+
+        let lineVertexIndex = 0;
+
+        // --- Update Particle Positions and Calculate Lines ---
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+
+            // Update position based on velocity
+            p.position.add(p.velocity.clone().multiplyScalar(delta * 20));
+
+            // Boundary checks
+            const boundaryX = (spacing * size.width / 100) / 2;
+            const boundaryY = (spacing * size.height / 100) / 2;
+            if (p.position.x > boundaryX || p.position.x < -boundaryX) p.velocity.x *= -1;
+            if (p.position.y > boundaryY || p.position.y < -boundaryY) p.velocity.y *= -1;
+            if (p.position.z > spacing / 2 || p.position.z < -spacing / 2) p.velocity.z *= -1;
+
+            // Update the buffer attribute
+            pointPositions.setXYZ(i, p.position.x, p.position.y, p.position.z);
+
+            // --- Calculate lines between nearby points ---
+            for (let j = i + 1; j < particles.length; j++) {
+                const p2 = particles[j];
+                const distance = p.position.distanceTo(p2.position);
+
+                if (distance < maxDistance) {
+                    if (lineVertexIndex < (particles.length * particles.length * 2) - 1) {
+                        linePositions.setXYZ(lineVertexIndex++, p.position.x, p.position.y, p.position.z);
+                        linePositions.setXYZ(lineVertexIndex++, p2.position.x, p2.position.y, p2.position.z);
+                    }
+                }
+            }
+        }
+
+        // --- Update Geometries ---
+        linesRef.current.geometry.setDrawRange(0, lineVertexIndex);
+        pointPositions.needsUpdate = true;
+        linePositions.needsUpdate = true;
     });
 
+    // Prepare initial geometry buffers
+    const initialPointPositions = useMemo(() => new Float32Array(particles.map(p => p.position.toArray()).flat()), [particles]);
+    const maxLineSegments = particles.length * particles.length;
+    const initialLinePositions = useMemo(() => new Float32Array(maxLineSegments * 3 * 2), [maxLineSegments]);
+
     return (
-        <mesh
-            ref={mesh}
-            position={position}
-            scale={scale}
-            castShadow
-            receiveShadow
-            onPointerOver={onPointerOver}
-            onPointerOut={onPointerOut}
-            onClick={(e) => e.stopPropagation()}
-            raycast={(...args) => THREE.Mesh.prototype.raycast.apply(this, args)}
-        >
-            {type === "box" && <boxGeometry args={[1, 1, 1]} />}
-            {type === "sphere" && <sphereGeometry args={[0.7, 32, 32]} />}
-            {type === "cone" && <coneGeometry args={[0.8, 1.2, 4]} />}
-            <meshStandardMaterial color={color} metalness={0.6} roughness={0.2} emissive={color} emissiveIntensity={0.12} />
-        </mesh>
+        <>
+            <points ref={pointsRef}>
+                <bufferGeometry>
+                    <bufferAttribute
+                        attach="attributes-position"
+                        count={particles.length}
+                        array={initialPointPositions}
+                        itemSize={3}
+                    />
+                </bufferGeometry>
+                <pointsMaterial size={3} color={color} sizeAttenuation={false} />
+            </points>
+            <lineSegments ref={linesRef}>
+                <bufferGeometry>
+                    <bufferAttribute
+                        attach="attributes-position"
+                        count={maxLineSegments * 2}
+                        array={initialLinePositions}
+                        itemSize={3}
+                    />
+                </bufferGeometry>
+                <lineBasicMaterial color={color} transparent opacity={0.5} />
+            </lineSegments>
+        </>
     );
 }
 
-// Small performant particle field using points
-function ParticleField({ count = 400 }) {
-    const particles = useMemo(() => {
-        const positions = new Float32Array(count * 3);
-        for (let i = 0; i < count * 3; i++) positions[i] = (Math.random() - 0.5) * 40;
-        return positions;
-    }, [count]);
-
-    return (
-        <points>
-            <bufferGeometry>
-                <bufferAttribute attach="attributes-position" count={particles.length / 3} array={particles} itemSize={3} />
-            </bufferGeometry>
-            <pointsMaterial size={0.06} color="#9be7ff" sizeAttenuation={true} depthWrite={false} transparent opacity={0.8} />
-        </points>
-    );
-}
-
+// --- Main Component ---
 export default function ThreeBackground() {
-    // Responsive pixel ratio clamp for perf
     const DPR = typeof window !== "undefined" ? Math.min(1.5, window.devicePixelRatio || 1) : 1;
 
+    // Configuration object similar to Vanta.js
+    const vantaConfig = {
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x260dd2,
+        points: 7.00,
+        maxDistance: 14.00,
+        spacing: 20.00
+    };
+
     return (
-        <div className="three-bg absolute inset-0 -z-10">
-            <Canvas shadows dpr={DPR} camera={{ position: [0, 0, 12], fov: 50 }}>
-                <ambientLight intensity={0.6} />
-                <directionalLight position={[5, 10, 5]} intensity={0.6} />
-                <Suspense fallback={null}>
-                    <group>
-                        <FloatingShape type="box" position={[-3, -0.5, -2]} scale={1.4} color="#7CFFEA" speed={0.6} />
-                        <FloatingShape type="sphere" position={[2.5, 0.5, -1]} scale={1.1} color="#A78BFA" speed={0.9} />
-                        <FloatingShape type="cone" position={[0, -1.2, -3]} scale={1.2} color="#60A5FA" speed={0.5} />
+        <div className="three-bg absolute inset-0 -z-10 bg-black">
+            <Canvas
+                shadows
+                dpr={DPR}
+                camera={{ position: [0, 0, 80], fov: 50 }}
+                onCreated={({ gl }) => {
+                    gl.setClearColor(new THREE.Color('#000000'));
+                }}
+            >
+                <ambientLight intensity={0.8} />
+                <pointLight position={[10, 10, 10]} />
 
-                        <ParticleField count={450} />
-                    </group>
+                <NetEffect {...vantaConfig} />
 
-                    <Stars radius={80} depth={20} count={4000} factor={4} saturation={0} fade />
-                </Suspense>
-
-                {/* Minimal controls for accessibility on large screens only */}
-                <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
+                {/* Use OrbitControls to replicate mouse interaction */}
+                <OrbitControls
+                    enableZoom={false}
+                    enablePan={false}
+                    enableRotate={vantaConfig.mouseControls}
+                    autoRotate
+                    autoRotateSpeed={0.5}
+                />
             </Canvas>
             <div className="three-overlay pointer-events-none" />
         </div>
     );
 }
+
