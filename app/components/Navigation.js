@@ -26,22 +26,20 @@ export default function Navigation() {
     const NavLinks = ({ onItemClick }) => (
         <>
             <li>
-                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-accent rounded md:bg-transparent md:p-0" aria-current="page">Home</Link>
+                <Link href="#home" onClick={onItemClick} className="block py-2 px-3 text-accent rounded md:bg-transparent md:p-0" aria-current="page">Home</Link>
             </li>
             <li>
-                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Skills</Link>
+                <Link href="#skills" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Skills</Link>
             </li>
             <li>
-                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Projects</Link>
+                <Link href="#projects" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Projects</Link>
             </li>
             <li>
-                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">experience</Link>
+                <Link href="#experience" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Experience</Link>
             </li>
+
             <li>
-                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">awards</Link>
-            </li>
-            <li>
-                <Link href="/" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Contact</Link>
+                <Link href="#contact" onClick={onItemClick} className="block py-2 px-3 text-primary rounded hover:bg-primary md:hover:bg-transparent md:border-0 md:hover:text-accent md:p-0">Contact</Link>
             </li>
         </>
     );
@@ -53,8 +51,7 @@ export default function Navigation() {
                 bg-[#0F1629] items-center justify-between mx-auto p-4">
 
                     {/* Logo and Site Title */}
-                    <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" /> */}
+                    <Link href="#home" className="flex items-center space-x-3 rtl:space-x-reverse">
                         <Image
                             src={logo}
                             width={75}
@@ -97,7 +94,7 @@ export default function Navigation() {
 
             {/* Overlay */}
             <div
-                className={`fixed inset-0 bg-[#0F1629] z-40 transition-opacity duration-300 md:hidden ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 md:hidden ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
                     }`}
                 onClick={() => setIsMenuOpen(false)}
             ></div>
