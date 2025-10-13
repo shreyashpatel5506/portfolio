@@ -33,7 +33,7 @@ export default function Project() {
     }, []);
 
     return (
-        <div className="relative z-10 pt-28 md:pt-20 pb-24 px-4 md:px-10 bg-[#0F1629] text-white min-h-screen">
+        <div className="relative z-10 pt-16 md:pt-28 pb-24 px-4 md:px-10 bg-[#0F1629] text-white">
             <h1 className="text-4xl md:text-5xl text-center mt-10 md:mt-4 pb-10 font-semibold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 Projects
             </h1>
@@ -104,7 +104,7 @@ export default function Project() {
                     <Drawer.Overlay className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut" />
 
                     <Drawer.Content
-                        className="fixed z-50 bottom-0 left-0 right-0 bg-[#121C33] outline-none rounded-t-2xl shadow-xl transition-all duration-300 md:max-h-[85vh] md:h-auto h-[65vh] sm:h-[70vh] overflow-hidden data-[state=open]:animate-slideUp data-[state=closed]:animate-slideDown"
+                        className="fixed z-50 bottom-0 left-0 right-0 bg-[#121C33] outline-none rounded-t-2xl shadow-xl transition-all duration-300 md:max-h-[85vh] md:h-auto h-[65vh] sm:h-[70vh] overflow-auto data-[state=open]:animate-slideUp data-[state=closed]:animate-slideDown"
                     >
                         {selected && (
                             <div className="flex flex-col md:flex-row w-full h-full">

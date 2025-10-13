@@ -1,12 +1,12 @@
-"use client";
+'use client';
 import React from "react";
 import Typewriter from "./Typewriter";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 const Home = () => {
   return (
-    <section className="z-10 flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 px-4 sm:px-6 md:px-10 lg:px-20 py-12 md:py-20 bg-[#0F1629]">
-      {/* Left Image Section */}
+    <section className="z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-4 sm:px-6 md:px-10 lg:px-20 py-12 md:py-20 bg-[#0F1629]">
+      {/* Left Image */}
       <motion.div
         className="flex-shrink-0"
         initial={{ y: 40, opacity: 0 }}
@@ -16,21 +16,19 @@ const Home = () => {
         <img
           src="/homeimage3.png"
           alt="Abstract coding illustration"
-          className="w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] md:w-[500px] md:h-[500px] lg:w-[560px] lg:h-[560px] rounded-2xl object-cover"
+          className="w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 lg:w-[560px] lg:h-[560px] rounded-2xl object-cover"
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src =
-              "https://placehold.co/300x300/1f1f38/ffffff?text=Image+Error&font=raleway";
+            e.target.src = "https://placehold.co/300x300/1f1f38/ffffff?text=Image+Error&font=raleway";
           }}
         />
       </motion.div>
 
-      {/* Right Text Section */}
-      <div className="flex flex-col items-center md:items-start gap-8 text-center md:text-left">
-        {/* Title + Typewriter */}
-        <div className="flex flex-col gap-6">
+      {/* Right Text */}
+      <div className="flex flex-col items-center md:items-start gap-6 text-center md:text-left w-full">
+        <div className="flex flex-col gap-4">
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent tracking-tight"
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
@@ -40,19 +38,17 @@ const Home = () => {
           <Typewriter />
         </div>
 
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-6 sm:gap-10 w-full">
-          {/* Projects Button */}
+        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-6 w-full">
           <motion.button
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
             type="button"
-            className="ghost-button flex flex-row items-center gap-3 sm:gap-4 text-base sm:text-lg px-6 py-3 rounded-full transition-all duration-300"
+            className="ghost-button flex flex-row items-center gap-2 sm:gap-3 text-base sm:text-lg px-5 py-2 sm:px-6 sm:py-3 rounded-full transition-all duration-300"
           >
             Projects
             <svg
-              className="w-7 h-7 text-gray-50 rotate-45 border border-gray-700 p-1.5 rounded-full"
+              className="w-6 h-6 text-gray-50 rotate-45 border border-gray-700 p-1 rounded-full"
               viewBox="0 0 16 19"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -63,13 +59,12 @@ const Home = () => {
             </svg>
           </motion.button>
 
-          {/* Resume Button */}
           <motion.button
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
             type="button"
-            className="ghost-button flex flex-row items-center gap-3 sm:gap-4 text-base sm:text-lg px-6 py-3 rounded-full transition-all duration-300"
+            className="ghost-button flex flex-row items-center gap-2 sm:gap-3 text-base sm:text-lg px-5 py-2 sm:px-6 sm:py-3 rounded-full transition-all duration-300"
           >
             Download Resume
             <svg

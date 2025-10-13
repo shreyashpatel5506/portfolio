@@ -19,7 +19,6 @@ const Skill = () => {
 
     return (
         <section className="pt-16 pb-10 px-4 sm:px-8 md:px-12 lg:px-20 bg-[#0F1629] text-white flex flex-col items-center">
-            {/* Section Title */}
             <h1 className="text-4xl sm:text-5xl font-semibold mb-10 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent text-center">
                 Skills
             </h1>
@@ -42,7 +41,7 @@ const Skill = () => {
             </div>
 
             {/* Animated Content Area */}
-            <div className="relative w-full flex justify-center min-h-[260px] sm:min-h-[320px] md:min-h-[380px]">
+            <div className="relative w-full flex justify-center flex-wrap min-h-[320px] sm:min-h-[360px] md:min-h-[400px]">
                 <AnimatePresence mode="wait">
                     {tabs.map(
                         (tab) =>
@@ -53,7 +52,7 @@ const Skill = () => {
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: -50 }}
                                     transition={{ duration: 0.4, ease: "easeInOut" }}
-                                    className="absolute w-full flex justify-center px-2 sm:px-4"
+                                    className="absolute w-full flex justify-center px-2 sm:px-4 flex-wrap"
                                 >
                                     {tab.component}
                                 </motion.div>
