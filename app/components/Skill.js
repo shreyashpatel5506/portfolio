@@ -41,7 +41,7 @@ const Skill = () => {
             </div>
 
             {/* Animated Content Area */}
-            <div className="relative w-full flex justify-center flex-wrap min-h-[320px] sm:min-h-[360px] md:min-h-[400px]">
+            <div className="relative w-full flex justify-center flex-wrap md:min-h-[400px]">
                 <AnimatePresence mode="wait">
                     {tabs.map(
                         (tab) =>
@@ -52,7 +52,7 @@ const Skill = () => {
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: -50 }}
                                     transition={{ duration: 0.4, ease: "easeInOut" }}
-                                    className="absolute w-full flex justify-center px-2 sm:px-4 flex-wrap"
+                                    className="w-full flex justify-center px-2 sm:px-4 flex-wrap md:absolute"
                                 >
                                     {tab.component}
                                 </motion.div>

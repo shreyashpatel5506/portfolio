@@ -33,7 +33,7 @@ export default function Project() {
     }, []);
 
     return (
-        <div className="relative z-10 pt-20 md:pt-5 pb-32 md:pb-24 px-4 md:px-10 bg-[#0F1629] text-white">
+        <div className="relative z-10 pt-10 md:pt-5 pb-32 md:pb-24 px-4 md:px-10 bg-[#0F1629] text-white">
             <h1 className="text-4xl md:text-5xl text-center mt-10 md:mt-4 pb-10 font-semibold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
                 Projects
             </h1>
