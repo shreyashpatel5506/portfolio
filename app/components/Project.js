@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Linkedin } from "lucide-react";
 import { Drawer } from 'vaul';
 
 const Button = ({ children, className = "", onClick }) => (
@@ -93,6 +93,13 @@ export default function Project() {
                                     </Button>
                                 </a>
                             )}
+                            {proj.LinkedinPostURL && (
+                                <a href={proj.LinkedinPostURL} target="_blank" rel="noreferrer">
+                                    <Button className="rounded-full bg-white/10 hover:bg-cyan-600 transition">
+                                        <Linkedin size={18} />
+                                    </Button>
+                                </a>
+                            )}
                         </div>
                     </div>
                 ))}
@@ -108,6 +115,11 @@ export default function Project() {
                     >
                         {selected && (
                             <div className="flex flex-col md:flex-row w-full h-full">
+                                {/* Visually hidden title for accessibility */}
+                                <Drawer.Title className="sr-only">
+                                    {selected.ProjectName} Details
+                                </Drawer.Title>
+
                                 {/* Info */}
                                 <div className="p-6 md:p-10 flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-600 scrollbar-track-transparent">
                                     <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent break-words">
@@ -151,6 +163,13 @@ export default function Project() {
                                             <a href={selected.LiveSiteURL} target="_blank" rel="noreferrer">
                                                 <Button className="bg-purple-600 hover:bg-purple-700 text-white">
                                                     <ExternalLink size={16} className="mr-2" /> Live Demo
+                                                </Button>
+                                            </a>
+                                        )}
+                                        {selected.LinkedinPostURL && (
+                                            <a href={selected.LinkedinPostURL} target="_blank" rel="noreferrer">
+                                                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                                                    <Linkedin size={16} className="mr-2" /> LinkedIn
                                                 </Button>
                                             </a>
                                         )}
