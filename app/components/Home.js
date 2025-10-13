@@ -35,7 +35,7 @@ const Home = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            Hi, I'm Shreyash Patel
+            Hi, I&apos;m Shreyash Patel
           </motion.h1>
           <Typewriter />
         </div>
