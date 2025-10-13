@@ -42,6 +42,7 @@ const projectSchema = new mongoose.Schema(
     }
 );
 
-const Projects = mongoose.models.Project || mongoose.model("Projects", projectSchema);
+// Corrected this line to check for "Projects" (plural)
+const Projects = mongoose.models.Projects || mongoose.model("Projects", projectSchema);
 
 export default Projects;
