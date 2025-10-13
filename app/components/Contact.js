@@ -42,7 +42,7 @@ export default function Contact() {
                     Get in Touch
                 </h2>
                 <p className="text-center text-gray-400 mb-12">
-                    Have a question or want to work together? Leave your details and I'll get back to you.
+                    Have a question or want to work together? Leave your details and I&apos;ll get back to you.
                 </p>
 
                 <form
