@@ -1,12 +1,14 @@
 'use client';
 import React from "react";
+import Link from "next/link";
 import Typewriter from "./Typewriter";
 import { motion } from "framer-motion";
-import ThreeBackground from './ThreeBackground'; // Adjust the path if it's in another folder
+import { Github, Linkedin } from 'lucide-react';
+
 const Home = () => {
   return (
     <section className="z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-4 sm:px-6 md:px-10 lg:px-20 py-12 md:py-20 bg-[#0F1629]">
-      <ThreeBackground />
+
       {/* Left Image */}
       <motion.div
         className="flex-shrink-0"
@@ -84,9 +86,25 @@ const Home = () => {
             </svg>
           </motion.button>
         </div>
+
+        {/* Social Connection Icons */}
+        <motion.div
+          className="flex flex-row items-center justify-center md:justify-start gap-4 w-full mt-4"
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <a href="https://github.com/shreyashpatel5506" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 rounded-full text-white bg-white/10 hover:bg-cyan-600 transition-colors duration-300">
+            <Github size={24} />
+          </a>
+          <a href="https://www.linkedin.com/in/shreyash-patel-ba27b02a6/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 rounded-full text-white bg-white/10 hover:bg-cyan-600 transition-colors duration-300">
+            <Linkedin size={24} />
+          </a>
+        </motion.div>
       </div>
     </section>
   );
 };
 
 export default Home;
+
