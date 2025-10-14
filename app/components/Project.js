@@ -111,7 +111,7 @@ export default function Project() {
                     <Drawer.Overlay className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut" />
 
                     <Drawer.Content
-                        className="fixed z-50 bottom-0 left-0 right-0 bg-[#121C33] outline-none rounded-t-2xl shadow-xl transition-all duration-300 md:max-h-[85vh] md:h-auto h-[65vh] sm:h-[70vh] overflow-auto data-[state=open]:animate-slideUp data-[state=closed]:animate-slideDown"
+                        className="fixed z-50 bottom-0 left-0 right-0 bg-[#121C33] outline-none rounded-t-2xl shadow-xl transition-all duration-300 md:max-h-[85vh] md:h-auto h-[65vh] sm:h-[70vh] overflow-hidden data-[state=open]:animate-slideUp data-[state=closed]:animate-slideDown"
                     >
                         {selected && (
                             <div className="flex flex-col md:flex-row w-full h-full">
@@ -182,7 +182,7 @@ export default function Project() {
                                         src={selected.PostImage}
                                         alt={selected.ProjectName}
                                         fill
-                                        className="object-cover rounded-t-2xl md:rounded-t-none md:rounded-l-2xl"
+                                        className="object-cover"
                                     />
                                 </div>
                             </div>
