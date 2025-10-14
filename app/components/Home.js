@@ -14,25 +14,26 @@ const Home = () => {
   const vantaRef = useRef(null);
 
   useEffect(() => {
+    // This effect initializes Vanta.js once the window object is available.
     if (window.VANTA && !vantaEffect) {
       VANTA = window.VANTA;
       setVantaEffect(VANTA.NET({
         el: vantaRef.current,
         mouseControls: true,
         touchControls: true,
-        gyroControls: true,
+        gyroControls: false,
         minHeight: 200.00,
         minWidth: 200.00,
         scale: 1.00,
         scaleMobile: 1.00,
-        backgroundColor: 0x0f1629, // Your background color
-        color: 0x2eeaab,          // Your dot and line color
-        points: 6.00,
-        maxDistance: 16.00,
+        backgroundColor: 0x0f1629, // Your background color: #0F1629
+        color: 0x2eeaab,          // Your dot and line color: #2EEAAB
+        points: 12.00,
+        maxDistance: 25.00,
         spacing: 20.00
       }));
     }
-    // Cleanup function to destroy the effect on component unmount
+    // Cleanup function to destroy the effect when the component unmounts
     return () => {
       if (vantaEffect) vantaEffect.destroy();
     };
@@ -49,26 +50,24 @@ const Home = () => {
         src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"
         strategy="afterInteractive"
         onLoad={() => {
-          if (window.VANTA) {
+          // This ensures that VANTA is available before the useEffect runs
+          if (window.VANTA && !vantaEffect && vantaRef.current) {
             VANTA = window.VANTA;
-            // Trigger a re-render or re-initialization if needed
-            if (vantaRef.current && !vantaEffect) {
-              setVantaEffect(VANTA.NET({
-                el: vantaRef.current,
-                mouseControls: true,
-                touchControls: true,
-                gyroControls: false,
-                minHeight: 200.00,
-                minWidth: 200.00,
-                scale: 1.00,
-                scaleMobile: 1.00,
-                backgroundColor: 0x0f1629,
-                color: 0x2eeaab,
-                points: 12.00,
-                maxDistance: 25.00,
-                spacing: 20.00
-              }));
-            }
+            setVantaEffect(VANTA.NET({
+              el: vantaRef.current,
+              mouseControls: true,
+              touchControls: true,
+              gyroControls: false,
+              minHeight: 200.00,
+              minWidth: 200.00,
+              scale: 1.00,
+              scaleMobile: 1.00,
+              backgroundColor: 0x0f1629,
+              color: 0x2eeaab,
+              points: 9.00,
+              maxDistance: 20.00,
+              spacing: 20.00
+            }));
           }
         }}
       />
