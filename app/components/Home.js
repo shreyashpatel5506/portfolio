@@ -127,7 +127,7 @@ const Home = () => {
               </motion.a>
             </Link>
 
-            <a href="https://docs.google.com/document/d/1pzxX2RNE8S19YCsORvdATM9nGBcPOV5e/edit?usp=sharing&ouid=113785736309781364295&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">
+            <a href="https://drive.google.com/file/d/1WIkedQxJuQaGQyO6ve4wi2tXOnddcEdl/view?usp=sharing" target="_blank" rel="noopener noreferrer">
               <motion.button
                 initial={{ y: 40, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
