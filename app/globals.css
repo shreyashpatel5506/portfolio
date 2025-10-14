@@ -137,7 +137,7 @@ body {
   background-color: #2EEAAB;
   color: #0B111E;
   box-shadow: 5px 5px 25px rgba(46, 234, 171, 0.6);
-
+  transform: scale(1.2);
 }
 
 /* --- Active State (when clicking) --- */
