@@ -31,8 +31,8 @@ export default function Backend() {
                         animate={{
                             opacity: 1,
                             y: 0,
-                            scale: 1.05,
-                            rotate: 3,
+                            scale: 1.10,
+                            rotate: 4,
                             boxShadow: "0 0 15px rgba(48,165,133,0.6)",
                         }}
                         transition={{
@@ -41,19 +41,19 @@ export default function Backend() {
                             scale: {
                                 repeat: Infinity,
                                 repeatType: "reverse",
-                                duration: 3.5,
+                                duration: 2,
                                 ease: "easeInOut",
                             },
                             rotate: {
                                 repeat: Infinity,
                                 repeatType: "reverse",
-                                duration: 3.5,
+                                duration: 2,
                                 ease: "easeInOut",
                             },
                             boxShadow: {
                                 repeat: Infinity,
                                 repeatType: "reverse",
-                                duration: 3.5,
+                                duration: 2,
                                 ease: "easeInOut",
                             },
                         }}
