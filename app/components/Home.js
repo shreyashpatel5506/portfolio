@@ -1,113 +1,178 @@
 'use client';
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Script from "next/script";
 import Typewriter from "./Typewriter";
 import { motion } from "framer-motion";
 import { Github, Linkedin } from 'lucide-react';
 
+// VANTA variable will be available on the window object after the script loads
+let VANTA = null;
+
 const Home = () => {
+  const [vantaEffect, setVantaEffect] = useState(null);
+  const vantaRef = useRef(null);
+
+  useEffect(() => {
+    if (window.VANTA && !vantaEffect) {
+      VANTA = window.VANTA;
+      setVantaEffect(VANTA.NET({
+        el: vantaRef.current,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: true,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        backgroundColor: 0x0f1629, // Your background color
+        color: 0x2eeaab,          // Your dot and line color
+        points: 6.00,
+        maxDistance: 16.00,
+        spacing: 20.00
+      }));
+    }
+    // Cleanup function to destroy the effect on component unmount
+    return () => {
+      if (vantaEffect) vantaEffect.destroy();
+    };
+  }, [vantaEffect]);
+
   return (
-    <section className="z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-4 sm:px-6 md:px-10 lg:px-20 py-12 md:py-20 bg-[#0F1629]">
+    <>
+      {/* Scripts to load Vanta.js and its dependency */}
+      <Script
+        src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"
+        strategy="afterInteractive"
+        onLoad={() => {
+          if (window.VANTA) {
+            VANTA = window.VANTA;
+            // Trigger a re-render or re-initialization if needed
+            if (vantaRef.current && !vantaEffect) {
+              setVantaEffect(VANTA.NET({
+                el: vantaRef.current,
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                backgroundColor: 0x0f1629,
+                color: 0x2eeaab,
+                points: 12.00,
+                maxDistance: 25.00,
+                spacing: 20.00
+              }));
+            }
+          }
+        }}
+      />
 
-      {/* Left Image */}
-      <motion.div
-        className="flex-shrink-0"
-        initial={{ y: 40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <img
-          src="/homeimage3.png"
-          alt="Abstract coding illustration"
-          className="w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 lg:w-[560px] lg:h-[560px] rounded-2xl object-cover"
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = "https://placehold.co/300x300/1f1f38/ffffff?text=Image+Error&font=raleway";
-          }}
-        />
-      </motion.div>
-
-      {/* Right Text */}
-      <div className="flex flex-col items-center md:items-start gap-6 text-center md:text-left w-full">
-        <div className="flex flex-col gap-4">
-          <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent tracking-tight"
-            initial={{ y: 40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6 }}
-          >
-            Hi, I&apos;m Shreyash Patel
-          </motion.h1>
-          <Typewriter />
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-6 w-full">
-          <Link href="#projects" passHref legacyBehavior>
-            <motion.a
-              initial={{ y: 40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              className="ghost-button flex flex-row items-center gap-2 sm:gap-3 text-base sm:text-lg px-5 py-2 sm:px-6 sm:py-3 rounded-full transition-all duration-300"
-            >
-              Projects
-              <svg
-                className="w-6 h-6 text-gray-50 rotate-45 border border-gray-700 p-1 rounded-full"
-                viewBox="0 0 16 19"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
-                  className="fill-gray-200"
-                ></path>
-              </svg>
-            </motion.a>
-          </Link>
-
-          <a href="https://docs.google.com/document/d/1pzxX2RNE8S19YCsORvdATM9nGBcPOV5e/edit?usp=sharing&ouid=113785736309781364295&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">
-            <motion.button
-              initial={{ y: 40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6 }}
-              type="button"
-              className="ghost-button flex flex-row items-center gap-2 sm:gap-3 text-base sm:text-lg px-5 py-2 sm:px-6 sm:py-3 rounded-full transition-all duration-300"
-            >
-              Download Resume
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                className="w-5 h-5 animate-bounce"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"
-                ></path>
-              </svg>
-            </motion.button>
-          </a>
-        </div>
-
-        {/* Social Connection Icons */}
+      <section ref={vantaRef} className="z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-4 sm:px-6 md:px-10 lg:px-20 py-12 md:py-20 min-h-screen">
+        {/* Left Image */}
         <motion.div
-          className="flex flex-row items-center justify-center md:justify-start gap-4 w-full mt-4"
+          className="flex-shrink-0"
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6 }}
         >
-          <a href="https://github.com/shreyashpatel5506" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 rounded-full text-white bg-white/10 hover:bg-cyan-600 transition-colors duration-300">
-            <Github size={24} />
-          </a>
-          <a href="https://www.linkedin.com/in/shreyash-patel-ba27b02a6/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 rounded-full text-white bg-white/10 hover:bg-cyan-600 transition-colors duration-300">
-            <Linkedin size={24} />
-          </a>
+          <img
+            src="/homeimage3.png"
+            alt="Abstract coding illustration"
+            className="w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 lg:w-[560px] lg:h-[560px] rounded-2xl object-cover"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://placehold.co/300x300/1f1f38/ffffff?text=Image+Error&font=raleway";
+            }}
+          />
         </motion.div>
-      </div>
-    </section>
+
+        {/* Right Text */}
+        <div className="flex flex-col items-center md:items-start gap-6 text-center md:text-left w-full">
+          <div className="flex flex-col gap-4">
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent tracking-tight"
+              initial={{ y: 40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              Hi, I&apos;m Shreyash Patel
+            </motion.h1>
+            <Typewriter />
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-6 w-full">
+            <Link href="#projects" passHref legacyBehavior>
+              <motion.a
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                className="ghost-button flex flex-row items-center gap-2 sm:gap-3 text-base sm:text-lg px-5 py-2 sm:px-6 sm:py-3 rounded-full transition-all duration-300"
+              >
+                Projects
+                <svg
+                  className="w-6 h-6 text-gray-50 rotate-45 border border-gray-700 p-1 rounded-full"
+                  viewBox="0 0 16 19"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7 18C7 18.5523 7.44772 19 8 19C8.55228 19 9 18.5523 9 18H7ZM8.70711 0.292893C8.31658 -0.0976311 7.68342 -0.0976311 7.29289 0.292893L0.928932 6.65685C0.538408 7.04738 0.538408 7.68054 0.928932 8.07107C1.31946 8.46159 1.95262 8.46159 2.34315 8.07107L8 2.41421L13.6569 8.07107C14.0474 8.46159 14.6805 8.46159 15.0711 8.07107C15.4616 7.68054 15.4616 7.04738 15.0711 6.65685L8.70711 0.292893ZM9 18L9 1H7L7 18H9Z"
+                    className="fill-gray-200"
+                  ></path>
+                </svg>
+              </motion.a>
+            </Link>
+
+            <a href="https://docs.google.com/document/d/1pzxX2RNE8S19YCsORvdATM9nGBcPOV5e/edit?usp=sharing&ouid=113785736309781364295&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">
+              <motion.button
+                initial={{ y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                type="button"
+                className="ghost-button flex flex-row items-center gap-2 sm:gap-3 text-base sm:text-lg px-5 py-2 sm:px-6 sm:py-3 rounded-full transition-all duration-300"
+              >
+                Download Resume
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                  className="w-5 h-5 animate-bounce"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"
+                  ></path>
+                </svg>
+              </motion.button>
+            </a>
+          </div>
+
+          {/* Social Connection Icons */}
+          <motion.div
+            className="flex flex-row items-center justify-center md:justify-start gap-4 w-full mt-4"
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <a href="https://github.com/shreyashpatel5506" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-2 rounded-full text-white bg-white/10 hover:bg-cyan-600 transition-colors duration-300">
+              <Github size={24} />
+            </a>
+            <a href="https://www.linkedin.com/in/shreyash-patel-ba27b02a6/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-2 rounded-full text-white bg-white/10 hover:bg-cyan-600 transition-colors duration-300">
+              <Linkedin size={24} />
+            </a>
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 };
 
 export default Home;
-

@@ -3,7 +3,7 @@ import "./globals.css";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
 import Skill from "./components/Skill";
-import ThreeBackground from "./components/ThreeBackground";
+
 import Project from "./components/Project";
 import Experience from "./components/Expierence";
 import Contact from "./components/Contact";
@@ -29,7 +29,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0F1629]`}>
 
-        <ThreeBackground />
         <Navigation />
         <section id="home">
           <Home />
