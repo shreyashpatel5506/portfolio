@@ -6,6 +6,7 @@ import Skill from "./components/Skill";
 import Project from "./components/Project";
 import Experience from "./components/Expierence";
 import Contact from "./components/Contact";
+import Script from "next/script"; // ✅ Use Next.js Script for safe client-side execution
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,6 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0F1629] relative`}
       >
-        {/* 🌐 Page Sections */}
         <Navigation />
         <section id="home">
           <Home />
@@ -48,78 +48,76 @@ export default function RootLayout({ children }) {
 
         {children}
 
-        {/* ✨ Custom Cursor Script (client-only, no hydration issues) */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                if (typeof window === 'undefined') return;
+        {/* ✅ Safe client-side mouse effect using Next.js Script */}
+        <Script id="cursor-effect" strategy="afterInteractive">
+          {`
+            (function() {
+              if (typeof window === 'undefined') return;
 
-                // 🖱️ Skip cursor on touch/mobile devices
-                if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+              // 🖱️ Disable cursor on mobile/touch devices
+              if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
 
-                const cursor = document.createElement('div');
-                cursor.id = 'cursor';
-                Object.assign(cursor.style, {
-                  position: 'fixed',
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  border: '2px solid #67e8f9',
-                  boxShadow: '0 0 20px rgba(0,255,255,0.6)',
-                  zIndex: 9999,
-                  pointerEvents: 'none',
-                  left: '-100px',
-                  top: '-100px',
-                  willChange: 'transform',
-                  transition: 'transform 0.15s ease-out, width 0.25s ease, height 0.25s ease, box-shadow 0.25s ease',
-                  opacity: '1',
-                  mixBlendMode: 'screen'
-                });
-                document.body.appendChild(cursor);
+              const cursor = document.createElement('div');
+              cursor.id = 'cursor';
+              Object.assign(cursor.style, {
+                position: 'fixed',
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                border: '2px solid #67e8f9',
+                boxShadow: '0 0 20px rgba(0,255,255,0.6)',
+                zIndex: 9999,
+                pointerEvents: 'none',
+                left: '-100px',
+                top: '-100px',
+                willChange: 'transform',
+                transition: 'transform 0.15s ease-out, width 0.25s ease, height 0.25s ease, box-shadow 0.25s ease',
+                opacity: '1',
+                mixBlendMode: 'screen'
+              });
+              document.body.appendChild(cursor);
 
-                let x = 0, y = 0, targetX = 0, targetY = 0;
-                const speed = 0.2;
+              let x = 0, y = 0, targetX = 0, targetY = 0;
+              const speed = 0.2;
 
-                document.addEventListener('mousemove', e => {
-                  targetX = e.clientX;
-                  targetY = e.clientY;
-                  cursor.style.opacity = '1';
-                });
+              document.addEventListener('mousemove', e => {
+                targetX = e.clientX;
+                targetY = e.clientY;
+                cursor.style.opacity = '1';
+              });
 
-                document.addEventListener('mouseleave', () => {
-                  cursor.style.opacity = '0';
-                });
+              document.addEventListener('mouseleave', () => {
+                cursor.style.opacity = '0';
+              });
 
-                // ✨ Hover effect for links, buttons, interactive elements
-                const hoverSelectors = 'a, button, .cursor-hover';
-                document.addEventListener('mouseover', e => {
-                  if (e.target.closest(hoverSelectors)) {
-                    cursor.style.width = '70px';
-                    cursor.style.height = '70px';
-                    cursor.style.boxShadow = '0 0 35px rgba(0,255,255,0.9)';
-                  }
-                });
-                document.addEventListener('mouseout', e => {
-                  if (e.target.closest(hoverSelectors)) {
-                    cursor.style.width = '40px';
-                    cursor.style.height = '40px';
-                    cursor.style.boxShadow = '0 0 20px rgba(0,255,255,0.6)';
-                  }
-                });
-
-                function animate() {
-                  x += (targetX - x) * speed;
-                  y += (targetY - y) * speed;
-                  cursor.style.transform = 'translate3d(' + (x - 20) + 'px,' + (y - 20) + 'px,0)';
-                  requestAnimationFrame(animate);
+              // ✨ Hover animation on links/buttons
+              const hoverSelectors = 'a, button, .cursor-hover';
+              document.addEventListener('mouseover', e => {
+                if (e.target.closest(hoverSelectors)) {
+                  cursor.style.width = '70px';
+                  cursor.style.height = '70px';
+                  cursor.style.boxShadow = '0 0 35px rgba(0,255,255,0.9)';
                 }
+              });
+              document.addEventListener('mouseout', e => {
+                if (e.target.closest(hoverSelectors)) {
+                  cursor.style.width = '40px';
+                  cursor.style.height = '40px';
+                  cursor.style.boxShadow = '0 0 20px rgba(0,255,255,0.6)';
+                }
+              });
 
-                animate();
-              })();
-            `,
-          }}
-        />
+              function animate() {
+                x += (targetX - x) * speed;
+                y += (targetY - y) * speed;
+                cursor.style.transform = 'translate3d(' + (x - 20) + 'px,' + (y - 20) + 'px,0)';
+                requestAnimationFrame(animate);
+              }
+
+              animate();
+            })();
+          `}
+        </Script>
       </body>
     </html>
   );
