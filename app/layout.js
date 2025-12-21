@@ -7,6 +7,7 @@ import Project from "./components/Project";
 import Experience from "./components/Expierence";
 import Contact from "./components/Contact";
 import Script from "next/script"; // ✅ Use Next.js Script for safe client-side execution
+import Contribution from "./components/Contribution";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,9 @@ export default function RootLayout({ children }) {
         </section>
         <section id="projects">
           <Project />
+        </section>
+        <section id="contribution">
+          <Contribution  />
         </section>
         <section id="experience">
           <Experience />

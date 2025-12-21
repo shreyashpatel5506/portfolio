@@ -1,188 +1,116 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { Award, BadgeCheck, ExternalLink, School } from "lucide-react";
-import { Drawer } from 'vaul';
+import { useEffect, useState } from "react";
+import { ExternalLink } from "lucide-react";
 
-const Button = ({ children, className = "", onClick }) => (
-    <button
-        onClick={onClick}
-        className={`px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition duration-300 flex items-center justify-center ${className}`}
+export default function ContributionSection() {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/contributions")
+      .then(res => res.json())
+      .then(data => setItems(data))
+      .catch(err => console.error(err));
+  }, []);
+
+  return (
+    <section className="relative z-10 pt-10 pb-32 px-4 md:px-10 bg-[#0F1629] text-white">
+      {/* TITLE */}
+      <h1 className="text-4xl md:text-5xl text-center pb-12 font-semibold
+        bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+        Open Source Contributions
+      </h1>
+
+      {/* GRID */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
+        {items.map(item => (
+          <ContributionCard key={item._id || item.id} item={item} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ================= CARD ================= */
+
+function ContributionCard({ item }) {
+  return (
+    <div className="relative group w-full max-w-sm cursor-pointer
+      bg-gradient-to-br from-[#1B233A] to-[#151B2E]
+      rounded-2xl overflow-hidden shadow-lg
+      transition-all duration-300 hover:-translate-y-1">
+
+      {/* CONTENT */}
+      <div className="p-6 text-center">
+        <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-400 transition">
+          {item.title}
+        </h3>
+
+        <p className="text-gray-400 text-sm font-medium">
+          {item.type}
+        </p>
+
+        <p className="text-gray-500 text-xs mt-1">
+          {new Date(item.createdAt).toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })}
+        </p>
+
+        {item.description && (
+          <p className="text-gray-300 text-sm mt-4 line-clamp-3">
+            {item.description}
+          </p>
+        )}
+      </div>
+
+      {/* HOVER OVERLAY */}
+      <div className="absolute inset-0 bg-black/70 flex items-center justify-center
+        gap-5 opacity-0 group-hover:opacity-100 transition-all duration-300">
+
+        {item.githubUrl && (
+          <a
+            href={item.githubUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full
+              bg-white/10 hover:bg-cyan-600 transition"
+          >
+            <GitHubIcon />
+            <span className="text-sm">GitHub</span>
+          </a>
+        )}
+
+        {item.websiteUrl && (
+          <a
+            href={item.websiteUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 px-4 py-2 rounded-full
+              bg-white/10 hover:bg-purple-600 transition"
+          >
+            <ExternalLink size={16} />
+            <span className="text-sm">Website</span>
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ================= ICON ================= */
+
+function GitHubIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
     >
-        {children}
-    </button>
-);
-
-export default function Experience() {
-    const [experiences, setExperiences] = useState([]);
-    const [filteredExperiences, setFilteredExperiences] = useState([]);
-    const [selected, setSelected] = useState(null);
-    const [activeTab, setActiveTab] = useState("All");
-
-    const categories = ["All", "Certificate", "Training", "Award", "Course"];
-
-    useEffect(() => {
-        const fetchExperiences = async () => {
-            try {
-                const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
-                const res = await fetch(`${baseUrl}/api/experience`);
-                const data = await res.json();
-                if (data.success) {
-                    setExperiences(data.experiences);
-                    setFilteredExperiences(data.experiences);
-                }
-            } catch (err) {
-                console.error("Error loading experiences:", err);
-            }
-        };
-        fetchExperiences();
-    }, []);
-
-    // Handle filtering when activeTab changes
-    useEffect(() => {
-        if (activeTab === "All") {
-            setFilteredExperiences(experiences);
-        } else {
-            const filtered = experiences.filter(exp => exp.category === activeTab);
-            setFilteredExperiences(filtered);
-        }
-    }, [activeTab, experiences]);
-
-
-    // Helper to format dates
-    const formatDate = (dateString) => {
-        if (!dateString) return '';
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-        });
-    };
-
-
-    return (
-        <div className="relative z-10 pt-10 md:pt-5 pb-32 md:pb-24 px-4 md:px-10 bg-[#0F1629] text-white">
-            <h1 className="text-4xl md:text-5xl text-center mt-10 md:mt-4 pb-10 font-semibold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                Experience & Certificates
-            </h1>
-
-            {/* Filter Tabs */}
-            <div className="flex justify-center flex-wrap gap-4 sm:gap-6 mb-12">
-                {categories.map((category) => (
-                    <button
-                        key={category}
-                        onClick={() => setActiveTab(category)}
-                        className={`px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300
-                            ${activeTab === category
-                                ? "bg-[#30A585] text-white shadow-lg scale-105"
-                                : "bg-[#0F3460] text-gray-300 hover:bg-[#16213E]"
-                            }`}
-                    >
-                        {category}
-                    </button>
-                ))}
-            </div>
-
-
-            {/* Experience Grid */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 place-items-center">
-                {filteredExperiences.map((exp) => (
-                    <div
-                        key={exp._id}
-                        onClick={() => setSelected(exp)}
-                        className="relative group bg-gradient-to-br from-[#1B233A] to-[#151B2E] rounded-2xl overflow-hidden shadow-lg cursor-pointer transition-all duration-300 w-full max-w-xs sm:max-w-sm sm:hover:-translate-y-1"
-                    >
-                        {/* Experience Image */}
-                        <div className="h-48 sm:h-52 w-full relative overflow-hidden">
-                            <Image
-                                src={exp.image || "https://placehold.co/600x400/1f1f38/ffffff?text=Certificate"}
-                                alt={exp.title}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        </div>
-
-                        {/* Experience Info */}
-                        <div className="p-5 text-center">
-                            <h2 className="text-lg sm:text-xl font-bold mb-2 group-hover:text-cyan-400 transition-colors duration-300 break-words">
-                                {exp.title}
-                            </h2>
-                            <p className="text-gray-400 text-sm font-semibold break-words">
-                                Issued by {exp.issuer}
-                            </p>
-                            <p className="text-gray-500 text-xs mt-1">
-                                {formatDate(exp.issueDate)}
-                            </p>
-                        </div>
-
-                        {/* Hover Overlay */}
-                        <div className="absolute inset-0 bg-black/70 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                            <Button className="rounded-full bg-white/10 hover:bg-cyan-600 transition">
-                                View Details
-                            </Button>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {/* Drawer */}
-            <Drawer.Root open={!!selected} onOpenChange={setSelected}>
-                <Drawer.Portal>
-                    <Drawer.Overlay className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut" />
-
-                    <Drawer.Content
-                        className="fixed z-50 bottom-0 left-0 right-0 bg-[#121C33] outline-none rounded-t-2xl shadow-xl transition-all duration-300 md:max-h-[85vh] md:h-auto h-[65vh] sm:h-[70vh] overflow-auto data-[state=open]:animate-slideUp data-[state=closed]:animate-slideDown"
-                    >
-                        {selected && (
-                            <div className="p-6 md:p-10 w-full h-full overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-600 scrollbar-track-transparent">
-                                <Drawer.Title className="sr-only">
-                                    {selected.title} Details
-                                </Drawer.Title>
-
-                                <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent break-words">
-                                    {selected.title}
-                                </h2>
-                                <p className="text-gray-300 text-md mt-2">
-                                    Issued by <span className="font-semibold">{selected.issuer}</span>
-                                </p>
-                                <p className="text-gray-400 text-sm">
-                                    Issued on: {formatDate(selected.issueDate)}
-                                </p>
-
-                                <p className="text-gray-300 text-sm md:text-base mt-4 leading-relaxed break-words">
-                                    {selected.description}
-                                </p>
-
-                                {selected.skills?.length > 0 && (
-                                    <div className="flex flex-wrap gap-2 mt-4">
-                                        {selected.skills.map((skill, i) => (
-                                            <span
-                                                key={i}
-                                                className="text-xs bg-gradient-to-r from-cyan-500 to-purple-500 text-white px-3 py-1 rounded-full"
-                                            >
-                                                {skill}
-                                            </span>
-                                        ))}
-                                    </div>
-                                )}
-
-
-                                <div className="flex flex-wrap gap-4 mt-6">
-                                    {selected.credentialURL && (
-                                        <a href={selected.credentialURL} target="_blank" rel="noreferrer">
-                                            <Button className="bg-cyan-600 hover:bg-cyan-700 text-white">
-                                                <BadgeCheck size={16} className="mr-2" /> Show Credential
-                                            </Button>
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-                    </Drawer.Content>
-                </Drawer.Portal>
-            </Drawer.Root>
-        </div>
-    );
+      <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.94.58.11.79-.25.79-.56v-2.1c-3.2.7-3.87-1.37-3.87-1.37-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.52-2.55-.29-5.23-1.27-5.23-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.17a10.9 10.9 0 012.86-.38c.97 0 1.95.13 2.86.38 2.18-1.48 3.14-1.17 3.14-1.17.62 1.57.23 2.73.11 3.02.74.8 1.18 1.82 1.18 3.07 0 4.4-2.69 5.36-5.25 5.64.41.36.77 1.07.77 2.16v3.2c0 .31.21.67.8.56A11.5 11.5 0 0023.5 12C23.5 5.73 18.27.5 12 .5z" />
+    </svg>
+  );
 }
