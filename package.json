@@ -19,7 +19,7 @@
     "dotenv": "^17.2.3",
     "fs": "^0.0.1-security",
     "lucide-react": "^0.545.0",
-    "mongoose": "^8.19.1",
+    "mongoose": "^8.20.4",
     "motion": "^12.23.22",
     "next": "15.5.7",
     "nodemailer": "^7.0.9",
