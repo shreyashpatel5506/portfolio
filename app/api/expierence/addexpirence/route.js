@@ -1,5 +1,5 @@
 import connectMongo from "@/lib/mongodb";
-import Expirence from "@/models/Expirence";
+import experience from "@/models/Expirence";
 
 export async function POST(req) {
   try {
@@ -7,7 +7,7 @@ export async function POST(req) {
     const body = await req.json();
     const { company, position, startDate, endDate, description, skills } =
       req.formData();
-    const newExpirence = new Expirence({
+    const newExpirence = new experience({
       company,
       position,
       startDate,
