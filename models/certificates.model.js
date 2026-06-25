@@ -9,9 +9,15 @@ const certificateSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
+  issueDate: {
     type: Date,
     required: true,
+  },
+  expirationDate: {
+    type: Date,
+  },
+  credentialId: {
+    type: String,
   },
   credentialUrl: {
     type: String,
