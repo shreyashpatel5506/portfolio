@@ -10,7 +10,7 @@ export default function Navbar() {
   return (
     <>
       {/* --- MAIN HEADER --- */}
-      <header className="relative z-50 mx-auto px-6 h-20 flex items-center justify-between w-full bg-[#030712]">
+      <header className="sticky top-0 z-50 mx-auto px-6 h-20 flex items-center justify-between w-full bg-[#030712] ">
         {/* Logo */}
         <a
           href="#"
