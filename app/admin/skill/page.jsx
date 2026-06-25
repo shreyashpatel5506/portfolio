@@ -15,7 +15,8 @@ const categories = [
 export default function SkillPage() {
   const [allSkills, setAllSkills] = useState([]);
   const [category, setCategory] = useState("Frontend");
-  const [skillInput, setSkillInput] = useState("");
+  const [skillName, setSkillName] = useState("");
+  const [skillIcon, setSkillIcon] = useState("");
   const [loading, setLoading] = useState(false);
 
   const fetchSkills = async () => {
@@ -36,7 +37,10 @@ export default function SkillPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!skillInput.trim()) return;
+    if (!skillName.trim() || !skillIcon.trim()) {
+      alert("Skill name and icon are required");
+      return;
+    }
 
     setLoading(true);
 
@@ -47,12 +51,12 @@ export default function SkillPage() {
 
       formData.append(
         "skills",
-        JSON.stringify(
-          skillInput
-            .split(",")
-            .map((skill) => skill.trim())
-            .filter(Boolean),
-        ),
+        JSON.stringify([
+          {
+            name: skillName.trim(),
+            icon: skillIcon.trim(),
+          },
+        ]),
       );
 
       const res = await fetch("/api/skills/addskills", {
@@ -63,7 +67,8 @@ export default function SkillPage() {
       const data = await res.json();
 
       if (res.ok) {
-        setSkillInput("");
+        setSkillName("");
+        setSkillIcon("");
         fetchSkills();
         alert(data.message);
       } else {
@@ -78,9 +83,9 @@ export default function SkillPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto py-10 px-5">
-      <h1 className="text-4xl font-bold mb-8">Skills Management</h1>
-
+    <div className=" mx-auto py-10 px-5 bg-[#030712] w-full min-h-screen text-slate-200">
+      {" "}
+      <h1 className="text-4xl font-bold mb-8">Skills Management </h1>
       <form
         onSubmit={handleSubmit}
         className="border rounded-xl p-6 mb-10 space-y-4"
@@ -97,27 +102,37 @@ export default function SkillPage() {
 
         <input
           type="text"
-          value={skillInput}
-          onChange={(e) => setSkillInput(e.target.value)}
-          placeholder="React, Next.js, Tailwind CSS"
+          value={skillName}
+          onChange={(e) => setSkillName(e.target.value)}
+          placeholder="React"
+          className="w-full border p-3 rounded-lg"
+        />
+
+        <input
+          type="text"
+          value={skillIcon}
+          onChange={(e) => setSkillIcon(e.target.value)}
+          placeholder="react"
           className="w-full border p-3 rounded-lg"
         />
 
         <button disabled={loading} className="px-5 py-3 border rounded-lg">
-          {loading ? "Adding..." : "Add Skills"}
+          {loading ? "Adding..." : "Add Skill"}
         </button>
       </form>
-      <SkillsSection allSkills={allSkills} />
-      <div className="grid gap-5">
+      <SkillsSection />
+      <div className="grid gap-5 mt-10">
         {allSkills.map((item) => (
           <div key={item._id} className="border rounded-xl p-5">
             <h2 className="text-xl font-semibold mb-4">{item.category}</h2>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3">
               {item.skills.map((skill) => (
-                <span key={skill} className="px-3 py-1 rounded-full border">
-                  {skill}
-                </span>
+                <div key={skill.name} className="px-4 py-2 rounded-lg border">
+                  <p className="font-medium">{skill.name}</p>
+
+                  <p className="text-xs opacity-70">Icon: {skill.icon}</p>
+                </div>
               ))}
             </div>
           </div>

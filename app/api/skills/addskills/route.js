@@ -9,27 +9,30 @@ export async function POST(req) {
 
     const category = formData.get("category");
 
-    const parseArrayInput = (fieldData) => {
-      if (!fieldData) return [];
+    const parseSkills = (data) => {
+      if (!data) return [];
 
       try {
-        const parsed = JSON.parse(fieldData);
+        const parsed = JSON.parse(data);
         return Array.isArray(parsed) ? parsed : [parsed];
       } catch {
-        return fieldData
-          .split(",")
-          .map((item) => item.trim())
-          .filter(Boolean);
+        return [];
       }
     };
 
-    const newSkills = parseArrayInput(formData.get("skills"));
+    const newSkills = parseSkills(formData.get("skills"));
 
     const existingCategory = await Skills.findOne({ category });
 
     if (existingCategory) {
       existingCategory.skills = [
-        ...new Set([...existingCategory.skills, ...newSkills]),
+        ...existingCategory.skills,
+        ...newSkills.filter(
+          (newSkill) =>
+            !existingCategory.skills.some(
+              (skill) => skill.name === newSkill.name,
+            ),
+        ),
       ];
 
       await existingCategory.save();
