@@ -1,36 +1,65 @@
-import connectMongo from "@/lib/db.js";
-import skills from "@/models/skills.model";
+import connectMongo from "@/lib/db";
+import Skills from "@/models/skills.model";
 
 export async function POST(req) {
   try {
     await connectMongo();
+
     const formData = await req.formData();
-    const { category } = Object.fromEntries(formData);
+
+    const category = formData.get("category");
+
     const parseArrayInput = (fieldData) => {
       if (!fieldData) return [];
+
       try {
-        // Try parsing as JSON first
         const parsed = JSON.parse(fieldData);
-        return Array.isArray(parsed) ? parsed : [fieldData];
+        return Array.isArray(parsed) ? parsed : [parsed];
       } catch {
-        // Fallback: Split by comma and clean up whitespace
         return fieldData
           .split(",")
           .map((item) => item.trim())
           .filter(Boolean);
       }
     };
-    const skills = parseArrayInput(formData.get("skills"));
-    const newSkill = new skills({ category, skills });
-    await newSkill.save();
-    return new Response(
-      JSON.stringify({ message: "Skill added successfully" }),
-      { status: 201 },
+
+    const newSkills = parseArrayInput(formData.get("skills"));
+
+    const existingCategory = await Skills.findOne({ category });
+
+    if (existingCategory) {
+      existingCategory.skills = [
+        ...new Set([...existingCategory.skills, ...newSkills]),
+      ];
+
+      await existingCategory.save();
+
+      return Response.json({
+        message: "Skills updated successfully",
+      });
+    }
+
+    await Skills.create({
+      category,
+      skills: newSkills,
+    });
+
+    return Response.json(
+      {
+        message: "Category created successfully",
+      },
+      {
+        status: 201,
+      },
     );
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: "Skills add karte waqt error aaya" }),
-      { status: 500 },
+    return Response.json(
+      {
+        error: error.message,
+      },
+      {
+        status: 500,
+      },
     );
   }
 }
