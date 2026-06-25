@@ -222,6 +222,7 @@ export default function HeroSection() {
               </div>
             </div>
 
+            {/* Floating Contextual Framework Micro-Badges */}
             <div className="absolute -top-4 -right-4 px-3 py-1.5 rounded-lg bg-[#0b0f19] border border-slate-800 text-xs text-sky-400 font-mono shadow-lg">
               ⚛ React 18
             </div>
