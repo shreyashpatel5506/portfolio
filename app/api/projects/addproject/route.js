@@ -1,6 +1,6 @@
 import connectMongo from "@/lib/db.js";
 import projects from "@/models/projects.model";
-import { uploadImage, uploadVideo } from "@/lib/cloudinaryUtils.js"; // Adjust this path to your utility file
+import { uploadImage, uploadVideo } from "@/lib/cloudinary.js"; // Adjust this path to your utility file
 import fs from "fs";
 import path from "path";
 
@@ -40,11 +40,10 @@ export async function POST(req) {
     const imageFile = formData.get("image");
     const videoFile = formData.get("video");
 
-    if (!imageFile || !videoFile) {
-      return new Response(
-        JSON.stringify({ error: "Image and Video files are required" }),
-        { status: 400 },
-      );
+    if (!imageFile) {
+      return new Response(JSON.stringify({ error: "Image file is required" }), {
+        status: 400,
+      });
     }
 
     // 4. Convert Next.js File objects to local temporary files for Cloudinary
@@ -66,11 +65,15 @@ export async function POST(req) {
     };
 
     tempImagePath = await saveToTemp(imageFile);
-    tempVideoPath = await saveToTemp(videoFile);
 
-    // 5. Upload files to Cloudinary using your utility functions
     const cloudinaryImage = await uploadImage(tempImagePath);
-    const cloudinaryVideo = await uploadVideo(tempVideoPath);
+
+    let cloudinaryVideo = null;
+
+    if (videoFile && videoFile.size > 0) {
+      tempVideoPath = await saveToTemp(videoFile);
+      cloudinaryVideo = await uploadVideo(tempVideoPath);
+    }
 
     // 6. Save directly to MongoDB with Cloudinary secure URLs
     const newProject = new projects({
@@ -80,7 +83,7 @@ export async function POST(req) {
       githubLink,
       liveurl,
       image: cloudinaryImage.secure_url, // Saves the string URL
-      video: cloudinaryVideo.secure_url, // Saves the string URL
+      video: cloudinaryVideo ? cloudinaryVideo.secure_url : null, // Saves the string URL
       features, // Saved as a clean JavaScript Array
     });
 

@@ -27,7 +27,6 @@ const projectSchema = new mongoose.Schema(
     },
     video: {
       type: String,
-      required: true,
     },
     features: {
       type: [String],
@@ -43,5 +42,7 @@ const projectSchema = new mongoose.Schema(
   },
 );
 
-const projects = mongoose.model("projects", projectSchema);
+const projects =
+  mongoose.models.projects || mongoose.model("projects", projectSchema);
+
 export default projects;

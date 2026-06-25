@@ -12,6 +12,7 @@
     "@radix-ui/themes": "^3.3.0",
     "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.10.0",
+    "dotenv": "^17.4.2",
     "framer-motion": "^12.41.0",
     "fs": "^0.0.1-security",
     "lucide-react": "^1.21.0",
