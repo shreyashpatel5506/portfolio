@@ -1,5 +1,5 @@
-import connectMongo from "@/lib/mongodb";
-import experience from "@/models/Expirence";
+import connectMongo from "@/lib/db";
+import experience from "@/models/expierence.model";
 
 export async function POST(req) {
   try {
