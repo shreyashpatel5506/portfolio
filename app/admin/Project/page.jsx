@@ -156,6 +156,23 @@ export default function Page() {
     }
   };
 
+  const handleDelete = async (e, id) => {
+    e.stopPropagation(); // prevent modal opening
+    if (confirm("Are you sure you want to delete this project?")) {
+      try {
+        const res = await fetch(`/api/projects/${id}`, { method: "DELETE" });
+        if (res.ok) {
+          alert("Project deleted successfully!");
+          fetchProjects();
+        } else {
+          alert("Failed to delete project.");
+        }
+      } catch (err) {
+        console.error("Delete error:", err);
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       {/* Main Dashboard Layout */}
@@ -204,7 +221,12 @@ export default function Page() {
                 </div>
                 <div className="bg-gray-50 px-5 py-3 border-t border-gray-100 flex justify-between items-center text-xs font-medium text-blue-600">
                   <span>Click to Edit / View details</span>
-                  <span className="text-gray-400">→</span>
+                  <button 
+                    onClick={(e) => handleDelete(e, project._id || project.id)}
+                    className="text-red-500 hover:text-red-700 transition"
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
             ))}

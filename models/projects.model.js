@@ -66,6 +66,14 @@ const projectSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    databaseDesign: {
+      type: String,
+      default: "",
+    },
+    apiFlow: {
+      type: String,
+      default: "",
+    },
     challenges: {
       type: [String],
       default: [],

@@ -183,6 +183,54 @@ export default function ProjectDetails() {
               </div>
             )}
 
+            {/* Database Design */}
+            {project.databaseDesign && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 text-2xl font-bold text-white mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-400">
+                    <Layers size={20} />
+                  </div>
+                  Database Design
+                </div>
+                <div className="prose prose-invert prose-slate max-w-none">
+                  <p className="text-slate-300 leading-relaxed text-base">
+                    {project.databaseDesign}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* API Flow */}
+            {project.apiFlow && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 text-2xl font-bold text-white mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400">
+                    <Code2 size={20} />
+                  </div>
+                  API Flow
+                </div>
+                <div className="prose prose-invert prose-slate max-w-none">
+                  <p className="text-slate-300 leading-relaxed text-base">
+                    {project.apiFlow}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Screenshots */}
+            {project.screenshots && project.screenshots.length > 0 && (
+              <div className="space-y-6">
+                <h2 className="text-2xl font-bold text-white mb-6">Screenshots</h2>
+                <div className="grid gap-6 sm:grid-cols-2">
+                  {project.screenshots.map((img, index) => (
+                    <div key={index} className="relative aspect-video rounded-xl overflow-hidden border border-slate-800 bg-slate-900 group">
+                      <Image src={img} fill alt={`${project.title} screenshot ${index + 1}`} className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Features */}
             {project.features && project.features.length > 0 && (
               <div className="space-y-6">

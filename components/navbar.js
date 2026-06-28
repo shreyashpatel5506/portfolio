@@ -62,7 +62,9 @@ export default function Navbar() {
             Contact
           </a>
           <a
-            href="/hire"
+            href={process.env.NEXT_PUBLIC_RESUME_DRIVE_LINK || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-5 py-2 text-sm font-medium bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-md hover:from-indigo-600 hover:to-purple-700 shadow-lg shadow-indigo-500/20 transition-all"
           >
             Hire Me
@@ -130,7 +132,9 @@ export default function Navbar() {
             Contact
           </a>
           <a
-            href="/hire"
+            href={process.env.NEXT_PUBLIC_RESUME_DRIVE_LINK || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setIsOpen(false)}
             className="w-full py-3 text-center text-sm font-medium bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-md"
           >

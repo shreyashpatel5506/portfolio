@@ -118,7 +118,9 @@ export default function HeroSection() {
               Get in touch
             </a>
             <a
-              href="#resume"
+              href={process.env.NEXT_PUBLIC_RESUME_DRIVE_LINK || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 border border-slate-800 bg-[#0b0f19]/40 rounded-xl hover:bg-slate-900 font-medium transition-colors text-sm"
             >
               <FileText size={16} />

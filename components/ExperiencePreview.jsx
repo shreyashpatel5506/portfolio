@@ -31,7 +31,7 @@ export default function ExperiencePreview() {
 
   return (
     <AnimatedSection>
-      <div className="flex flex-col lg:flex-row justify-between items-end mb-8 bg-[#030712]">
+      <div className="flex flex-col lg:flex-row justify-between items-end mb-8">
         <SectionHeader
           title="Work Experience"
           subtitle="My professional journey and the companies I've helped build."
