@@ -13,7 +13,7 @@ export default function Navbar() {
       <header className="sticky top-0 z-50 mx-auto px-6 h-20 flex items-center justify-between w-full bg-[#030712] ">
         {/* Logo */}
         <a
-          href="#"
+          href="/"
           className="text-xl font-bold tracking-tight text-slate-200 hover:opacity-80 transition-opacity"
         >
           Shreyash.dev<span className="text-emerald-400">_</span>
@@ -22,27 +22,33 @@ export default function Navbar() {
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
           <a
-            href="#about"
+            href="/#about"
             className="text-slate-100 flex items-center gap-1.5 before:content-['•'] before:text-purple-400"
           >
             About
           </a>
           <a
-            href="#projects"
+            href="/Projects"
             className="hover:text-slate-200 transition-colors"
           >
             Projects
           </a>
-          <a href="#journey" className="hover:text-slate-200 transition-colors">
-            Journey
+          <a href="/DSA" className="hover:text-slate-200 transition-colors">
+            DSA
           </a>
           <a
-            href="#experience"
+            href="/experience"
             className="hover:text-slate-200 transition-colors"
           >
             Experience
           </a>
-          <a href="#github" className="hover:text-slate-200 transition-colors">
+          <a
+            href="/certificates"
+            className="hover:text-slate-200 transition-colors"
+          >
+            Certificates
+          </a>
+          <a href="/github" className="hover:text-slate-200 transition-colors">
             GitHub
           </a>
         </nav>
@@ -50,13 +56,13 @@ export default function Navbar() {
         {/* Desktop Call to Actions */}
         <div className="hidden md:flex items-center gap-4">
           <a
-            href="#contact"
+            href="/contact"
             className="px-4 py-2 text-sm font-medium border border-slate-800 rounded-md hover:bg-slate-900 transition-colors"
           >
             Contact
           </a>
           <a
-            href="#hire"
+            href="/hire"
             className="px-5 py-2 text-sm font-medium bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-md hover:from-indigo-600 hover:to-purple-700 shadow-lg shadow-indigo-500/20 transition-all"
           >
             Hire Me
@@ -91,22 +97,25 @@ export default function Navbar() {
         {/* Navigation links inside drawer */}
         <div className="pt-20 flex flex-col gap-6 text-lg font-medium text-slate-400">
           <a
-            href="#about"
+            href="/#about"
             onClick={() => setIsOpen(false)}
             className="text-slate-100 flex items-center gap-2"
           >
             About
           </a>
-          <a href="#projects" onClick={() => setIsOpen(false)}>
+          <a href="/projects" onClick={() => setIsOpen(false)}>
             Projects
           </a>
-          <a href="#journey" onClick={() => setIsOpen(false)}>
-            Journey
+          <a href="/DSA" onClick={() => setIsOpen(false)}>
+            DSA
           </a>
-          <a href="#experience" onClick={() => setIsOpen(false)}>
+          <a href="/experience" onClick={() => setIsOpen(false)}>
             Experience
           </a>
-          <a href="#github" onClick={() => setIsOpen(false)}>
+          <a href="/certificates" onClick={() => setIsOpen(false)}>
+            Certificates
+          </a>
+          <a href="/github" onClick={() => setIsOpen(false)}>
             GitHub
           </a>
         </div>
@@ -114,14 +123,14 @@ export default function Navbar() {
         {/* Call to Actions inside drawer */}
         <div className="flex flex-col gap-3 mt-auto">
           <a
-            href="#contact"
+            href="/contact"
             onClick={() => setIsOpen(false)}
             className="w-full py-3 text-center text-sm font-medium border border-slate-800 rounded-md text-slate-200"
           >
             Contact
           </a>
           <a
-            href="#hire"
+            href="/hire"
             onClick={() => setIsOpen(false)}
             className="w-full py-3 text-center text-sm font-medium bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-md"
           >

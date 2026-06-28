@@ -1,77 +1,72 @@
 import connectMongo from "@/lib/db";
-import certificate from "@/models/certificates.model";
-import { uploadImage } from "@/lib/uploadImage";
+import Certificate from "@/models/certificates.model";
+import { uploadImage } from "@/lib/cloudinary";
+import fs from "fs";
+import path from "path";
 
+// GET all certificates
+export async function GET() {
+  try {
+    await connectMongo();
+    const certificates = await Certificate.find({}).sort({ issueDate: -1 }).lean();
+    return Response.json({ certificates });
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+}
+
+// POST create certificate (multipart/form-data)
 export async function POST(req) {
   let tempImagePath = null;
   try {
     await connectMongo();
-    const body = await req.json();
-    const {
-      title,
-      issuer,
-      issueDate,
-      expirationDate,
-      credentialId,
-      credentialUrl,
-    } = req.formData();
+    const formData = await req.formData();
 
+    const title = formData.get("title");
+    const issuer = formData.get("issuer");
+    const issueDate = formData.get("issueDate");
+    const expirationDate = formData.get("expirationDate");
+    const credentialId = formData.get("credentialId");
+    const credentialUrl = formData.get("credentialUrl");
     const imageFile = formData.get("image");
-    if (!imageFile) {
-      return new Response(
-        JSON.stringify({ error: "Image and Video files are required" }),
-        { status: 400 },
+
+    if (!title || !issuer || !issueDate) {
+      return Response.json(
+        { error: "title, issuer, and issueDate are required" },
+        { status: 400 }
       );
     }
-    const saveToTemp = async (file) => {
-      const buffer = Buffer.from(await file.arrayBuffer());
-      const tempPath = path.join(
-        process.cwd(),
-        "tmp",
-        `${Date.now()}-${file.name}`,
-      );
 
-      // Ensure local tmp directory exists
-      if (!fs.existsSync(path.join(process.cwd(), "tmp"))) {
-        fs.mkdirSync(path.join(process.cwd(), "tmp"));
-      }
+    let imageUrl = "";
 
-      fs.writeFileSync(tempPath, buffer);
-      return tempPath;
-    };
-    tempImagePath = await saveToTemp(imageFile);
-    const cloudinaryImage = await uploadImage(tempImagePath);
-    const newCertificate = new certificate({
+    if (imageFile && imageFile.size > 0) {
+      const buffer = Buffer.from(await imageFile.arrayBuffer());
+      const tmpDir = path.join(process.cwd(), "tmp");
+      if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir);
+      tempImagePath = path.join(tmpDir, `${Date.now()}-${imageFile.name}`);
+      fs.writeFileSync(tempImagePath, buffer);
+      const uploaded = await uploadImage(tempImagePath);
+      imageUrl = uploaded.secure_url;
+    }
+
+    const newCertificate = new Certificate({
       title,
       issuer,
-      issueDate,
-      expirationDate,
-      credentialId,
-      credentialUrl,
-      image: cloudinaryImage.secure_url,
+      issueDate: new Date(issueDate),
+      expirationDate: expirationDate ? new Date(expirationDate) : undefined,
+      credentialId: credentialId || undefined,
+      credentialUrl: credentialUrl || undefined,
+      image: imageUrl,
     });
+
     await newCertificate.save();
-    return new Response(
-      JSON.stringify({
-        message: "Certificate added successfully",
-        certificate: newCertificate,
-      }),
-      {
-        status: 201,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
+
+    return Response.json(
+      { message: "Certificate added successfully", certificate: newCertificate },
+      { status: 201 }
     );
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: "Failed to add certificate" }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    if (tempImagePath && fs.existsSync(tempImagePath)) fs.unlinkSync(tempImagePath);
+    return Response.json({ error: error.message || "Failed to add certificate" }, { status: 500 });
   }
 }

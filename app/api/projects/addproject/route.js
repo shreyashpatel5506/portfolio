@@ -18,24 +18,30 @@ export async function POST(req) {
     const description = formData.get("description");
     const githubLink = formData.get("githubLink");
     const liveurl = formData.get("liveurl");
+    const category = formData.get("category") || "Full Stack";
+    const projectSection = formData.get("projectSection") || "";
+    const featured = formData.get("featured") === "true";
+    
+    // Case study text fields
+    const problemStatement = formData.get("problemStatement") || "";
+    const solution = formData.get("solution") || "";
+    const architecture = formData.get("architecture") || "";
 
     const parseArrayInput = (fieldData) => {
       if (!fieldData) return [];
       try {
-        // Try parsing as JSON first
         const parsed = JSON.parse(fieldData);
         return Array.isArray(parsed) ? parsed : [fieldData];
       } catch {
-        // Fallback: Split by comma and clean up whitespace
-        return fieldData
-          .split(",")
-          .map((item) => item.trim())
-          .filter(Boolean);
+        return fieldData.split(",").map((item) => item.trim()).filter(Boolean);
       }
     };
 
     const technologies = parseArrayInput(formData.get("technologies"));
     const features = parseArrayInput(formData.get("features"));
+    const challenges = parseArrayInput(formData.get("challenges"));
+    const learnings = parseArrayInput(formData.get("learnings"));
+    const futureImprovements = parseArrayInput(formData.get("futureImprovements"));
 
     const imageFile = formData.get("image");
     const videoFile = formData.get("video");
@@ -79,12 +85,21 @@ export async function POST(req) {
     const newProject = new projects({
       title,
       description,
-      technologies, // Saved as a clean JavaScript Array
+      category,
+      projectSection,
+      featured,
+      technologies,
       githubLink,
       liveurl,
-      image: cloudinaryImage.secure_url, // Saves the string URL
-      video: cloudinaryVideo ? cloudinaryVideo.secure_url : null, // Saves the string URL
-      features, // Saved as a clean JavaScript Array
+      image: cloudinaryImage.secure_url,
+      video: cloudinaryVideo ? cloudinaryVideo.secure_url : null,
+      features,
+      problemStatement,
+      solution,
+      architecture,
+      challenges,
+      learnings,
+      futureImprovements
     });
 
     await newProject.save();

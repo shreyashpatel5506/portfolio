@@ -5,19 +5,36 @@ export async function GET(req) {
   try {
     await connectMongo();
 
-    // 1. Extract query parameters from the request URL
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page")) || 1;
     const limit = parseInt(searchParams.get("limit")) || 3;
+    const category = searchParams.get("category");
+    const featured = searchParams.get("featured");
+    const search = searchParams.get("search");
+
+    // Build the query object based on filters
+    const query = {};
+    if (category && category !== "All") {
+      query.category = category;
+    }
+    if (featured === "true") {
+      query.featured = true;
+    }
+    if (search) {
+      // Basic case-insensitive regex search on title or description
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } }
+      ];
+    }
 
     // 2. Calculate how many items to skip
-    // Formula: (page - 1) * limit
     const skip = (page - 1) * limit;
 
     // 3. Fetch only the chunk needed + get total count for frontend checks
     const [allProjects, totalProjects] = await Promise.all([
-      projects.find({}).skip(skip).limit(limit).sort({ createdAt: -1 }), // optional: sort by newest
-      projects.countDocuments({}),
+      projects.find(query).skip(skip).limit(limit).sort({ createdAt: -1 }),
+      projects.countDocuments(query),
     ]);
 
     // 4. Return the data along with pagination meta-data

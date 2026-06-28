@@ -61,9 +61,9 @@ export default function SkillsSection() {
   }, []);
 
   return (
-    <section className="py-24">
+    <section className="py-24 relative  w-full bg-[#030712] text-white overflow-hidden flex flex-col justify-center">
       {" "}
-      <div className="max-w-7xl mx-auto px-5">
+      <div className="w-full px-5  bg-[#030712]">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
