@@ -56,12 +56,12 @@ export default function ProjectDetails() {
   }
 
   return (
-    <div className="bg-[#030712] min-h-screen text-slate-200 pt-10 pb-20">
-      <AnimatedSection>
+    <div className="bg-[#030712] min-h-screen text-slate-200 pt-6 md:pt-10 pb-20">
+      <AnimatedSection className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
         {/* Navigation */}
         <button 
           onClick={() => router.push("/Projects")}
-          className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors mb-10 group"
+          className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors mb-6 md:mb-10 group"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           Back to all projects
@@ -85,20 +85,20 @@ export default function ProjectDetails() {
             )}
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4 md:mb-6 leading-tight">
             {project.title}
           </h1>
 
-          <p className="text-lg text-slate-400 leading-relaxed max-w-3xl mb-10">
+          <p className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-3xl mb-8 md:mb-10">
             {project.description}
           </p>
 
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4">
             {project.liveurl && (
               <Link
                 href={project.liveurl}
                 target="_blank"
-                className="flex items-center gap-2 rounded-xl bg-indigo-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all hover:bg-indigo-600 hover:-translate-y-0.5"
+                className="w-full sm:w-auto flex justify-center items-center gap-2 rounded-xl bg-indigo-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all hover:bg-indigo-600 hover:-translate-y-0.5"
               >
                 View Live Demo <ExternalLink size={16} />
               </Link>
@@ -108,7 +108,7 @@ export default function ProjectDetails() {
               <Link
                 href={project.githubLink}
                 target="_blank"
-                className="flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/50 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-slate-800 hover:-translate-y-0.5"
+                className="w-full sm:w-auto flex justify-center items-center gap-2 rounded-xl border border-slate-700 bg-slate-800/50 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-slate-800 hover:-translate-y-0.5"
               >
                 <GitHubIcon size={16} /> Source Code
               </Link>
@@ -117,7 +117,7 @@ export default function ProjectDetails() {
         </div>
 
         {/* Hero Image */}
-        <div className="mt-16 relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-3xl border border-slate-800 shadow-2xl">
+        <div className="mt-10 md:mt-16 relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-800 shadow-2xl">
           <Image
             src={project.image}
             fill
@@ -129,14 +129,14 @@ export default function ProjectDetails() {
         </div>
 
         {/* Content Layout */}
-        <div className="mt-20 grid gap-12 lg:grid-cols-12">
+        <div className="mt-12 md:mt-20 grid gap-8 md:gap-12 lg:grid-cols-12">
           
           {/* Main Column */}
-          <div className="lg:col-span-8 space-y-16">
+          <div className="lg:col-span-8 space-y-12 md:space-y-16">
             
             {/* Overview / Problem */}
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 text-2xl font-bold text-white mb-6">
+            <div className="space-y-4 md:space-y-6">
+              <div className="flex items-center gap-3 text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">
                 <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400">
                   <Layers size={20} />
                 </div>
@@ -151,8 +151,8 @@ export default function ProjectDetails() {
 
             {/* Solution */}
             {project.solution && (
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 text-2xl font-bold text-white mb-6">
+              <div className="space-y-4 md:space-y-6">
+                <div className="flex items-center gap-3 text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">
                   <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
                     <Code2 size={20} />
                   </div>
@@ -168,8 +168,8 @@ export default function ProjectDetails() {
 
             {/* Architecture */}
             {project.architecture && (
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 text-2xl font-bold text-white mb-6">
+              <div className="space-y-4 md:space-y-6">
+                <div className="flex items-center gap-3 text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">
                   <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400">
                     <Database size={20} />
                   </div>
@@ -185,8 +185,8 @@ export default function ProjectDetails() {
 
             {/* Database Design */}
             {project.databaseDesign && (
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 text-2xl font-bold text-white mb-6">
+              <div className="space-y-4 md:space-y-6">
+                <div className="flex items-center gap-3 text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">
                   <div className="w-10 h-10 rounded-xl bg-sky-500/10 flex items-center justify-center text-sky-400">
                     <Layers size={20} />
                   </div>
@@ -202,8 +202,8 @@ export default function ProjectDetails() {
 
             {/* API Flow */}
             {project.apiFlow && (
-              <div className="space-y-6">
-                <div className="flex items-center gap-3 text-2xl font-bold text-white mb-6">
+              <div className="space-y-4 md:space-y-6">
+                <div className="flex items-center gap-3 text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">
                   <div className="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400">
                     <Code2 size={20} />
                   </div>
@@ -219,8 +219,8 @@ export default function ProjectDetails() {
 
             {/* Screenshots */}
             {project.screenshots && project.screenshots.length > 0 && (
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-white mb-6">Screenshots</h2>
+              <div className="space-y-4 md:space-y-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">Screenshots</h2>
                 <div className="grid gap-6 sm:grid-cols-2">
                   {project.screenshots.map((img, index) => (
                     <div key={index} className="relative aspect-video rounded-xl overflow-hidden border border-slate-800 bg-slate-900 group">
@@ -233,8 +233,8 @@ export default function ProjectDetails() {
 
             {/* Features */}
             {project.features && project.features.length > 0 && (
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-white mb-6">Key Features</h2>
+              <div className="space-y-4 md:space-y-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">Key Features</h2>
                 <div className="grid gap-4 sm:grid-cols-2">
                   {project.features.map((feature, index) => (
                     <div key={index} className="flex items-start gap-3 rounded-2xl border border-slate-800 bg-[#0b0f19]/50 p-5 hover:border-indigo-500/30 transition-colors">
@@ -280,8 +280,8 @@ export default function ProjectDetails() {
 
             {/* Video Demo */}
             {project.video && (
-              <div className="space-y-6 pt-8 border-t border-slate-800">
-                <h2 className="text-2xl font-bold text-white mb-6">Video Walkthrough</h2>
+              <div className="space-y-4 md:space-y-6 pt-6 md:pt-8 border-t border-slate-800">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">Video Walkthrough</h2>
                 <div className="rounded-2xl overflow-hidden border border-slate-800 bg-black">
                   <video controls className="w-full aspect-video outline-none" poster={project.image}>
                     <source src={project.video} />
