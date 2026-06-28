@@ -56,8 +56,8 @@ export default function ProjectDetails() {
   }
 
   return (
-    <div className="bg-[#030712] min-h-screen text-slate-200 pt-6 md:pt-10 pb-20">
-      <AnimatedSection className="px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
+    <div className="bg-[#030712] min-h-screen text-slate-200 pt-6 md:pt-10 pb-20 w-full overflow-x-hidden">
+      <AnimatedSection>
         {/* Navigation */}
         <button 
           onClick={() => router.push("/Projects")}
@@ -129,10 +129,10 @@ export default function ProjectDetails() {
         </div>
 
         {/* Content Layout */}
-        <div className="mt-12 md:mt-20 grid gap-8 md:gap-12 lg:grid-cols-12">
+        <div className="mt-12 md:mt-20 grid gap-8 md:gap-12 lg:grid-cols-12 min-w-0">
           
           {/* Main Column */}
-          <div className="lg:col-span-8 space-y-12 md:space-y-16">
+          <div className="lg:col-span-8 space-y-12 md:space-y-16 min-w-0 break-words">
             
             {/* Overview / Problem */}
             <div className="space-y-4 md:space-y-6">
@@ -235,11 +235,11 @@ export default function ProjectDetails() {
             {project.features && project.features.length > 0 && (
               <div className="space-y-4 md:space-y-6">
                 <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">Key Features</h2>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
                   {project.features.map((feature, index) => (
-                    <div key={index} className="flex items-start gap-3 rounded-2xl border border-slate-800 bg-[#0b0f19]/50 p-5 hover:border-indigo-500/30 transition-colors">
-                      <CheckCircle2 className="text-indigo-400 shrink-0 mt-0.5" size={20} />
-                      <p className="text-slate-300 text-sm leading-relaxed">{feature}</p>
+                    <div key={index} className="flex items-start gap-2.5 sm:gap-3 rounded-2xl border border-slate-800 bg-[#0b0f19]/50 p-4 sm:p-5 hover:border-indigo-500/30 transition-colors">
+                      <CheckCircle2 className="text-indigo-400 shrink-0 mt-0.5 w-4 h-4 sm:w-5 sm:h-5" />
+                      <p className="text-slate-300 text-xs sm:text-sm leading-relaxed break-words break-all">{feature}</p>
                     </div>
                   ))}
                 </div>
@@ -248,14 +248,14 @@ export default function ProjectDetails() {
 
             {/* Challenges & Learnings */}
             {(project.challenges?.length > 0 || project.learnings?.length > 0) && (
-              <div className="grid sm:grid-cols-2 gap-8 pt-8 border-t border-slate-800">
+              <div className="grid sm:grid-cols-2 gap-6 sm:gap-8 pt-6 sm:pt-8 border-t border-slate-800">
                 {project.challenges?.length > 0 && (
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-4">Challenges Overcome</h3>
-                    <ul className="space-y-3">
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Challenges Overcome</h3>
+                    <ul className="space-y-2 sm:space-y-3">
                       {project.challenges.map((challenge, i) => (
-                        <li key={i} className="flex gap-2 text-sm text-slate-300">
-                          <span className="text-rose-400 mt-1">•</span>
+                        <li key={i} className="flex gap-2 text-xs sm:text-sm text-slate-300">
+                          <span className="text-rose-400 mt-0.5 sm:mt-1">•</span>
                           {challenge}
                         </li>
                       ))}
@@ -264,11 +264,11 @@ export default function ProjectDetails() {
                 )}
                 {project.learnings?.length > 0 && (
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-4">What I Learned</h3>
-                    <ul className="space-y-3">
+                    <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">What I Learned</h3>
+                    <ul className="space-y-2 sm:space-y-3">
                       {project.learnings.map((learning, i) => (
-                        <li key={i} className="flex gap-2 text-sm text-slate-300">
-                          <span className="text-emerald-400 mt-1">•</span>
+                        <li key={i} className="flex gap-2 text-xs sm:text-sm text-slate-300">
+                          <span className="text-emerald-400 mt-0.5 sm:mt-1">•</span>
                           {learning}
                         </li>
                       ))}
@@ -293,19 +293,19 @@ export default function ProjectDetails() {
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-4">
-            <div className="sticky top-24 space-y-8">
+          <div className="lg:col-span-4 mt-4 md:mt-0 min-w-0 break-words">
+            <div className="sticky top-24 space-y-6 md:space-y-8">
               
               {/* Tech Stack Card */}
-              <div className="rounded-3xl border border-slate-800 bg-[#0b0f19]/80 p-6 shadow-xl backdrop-blur-sm">
-                <h3 className="text-sm font-bold text-slate-100 uppercase tracking-widest mb-6">
+              <div className="rounded-2xl sm:rounded-3xl border border-slate-800 bg-[#0b0f19]/80 p-5 sm:p-6 shadow-xl backdrop-blur-sm">
+                <h3 className="text-xs sm:text-sm font-bold text-slate-100 uppercase tracking-widest mb-4 sm:mb-6">
                   Technologies Used
                 </h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {project.technologies.map((tech, index) => (
                     <span
                       key={index}
-                      className="rounded-lg bg-slate-800/80 border border-slate-700 px-3 py-1.5 text-xs font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition-colors cursor-default"
+                      className="rounded-lg bg-slate-800/80 border border-slate-700 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] sm:text-xs font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition-colors cursor-default"
                     >
                       {tech}
                     </span>
@@ -315,14 +315,14 @@ export default function ProjectDetails() {
 
               {/* Next Steps / Future */}
               {project.futureImprovements?.length > 0 && (
-                <div className="rounded-3xl border border-slate-800 bg-indigo-500/5 p-6 border-l-4 border-l-indigo-500">
-                  <h3 className="text-sm font-bold text-indigo-400 uppercase tracking-widest mb-4">
+                <div className="rounded-2xl sm:rounded-3xl border border-slate-800 bg-indigo-500/5 p-5 sm:p-6 border-l-4 border-l-indigo-500">
+                  <h3 className="text-xs sm:text-sm font-bold text-indigo-400 uppercase tracking-widest mb-3 sm:mb-4">
                     Future Roadmap
                   </h3>
-                  <ul className="space-y-3">
+                  <ul className="space-y-2 sm:space-y-3">
                     {project.futureImprovements.map((improvement, i) => (
-                      <li key={i} className="flex gap-2 text-sm text-slate-300">
-                        <span className="text-indigo-500/50 mt-1">→</span>
+                      <li key={i} className="flex gap-2 text-xs sm:text-sm text-slate-300">
+                        <span className="text-indigo-500/50 mt-0.5 sm:mt-1">→</span>
                         {improvement}
                       </li>
                     ))}
