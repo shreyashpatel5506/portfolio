@@ -15,14 +15,17 @@ export default function Page() {
   const [imageFile, setImageFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
 
+  // Temporary input state for a single feature being typed
+  const [featureInput, setFeatureInput] = useState("");
+
   // Form State
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     githubLink: "",
     liveurl: "",
-    technologies: "", // Expected as comma-separated string in UI
-    features: "", // Expected as comma-separated string in UI
+    technologies: "", // Kept as comma-separated string
+    features: [], // CHANGED: Initialized as an array
     problemStatement: "",
     solution: "",
     architecture: "",
@@ -32,10 +35,10 @@ export default function Page() {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/projects"); // Adjust this route to match your backend if needed
+      const res = await fetch("/api/projects");
       if (res.ok) {
         const data = await res.json();
-        setProjects(data.projects || data); // Accounts for common nested responses
+        setProjects(data.projects || data);
       }
     } catch (error) {
       console.error("Failed fetching projects:", error);
@@ -59,19 +62,40 @@ export default function Page() {
     if (name === "video") setVideoFile(files[0]);
   };
 
+  // Feature Array Handlers
+  const handleAddFeature = (e) => {
+    e.preventDefault();
+    const trimmed = featureInput.trim();
+    if (trimmed && !formData.features.includes(trimmed)) {
+      setFormData({
+        ...formData,
+        features: [...formData.features, trimmed],
+      });
+      setFeatureInput(""); // Clear the input field
+    }
+  };
+
+  const handleRemoveFeature = (indexToRemove) => {
+    setFormData({
+      ...formData,
+      features: formData.features.filter((_, index) => index !== indexToRemove),
+    });
+  };
+
   // Open Modal for Creating a New Project
   const openAddModal = () => {
     setIsEditing(false);
     setCurrentProjectId(null);
     setImageFile(null);
     setVideoFile(null);
+    setFeatureInput("");
     setFormData({
       title: "",
       description: "",
       githubLink: "",
       liveurl: "",
       technologies: "",
-      features: "",
+      features: [], // Reset to empty array
       problemStatement: "",
       solution: "",
       architecture: "",
@@ -82,27 +106,29 @@ export default function Page() {
   // Open Modal and Populate Fields for Editing
   const openEditModal = (project) => {
     setIsEditing(true);
-    setCurrentProjectId(project._id || project.id); // fallback depending on database ID key
+    setCurrentProjectId(project._id || project.id);
     setImageFile(null);
     setVideoFile(null);
+    setFeatureInput("");
 
     setFormData({
       title: project.title || "",
       description: project.description || "",
       githubLink: project.githubLink || "",
       liveurl: project.liveurl || "",
-      // Convert arrays back to comma-separated strings for easy input editing
+      problemStatement: project.problemStatement || "",
+      solution: project.solution || "",
+      architecture: project.architecture || "",
       technologies: Array.isArray(project.technologies)
         ? project.technologies.join(", ")
         : "",
-      features: Array.isArray(project.features)
-        ? project.features.join(", ")
-        : "",
+      // CHANGED: Keep it as an array directly
+      features: Array.isArray(project.features) ? project.features : [],
     });
     setIsModalOpen(true);
   };
 
-  // Submit Handler (Switches between POST and PUT dynamically)
+  // Submit Handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -111,18 +137,19 @@ export default function Page() {
     data.append("description", formData.description);
     data.append("githubLink", formData.githubLink);
     data.append("liveurl", formData.liveurl);
+    data.append("problemStatement", formData.problemStatement);
+    data.append("solution", formData.solution);
+    data.append("architecture", formData.architecture);
 
-    // Parse comma-separated strings back into arrays
+    // Parse technologies (comma-separated still)
     const techArray = formData.technologies
       .split(",")
       .map((t) => t.trim())
       .filter(Boolean);
-    const featuresArray = formData.features
-      .split(",")
-      .map((f) => f.trim())
-      .filter(Boolean);
     data.append("technologies", JSON.stringify(techArray));
-    data.append("features", JSON.stringify(featuresArray));
+
+    // CHANGED: Append directly from our state array (no commas to break your sentences!)
+    data.append("features", JSON.stringify(formData.features));
 
     if (imageFile) data.append("image", imageFile);
     if (videoFile) data.append("video", videoFile);
@@ -146,7 +173,7 @@ export default function Page() {
             : "Project added successfully!",
         );
         setIsModalOpen(false);
-        fetchProjects(); // Refresh dashboard list instantly
+        fetchProjects();
       } else {
         alert(result.error || "Something went wrong.");
       }
@@ -157,7 +184,7 @@ export default function Page() {
   };
 
   const handleDelete = async (e, id) => {
-    e.stopPropagation(); // prevent modal opening
+    e.stopPropagation();
     if (confirm("Are you sure you want to delete this project?")) {
       try {
         const res = await fetch(`/api/projects/${id}`, { method: "DELETE" });
@@ -175,7 +202,6 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      {/* Main Dashboard Layout */}
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 pb-5 mb-8">
           <div>
@@ -194,7 +220,6 @@ export default function Page() {
           </button>
         </div>
 
-        {/* Projects Grid Display */}
         {loading ? (
           <div className="text-center py-12 font-medium text-gray-500">
             Loading projects...
@@ -221,7 +246,7 @@ export default function Page() {
                 </div>
                 <div className="bg-gray-50 px-5 py-3 border-t border-gray-100 flex justify-between items-center text-xs font-medium text-blue-600">
                   <span>Click to Edit / View details</span>
-                  <button 
+                  <button
                     onClick={(e) => handleDelete(e, project._id || project.id)}
                     className="text-red-500 hover:text-red-700 transition"
                   >
@@ -234,7 +259,6 @@ export default function Page() {
         )}
       </div>
 
-      {/* Unified Action Modal (Add/Edit Form) */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
           <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative">
@@ -320,48 +344,84 @@ export default function Page() {
                 />
               </div>
 
+              {/* REFACTORED FEATURES SECTION */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Key Features (Comma separated)
+                  Key Features
+                </label>
+                <div className="flex gap-2 mb-2">
+                  <input
+                    type="text"
+                    value={featureInput}
+                    onChange={(e) => setFeatureInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleAddFeature(e);
+                      }
+                    }}
+                    placeholder="Type a sentence feature and press Enter or click Add..."
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 text-sm"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleAddFeature}
+                    className="px-4 py-2 bg-gray-800 text-white rounded-md text-sm hover:bg-gray-700 transition"
+                  >
+                    Add
+                  </button>
+                </div>
+
+                {/* Visible list of currently added features */}
+                {formData.features.length > 0 && (
+                  <ul className="bg-gray-50 rounded-md p-3 border border-gray-200 divide-y divide-gray-200 max-h-40 overflow-y-auto">
+                    {formData.features.map((feature, idx) => (
+                      <li
+                        key={idx}
+                        className="flex justify-between items-start py-2 text-sm text-gray-700 gap-4"
+                      >
+                        <span className="break-words flex-1">{feature}</span>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveFeature(idx)}
+                          className="text-red-500 hover:text-red-700 font-medium text-xs pt-0.5"
+                        >
+                          Remove
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div className="space-y-3 pt-2">
+                <label className="block text-sm font-medium text-gray-700">
+                  Additional Meta Information
                 </label>
                 <input
                   type="text"
-                  name="features"
-                  value={formData.features}
+                  name="problemStatement"
+                  value={formData.problemStatement}
                   onChange={handleChange}
-                  placeholder="Auth, Stripe Dashboard"
+                  placeholder="Problem Statement"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
                 />
-                <label className="text-xs text-gray-400 mt-1 block">
-                  <input
-                    type="text"
-                    name="problemStatement"
-                    value={formData.problemStatement}
-                    onChange={handleChange}
-                    placeholder="Problem Statement"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
-                  />
-                </label>
-                <label className="text-xs text-gray-400 mt-1 block">
-                  <input
-                    type="text"
-                    name="solution"
-                    value={formData.solution}
-                    onChange={handleChange}
-                    placeholder="Solution"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
-                  />
-                </label>
-                <label className="text-xs text-gray-400 mt-1 block">
-                  <input
-                    type="text"
-                    name="architecture"
-                    value={formData.architecture}
-                    onChange={handleChange}
-                    placeholder="Architecture"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
-                  />
-                </label>
+                <input
+                  type="text"
+                  name="solution"
+                  value={formData.solution}
+                  onChange={handleChange}
+                  placeholder="Solution"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                />
+                <input
+                  type="text"
+                  name="architecture"
+                  value={formData.architecture}
+                  onChange={handleChange}
+                  placeholder="Architecture"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
