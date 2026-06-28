@@ -23,6 +23,9 @@ export default function Page() {
     liveurl: "",
     technologies: "", // Expected as comma-separated string in UI
     features: "", // Expected as comma-separated string in UI
+    problemStatement: "",
+    solution: "",
+    architecture: "",
   });
 
   // Fetch all projects on mount
@@ -69,6 +72,9 @@ export default function Page() {
       liveurl: "",
       technologies: "",
       features: "",
+      problemStatement: "",
+      solution: "",
+      architecture: "",
     });
     setIsModalOpen(true);
   };
@@ -304,6 +310,36 @@ export default function Page() {
                   placeholder="Auth, Stripe Dashboard"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
                 />
+                <label className="text-xs text-gray-400 mt-1 block">
+                  <input
+                    type="text"
+                    name="problemStatement"
+                    value={formData.problemStatement}
+                    onChange={handleChange}
+                    placeholder="Problem Statement"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                  />
+                </label>
+                <label className="text-xs text-gray-400 mt-1 block">
+                  <input
+                    type="text"
+                    name="solution"
+                    value={formData.solution}
+                    onChange={handleChange}
+                    placeholder="Solution"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                  />
+                </label>
+                <label className="text-xs text-gray-400 mt-1 block">
+                  <input
+                    type="text"
+                    name="architecture"
+                    value={formData.architecture}
+                    onChange={handleChange}
+                    placeholder="Architecture"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                  />
+                </label>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">

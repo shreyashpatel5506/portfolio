@@ -69,10 +69,6 @@ const ProjectCard = ({ project }) => {
           <h3 className="text-xl font-bold transition-colors group-hover:text-primary">
             {project.title}
           </h3>
-
-          <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-            {project.description}
-          </p>
         </div>
 
         {/* Technologies */}
@@ -86,9 +82,9 @@ const ProjectCard = ({ project }) => {
             </span>
           ))}
 
-          {project.technologies.length > 5 && (
+          {project.technologies.length > 3 && (
             <span className="rounded-md border border-border bg-secondary px-3 py-1 text-xs text-muted-foreground">
-              +{project.technologies.length - 5}
+              +{project.technologies.length - 3}
             </span>
           )}
         </div>
