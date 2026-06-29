@@ -24,6 +24,7 @@ export default function Page() {
     description: "",
     githubLink: "",
     liveurl: "",
+    category: "Full Stack",
     technologies: "", // Kept as comma-separated string
     features: [], // CHANGED: Initialized as an array
     problemStatement: "",
@@ -35,7 +36,7 @@ export default function Page() {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/projects");
+      const res = await fetch("/api/projects?limit=1000");
       if (res.ok) {
         const data = await res.json();
         setProjects(data.projects || data);
@@ -94,6 +95,7 @@ export default function Page() {
       description: "",
       githubLink: "",
       liveurl: "",
+      category: "Full Stack",
       technologies: "",
       features: [], // Reset to empty array
       problemStatement: "",
@@ -116,6 +118,7 @@ export default function Page() {
       description: project.description || "",
       githubLink: project.githubLink || "",
       liveurl: project.liveurl || "",
+      category: project.category || "Full Stack",
       problemStatement: project.problemStatement || "",
       solution: project.solution || "",
       architecture: project.architecture || "",
@@ -137,6 +140,7 @@ export default function Page() {
     data.append("description", formData.description);
     data.append("githubLink", formData.githubLink);
     data.append("liveurl", formData.liveurl);
+    data.append("category", formData.category);
     data.append("problemStatement", formData.problemStatement);
     data.append("solution", formData.solution);
     data.append("architecture", formData.architecture);
@@ -330,18 +334,39 @@ export default function Page() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Technologies (Comma separated)
-                </label>
-                <input
-                  type="text"
-                  name="technologies"
-                  value={formData.technologies}
-                  onChange={handleChange}
-                  placeholder="React, Node.js, Tailwind"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Category
+                  </label>
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 bg-white"
+                  >
+                    <option value="Full Stack">Full Stack</option>
+                    <option value="Frontend">Frontend</option>
+                    <option value="Backend">Backend</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Open Source">Open Source</option>
+                    <option value="Tool">Tool</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Technologies (Comma separated)
+                  </label>
+                  <input
+                    type="text"
+                    name="technologies"
+                    value={formData.technologies}
+                    onChange={handleChange}
+                    placeholder="React, Node.js, Tailwind"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                  />
+                </div>
               </div>
 
               {/* REFACTORED FEATURES SECTION */}
