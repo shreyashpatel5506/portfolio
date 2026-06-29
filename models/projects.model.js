@@ -20,7 +20,15 @@ const projectSchema = new mongoose.Schema(
     category: {
       type: String,
       default: "Full Stack",
-      enum: ["Full Stack", "Frontend", "Backend", "Mobile", "Open Source", "Tool", "Other"],
+      enum: [
+        "Full Stack",
+        "Frontend",
+        "Backend",
+        "Mobile",
+        "Open Source",
+        "Tool",
+        "Other",
+      ],
     },
     projectSection: {
       type: String,
@@ -101,21 +109,8 @@ const projectSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
-
-// Auto-generate slug from title before saving
-projectSchema.pre("save", function (next) {
-  if (this.isModified("title") && !this.slug) {
-    this.slug = this.title
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-")
-      .trim();
-  }
-  next();
-});
 
 const projects =
   mongoose.models.projects || mongoose.model("projects", projectSchema);
