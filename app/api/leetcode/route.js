@@ -11,12 +11,46 @@ export async function GET(req) {
         count
       }
       matchedUser(username: $username) {
-        contributions {
-          points
-        }
+        username
+        githubUrl
+        twitterUrl
+        linkedinUrl
         profile {
+          realName
+          websites
+          countryName
+          skillTags
+          company
+          school
+          starRating
+          aboutMe
+          userAvatar
           reputation
           ranking
+        }
+        languageProblemCount {
+          languageName
+          problemsSolved
+        }
+        tagProblemCounts {
+          advanced {
+            tagName
+            tagSlug
+            problemsSolved
+          }
+          intermediate {
+            tagName
+            tagSlug
+            problemsSolved
+          }
+          fundamental {
+            tagName
+            tagSlug
+            problemsSolved
+          }
+        }
+        contributions {
+          points
         }
         submissionCalendar
         submitStats {
@@ -116,7 +150,13 @@ export async function GET(req) {
       submissionCalendar: user?.submissionCalendar ? JSON.parse(user.submissionCalendar) : {},
       recentSubmissions: data.data.recentAcSubmissionList || [],
       badges: user?.badges || [],
-      contest: data.data.userContestRanking || null
+      contest: data.data.userContestRanking || null,
+      profile: user?.profile || {},
+      githubUrl: user?.githubUrl,
+      linkedinUrl: user?.linkedinUrl,
+      twitterUrl: user?.twitterUrl,
+      languageProblemCount: user?.languageProblemCount || [],
+      tagProblemCounts: user?.tagProblemCounts || { advanced: [], intermediate: [], fundamental: [] }
     });
   } catch (error) {
     console.error('LeetCode API Error:', error);
