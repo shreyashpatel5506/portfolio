@@ -72,6 +72,13 @@ export async function GET(req) {
           displayName
           icon
           creationDate
+          category
+          medal {
+            name
+            config {
+              icon
+            }
+          }
         }
       }
       recentAcSubmissionList(username: $username, limit: 15) {
@@ -86,6 +93,26 @@ export async function GET(req) {
         globalRanking
         totalParticipants
         topPercentage
+      }
+      userSolutionTopics(
+        username: $username
+        orderBy: newest_to_oldest
+        skip: 0
+        first: 15
+      ) {
+        edges {
+          node {
+            id
+            title
+            url
+            viewCount
+            questionTitle
+            post {
+              creationDate
+              voteCount
+            }
+          }
+        }
       }
     }
   `;
@@ -156,7 +183,8 @@ export async function GET(req) {
       linkedinUrl: user?.linkedinUrl,
       twitterUrl: user?.twitterUrl,
       languageProblemCount: user?.languageProblemCount || [],
-      tagProblemCounts: user?.tagProblemCounts || { advanced: [], intermediate: [], fundamental: [] }
+      tagProblemCounts: user?.tagProblemCounts || { advanced: [], intermediate: [], fundamental: [] },
+      solutions: data.data.userSolutionTopics?.edges?.map(edge => edge.node) || []
     });
   } catch (error) {
     console.error('LeetCode API Error:', error);
