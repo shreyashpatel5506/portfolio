@@ -16,7 +16,14 @@ export const metadata = {
   title: "Shreyash Patel — Full Stack Developer",
   description:
     "Portfolio of Shreyash Patel, a Full Stack Developer specializing in Next.js, React, Node.js, and MongoDB. Building scalable, production-ready web applications.",
-  keywords: ["Full Stack Developer", "Next.js", "React", "Node.js", "MongoDB", "Shreyash Patel"],
+  keywords: [
+    "Full Stack Developer",
+    "Next.js",
+    "React",
+    "Node.js",
+    "MongoDB",
+    "Shreyash Patel",
+  ],
   authors: [{ name: "Shreyash Patel" }],
   openGraph: {
     title: "Shreyash Patel — Full Stack Developer",
@@ -29,6 +36,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html
+      suppressHydrationWarning
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >

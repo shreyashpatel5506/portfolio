@@ -5,6 +5,9 @@ const certificateSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+  },
   issuer: {
     type: String,
     required: true,
@@ -28,5 +31,7 @@ const certificateSchema = new mongoose.Schema({
   },
 });
 
-const certificates = mongoose.model("certificates", certificateSchema);
+const certificates =
+  mongoose.models.certificates ||
+  mongoose.model("certificates", certificateSchema);
 export default certificates;

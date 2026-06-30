@@ -30,5 +30,6 @@ const experienceSchema = new mongoose.Schema(
   },
 );
 
-const experience = mongoose.model("experience", experienceSchema);
+const experience =
+  mongoose.models.experience || mongoose.model("experience", experienceSchema);
 export default experience;

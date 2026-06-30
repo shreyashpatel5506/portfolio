@@ -8,7 +8,9 @@ import path from "path";
 export async function GET() {
   try {
     await connectMongo();
-    const certificates = await Certificate.find({}).sort({ issueDate: -1 }).lean();
+    const certificates = await Certificate.find({})
+      .sort({ issueDate: -1 })
+      .lean();
     return Response.json({ certificates });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
@@ -23,6 +25,7 @@ export async function POST(req) {
     const formData = await req.formData();
 
     const title = formData.get("title");
+    const description = formData.get("description");
     const issuer = formData.get("issuer");
     const issueDate = formData.get("issueDate");
     const expirationDate = formData.get("expirationDate");
@@ -33,7 +36,7 @@ export async function POST(req) {
     if (!title || !issuer || !issueDate) {
       return Response.json(
         { error: "title, issuer, and issueDate are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -51,6 +54,7 @@ export async function POST(req) {
 
     const newCertificate = new Certificate({
       title,
+      description,
       issuer,
       issueDate: new Date(issueDate),
       expirationDate: expirationDate ? new Date(expirationDate) : undefined,
@@ -62,11 +66,18 @@ export async function POST(req) {
     await newCertificate.save();
 
     return Response.json(
-      { message: "Certificate added successfully", certificate: newCertificate },
-      { status: 201 }
+      {
+        message: "Certificate added successfully",
+        certificate: newCertificate,
+      },
+      { status: 201 },
     );
   } catch (error) {
-    if (tempImagePath && fs.existsSync(tempImagePath)) fs.unlinkSync(tempImagePath);
-    return Response.json({ error: error.message || "Failed to add certificate" }, { status: 500 });
+    if (tempImagePath && fs.existsSync(tempImagePath))
+      fs.unlinkSync(tempImagePath);
+    return Response.json(
+      { error: error || "Failed to add certificate" },
+      { status: 500 },
+    );
   }
 }
