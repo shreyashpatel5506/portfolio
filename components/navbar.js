@@ -56,7 +56,7 @@ export default function Navbar() {
         {/* Desktop Call to Actions */}
         <div className="hidden md:flex items-center gap-4">
           <a
-            href="/contact"
+            href="/#contact"
             className="px-4 py-2 text-sm font-medium border border-slate-800 rounded-md hover:bg-slate-900 transition-colors"
           >
             Contact
@@ -84,17 +84,15 @@ export default function Navbar() {
       {/* --- MOBILE DRAWERS --- */}
       {/* Backdrop Overlay */}
       <div
-        className={`fixed inset-0 bg-black/60 z-40 md:hidden transition-opacity duration-300 ${
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-black/60 z-40 md:hidden transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
         onClick={() => setIsOpen(false)}
       />
 
       {/* Sidebar Menu Panel (Right-to-Left Slide Integration) */}
       <div
-        className={`fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-[#0b0f19] border-l border-slate-900 p-6 z-40 md:hidden flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 bottom-0 w-3/4 max-w-sm bg-[#0b0f19] border-l border-slate-900 p-6 z-40 md:hidden flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         {/* Navigation links inside drawer */}
         <div className="pt-20 flex flex-col gap-6 text-lg font-medium text-slate-400">
@@ -125,7 +123,7 @@ export default function Navbar() {
         {/* Call to Actions inside drawer */}
         <div className="flex flex-col gap-3 mt-auto">
           <a
-            href="/contact"
+            href="/#contact"
             onClick={() => setIsOpen(false)}
             className="w-full py-3 text-center text-sm font-medium border border-slate-800 rounded-md text-slate-200"
           >
