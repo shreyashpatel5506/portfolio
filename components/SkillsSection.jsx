@@ -21,15 +21,22 @@ import {
   SiVercel,
   SiRender,
   SiRedux,
-  SiCss
+  SiCss,
+  SiJsonwebtokens,
+  SiSupabase,
+  SiC,
+  SiCloudinary
 } from "react-icons/si";
 
 import { VscVscode } from "react-icons/vsc";
 
-import { FaDatabase } from "react-icons/fa";
+import { FaDatabase, FaJava, FaPython } from "react-icons/fa";
 
 // Ensure all commonly requested icons are covered
 const iconMap = {
+  c: SiC,
+  java: FaJava,
+  python: FaPython,
   html: SiHtml5,
   html5: SiHtml5,
   css: SiCss,
@@ -37,15 +44,13 @@ const iconMap = {
   javascript: SiJavascript,
   typescript: SiTypescript,
   react: SiReact,
-  "next.js": SiNextdotjs,
   nextjs: SiNextdotjs,
   tailwindcss: SiTailwindcss,
   redux: SiRedux,
-  "node.js": SiNodedotjs,
   nodejs: SiNodedotjs,
-  express: SiExpress,
+  expressjs: SiExpress,
   mongodb: SiMongodb,
-  mysql: SiMysql,
+  sql: SiMysql,
   git: SiGit,
   github: SiGithub,
   docker: SiDocker,
@@ -53,8 +58,10 @@ const iconMap = {
   vercel: SiVercel,
   render: SiRender,
   vscode: VscVscode,
-  "vs code": VscVscode,
   database: FaDatabase,
+  jwt: SiJsonwebtokens,
+  cloudinary: SiCloudinary,
+  supabase: SiSupabase,
 };
 
 export default function SkillsSection() {
@@ -175,7 +182,7 @@ export default function SkillsSection() {
                       >
                         {/* Hover Gradient Background */}
                         <div className="absolute inset-0 rounded-xl bg-gradient-to-b from-indigo-500/0 to-indigo-500/0 group-hover:from-indigo-500/5 group-hover:to-purple-500/5 transition-all duration-300 pointer-events-none" />
-                        
+
                         {Icon ? (
                           <div className="text-slate-400 group-hover:text-indigo-400 transition-colors duration-300 drop-shadow-[0_0_10px_rgba(99,102,241,0)] group-hover:drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
                             <Icon size={18} className="transform group-hover:scale-110 transition-transform duration-300" />

@@ -210,14 +210,14 @@ export default function Page() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8  bg-[#030712] text-white">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 pb-5 mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center border-b border-white-200 pb-5 mb-8">
           <div>
-            <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+            <h1 className="text-3xl font-extrabold text-white-900 tracking-tight">
               Admin Dashboard
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-white-500 mt-1">
               Manage and update your live portfolio entries.
             </p>
           </div>
@@ -230,11 +230,11 @@ export default function Page() {
         </div>
 
         {loading ? (
-          <div className="text-center py-12 font-medium text-gray-500">
+          <div className="text-center py-12 font-medium text-white-500">
             Loading projects...
           </div>
         ) : projects.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-xl border border-dashed border-gray-300 text-gray-500">
+          <div className="text-center py-12 bg-white rounded-xl border border-dashed border-white-300 text-white-500">
             No projects found. Click "+ Add New Project" to create one.
           </div>
         ) : (
@@ -243,7 +243,7 @@ export default function Page() {
               <div
                 key={project._id || project.id}
                 onClick={() => openEditModal(project)}
-                className="group bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md hover:border-blue-300 cursor-pointer transition duration-200 flex flex-col justify-between"
+                className="group  bg-[#030712] text-white rounded-xl border border-white-200 shadow-sm overflow-hidden hover:shadow-md hover:border-blue-300 cursor-pointer transition duration-200 flex flex-col justify-between"
               >
                 <div className="p-5">
                   <div className="mb-2 flex items-center gap-2">
@@ -258,14 +258,14 @@ export default function Page() {
                       </span>
                     )}
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <h3 className="text-lg font-bold text-white-900 group-hover:text-blue-600 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-gray-600 line-clamp-3 mt-2">
+                  <p className="text-sm text-white-600 line-clamp-3 mt-2">
                     {project.description}
                   </p>
                 </div>
-                <div className="bg-gray-50 px-5 py-3 border-t border-gray-100 flex justify-between items-center text-xs font-medium text-blue-600">
+                <div className="bg-white-50 px-5 py-3 border-t border-white-100 flex justify-between items-center text-xs font-medium text-blue-600">
                   <span>Click to Edit / View details</span>
                   <button
                     onClick={(e) => handleDelete(e, project._id || project.id)}
@@ -281,15 +281,15 @@ export default function Page() {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
-          <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative">
+        <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center p-4 z-50 overflow-y-auto">
+          <div className=" bg-[#030712] text-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative">
             <div className="flex justify-between items-center border-b pb-4 mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">
+              <h2 className="text-2xl font-bold text-white-900">
                 {isEditing ? "Edit Project Details" : "Create New Project"}
               </h2>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-gray-400 hover:text-gray-600 text-2xl font-semibold leading-none"
+                className="text-white-400 hover:text-white-600 text-2xl font-semibold leading-none"
               >
                 &times;
               </button>
@@ -297,7 +297,7 @@ export default function Page() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-white-700 mb-1">
                   Project Title
                 </label>
                 <input
@@ -306,12 +306,12 @@ export default function Page() {
                   required
                   value={formData.title}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                  className="w-full px-3 py-2 border border-white-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-white-900"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-white-700 mb-1">
                   Description
                 </label>
                 <textarea
@@ -320,13 +320,13 @@ export default function Page() {
                   required
                   value={formData.description}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                  className="w-full px-3 py-2 border border-white-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-white-900"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-white-700 mb-1">
                     GitHub Link
                   </label>
                   <input
@@ -334,11 +334,11 @@ export default function Page() {
                     name="githubLink"
                     value={formData.githubLink}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                    className="w-full px-3 py-2 border border-white-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-white-900"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-white-700 mb-1">
                     Live URL
                   </label>
                   <input
@@ -346,21 +346,21 @@ export default function Page() {
                     name="liveurl"
                     value={formData.liveurl}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                    className="w-full px-3 py-2 border border-white-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-white-900"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-white-700 mb-1">
                     Category
                   </label>
                   <select
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 bg-white"
+                    className="w-full px-3 py-2 border border-white-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-white-900 bg-white"
                   >
                     <option value="Full Stack">Full Stack</option>
                     <option value="Frontend">Frontend</option>
@@ -372,7 +372,7 @@ export default function Page() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-white-700 mb-1">
                     Technologies (Comma separated)
                   </label>
                   <input
@@ -381,7 +381,7 @@ export default function Page() {
                     value={formData.technologies}
                     onChange={handleChange}
                     placeholder="React, Node.js, Tailwind"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                    className="w-full px-3 py-2 border border-white-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-white-900"
                   />
                 </div>
               </div>
@@ -393,16 +393,16 @@ export default function Page() {
                   name="featured"
                   checked={formData.featured}
                   onChange={handleChange}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-white-300 rounded"
                 />
-                <label htmlFor="featured-checkbox" className="ml-2 block text-sm font-medium text-gray-700">
+                <label htmlFor="featured-checkbox" className="ml-2 block text-sm font-medium text-white-700">
                   Mark as Featured Project
                 </label>
               </div>
 
               {/* REFACTORED FEATURES SECTION */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-white-700 mb-1">
                   Key Features
                 </label>
                 <div className="flex gap-2 mb-2">
@@ -417,12 +417,12 @@ export default function Page() {
                       }
                     }}
                     placeholder="Type a sentence feature and press Enter or click Add..."
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 text-sm"
+                    className="flex-1 px-3 py-2 border border-white-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-white-900 text-sm"
                   />
                   <button
                     type="button"
                     onClick={handleAddFeature}
-                    className="px-4 py-2 bg-gray-800 text-white rounded-md text-sm hover:bg-gray-700 transition"
+                    className="px-4 py-2 bg-white-800 text-white rounded-md text-sm hover:bg-white-700 transition"
                   >
                     Add
                   </button>
@@ -430,11 +430,11 @@ export default function Page() {
 
                 {/* Visible list of currently added features */}
                 {formData.features.length > 0 && (
-                  <ul className="bg-gray-50 rounded-md p-3 border border-gray-200 divide-y divide-gray-200 max-h-40 overflow-y-auto">
+                  <ul className="bg-white-50 rounded-md p-3 border border-white-200 divide-y divide-white-200 max-h-40 overflow-y-auto">
                     {formData.features.map((feature, idx) => (
                       <li
                         key={idx}
-                        className="flex justify-between items-start py-2 text-sm text-gray-700 gap-4"
+                        className="flex justify-between items-start py-2 text-sm text-white-700 gap-4"
                       >
                         <span className="break-words flex-1">{feature}</span>
                         <button
@@ -451,7 +451,7 @@ export default function Page() {
               </div>
 
               <div className="space-y-3 pt-2">
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-white-700">
                   Additional Meta Information
                 </label>
                 <input
@@ -460,7 +460,7 @@ export default function Page() {
                   value={formData.problemStatement}
                   onChange={handleChange}
                   placeholder="Problem Statement"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                  className="w-full px-3 py-2 border border-white-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-white-900"
                 />
                 <input
                   type="text"
@@ -468,7 +468,7 @@ export default function Page() {
                   value={formData.solution}
                   onChange={handleChange}
                   placeholder="Solution"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                  className="w-full px-3 py-2 border border-white-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-white-900"
                 />
                 <input
                   type="text"
@@ -476,13 +476,13 @@ export default function Page() {
                   value={formData.architecture}
                   onChange={handleChange}
                   placeholder="Architecture"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
+                  className="w-full px-3 py-2 border border-white-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-white-900"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-white-700 mb-1">
                     Replace Image
                   </label>
                   <input
@@ -490,11 +490,11 @@ export default function Page() {
                     name="image"
                     accept="image/*"
                     onChange={handleFileChange}
-                    className="w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:bg-blue-50 file:text-blue-700 cursor-pointer"
+                    className="w-full text-xs text-white-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:bg-blue-50 file:text-blue-700 cursor-pointer"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-white-700 mb-1">
                     Replace Video
                   </label>
                   <input
@@ -502,7 +502,7 @@ export default function Page() {
                     name="video"
                     accept="video/*"
                     onChange={handleFileChange}
-                    className="w-full text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:bg-blue-50 file:text-blue-700 cursor-pointer"
+                    className="w-full text-xs text-white-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:bg-blue-50 file:text-blue-700 cursor-pointer"
                   />
                 </div>
               </div>
@@ -511,7 +511,7 @@ export default function Page() {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition"
+                  className="px-4 py-2 text-sm font-medium text-white-700 bg-white-100 rounded-md hover:bg-white-200 transition"
                 >
                   Cancel
                 </button>

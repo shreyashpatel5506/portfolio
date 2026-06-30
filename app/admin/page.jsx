@@ -6,7 +6,7 @@ import { FolderGit2, Code2, Briefcase, Award, GitPullRequest, ArrowRight, Home }
 export default function AdminHub() {
   const adminModules = [
     { name: "Projects", path: "/admin/Project", icon: FolderGit2, desc: "Manage portfolio case studies" },
-    { name: "Skills", path: "/admin/Skill", icon: Code2, desc: "Manage tech stack categories" },
+    { name: "Skills", path: "/admin/skill", icon: Code2, desc: "Manage tech stack categories" },
     { name: "Experience", path: "/admin/experience", icon: Briefcase, desc: "Manage work history" },
     { name: "Certificates", path: "/admin/certificates", icon: Award, desc: "Manage credentials" },
     { name: "Open Source", path: "/admin/opensource", icon: GitPullRequest, desc: "Manage PRs and contributions" },
