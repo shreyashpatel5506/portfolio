@@ -64,8 +64,13 @@ const ProjectCard = ({ project }) => {
 
       {/* Content */}
       <div className="flex flex-1 flex-col space-y-4 p-5">
-        {/* Title */}
+        {/* Title and Category */}
         <div>
+          {project.category && (
+            <span className="mb-2 inline-block rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold tracking-wider text-primary uppercase">
+              {project.category}
+            </span>
+          )}
           <h3 className="text-xl font-bold transition-colors group-hover:text-primary">
             {project.title}
           </h3>

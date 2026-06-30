@@ -32,6 +32,12 @@ export async function PUT(req, { params }) {
     const description = formData.get("description");
     const githubLink = formData.get("githubLink");
     const liveurl = formData.get("liveurl");
+    const category = formData.get("category");
+    const projectSection = formData.get("projectSection");
+    const featured = formData.get("featured") ? formData.get("featured") === "true" : undefined;
+    const problemStatement = formData.get("problemStatement");
+    const solution = formData.get("solution");
+    const architecture = formData.get("architecture");
 
     // 2. Updated Parse Array Logic (Capsule system ke liye optimized)
     const parseArrayInput = (fieldData) => {
@@ -47,6 +53,9 @@ export async function PUT(req, { params }) {
 
     const technologies = parseArrayInput(formData.get("technologies"));
     const features = parseArrayInput(formData.get("features"));
+    const challenges = formData.has("challenges") ? parseArrayInput(formData.get("challenges")) : undefined;
+    const learnings = formData.has("learnings") ? parseArrayInput(formData.get("learnings")) : undefined;
+    const futureImprovements = formData.has("futureImprovements") ? parseArrayInput(formData.get("futureImprovements")) : undefined;
 
     // Existing project ko check karein taaki purane media URLs mil sakein
     const existingProject = await projects.findById(id);
@@ -65,6 +74,16 @@ export async function PUT(req, { params }) {
       liveurl,
       features,
     };
+
+    if (category !== null && category !== undefined) updateData.category = category;
+    if (projectSection !== null && projectSection !== undefined) updateData.projectSection = projectSection;
+    if (featured !== undefined) updateData.featured = featured;
+    if (problemStatement !== null && problemStatement !== undefined) updateData.problemStatement = problemStatement;
+    if (solution !== null && solution !== undefined) updateData.solution = solution;
+    if (architecture !== null && architecture !== undefined) updateData.architecture = architecture;
+    if (challenges !== undefined) updateData.challenges = challenges;
+    if (learnings !== undefined) updateData.learnings = learnings;
+    if (futureImprovements !== undefined) updateData.futureImprovements = futureImprovements;
 
     // Helper: File object ko local temporary file mein convert karne ke liye
     const saveToTemp = async (file) => {

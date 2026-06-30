@@ -55,7 +55,7 @@ export default function CertificatesPage() {
 
   return (
     <div className="bg-[#030712] min-h-screen text-slate-200 w-full pt-10 pb-20">
-      <AnimatedSection>
+      <AnimatedSection showGrid={true}>
         <div className="mb-16 text-center max-w-3xl mx-auto px-4">
           <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest bg-violet-500/10 border border-violet-500/20 text-violet-400 font-mono mb-4">
             Credentials

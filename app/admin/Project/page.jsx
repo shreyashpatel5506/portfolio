@@ -30,6 +30,7 @@ export default function Page() {
     problemStatement: "",
     solution: "",
     architecture: "",
+    featured: false,
   });
 
   // Fetch all projects on mount
@@ -54,7 +55,8 @@ export default function Page() {
 
   // Form Input Handlers
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
   };
 
   const handleFileChange = (e) => {
@@ -101,6 +103,7 @@ export default function Page() {
       problemStatement: "",
       solution: "",
       architecture: "",
+      featured: false,
     });
     setIsModalOpen(true);
   };
@@ -122,6 +125,7 @@ export default function Page() {
       problemStatement: project.problemStatement || "",
       solution: project.solution || "",
       architecture: project.architecture || "",
+      featured: project.featured || false,
       technologies: Array.isArray(project.technologies)
         ? project.technologies.join(", ")
         : "",
@@ -144,6 +148,7 @@ export default function Page() {
     data.append("problemStatement", formData.problemStatement);
     data.append("solution", formData.solution);
     data.append("architecture", formData.architecture);
+    data.append("featured", formData.featured);
 
     // Parse technologies (comma-separated still)
     const techArray = formData.technologies
@@ -241,6 +246,18 @@ export default function Page() {
                 className="group bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md hover:border-blue-300 cursor-pointer transition duration-200 flex flex-col justify-between"
               >
                 <div className="p-5">
+                  <div className="mb-2 flex items-center gap-2">
+                    {project.category && (
+                      <span className="inline-block rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-semibold text-blue-800">
+                        {project.category}
+                      </span>
+                    )}
+                    {project.featured && (
+                      <span className="inline-block rounded-full bg-yellow-100 px-2 py-0.5 text-[10px] font-semibold text-yellow-800">
+                        Featured
+                      </span>
+                    )}
+                  </div>
                   <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                     {project.title}
                   </h3>
@@ -367,6 +384,20 @@ export default function Page() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none text-gray-900"
                   />
                 </div>
+              </div>
+
+              <div className="flex items-center">
+                <input
+                  id="featured-checkbox"
+                  type="checkbox"
+                  name="featured"
+                  checked={formData.featured}
+                  onChange={handleChange}
+                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                />
+                <label htmlFor="featured-checkbox" className="ml-2 block text-sm font-medium text-gray-700">
+                  Mark as Featured Project
+                </label>
               </div>
 
               {/* REFACTORED FEATURES SECTION */}

@@ -9,7 +9,7 @@ export default function GitHubPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   // Default to env or fallback
-  const username = process.env.NEXT_PUBLIC_GITHUB_USERNAME || "shreyashpatel5506"; 
+  const username = process.env.NEXT_PUBLIC_GITHUB_USERNAME || "shreyashpatel5506";
 
   useEffect(() => {
     const fetchGitHubData = async () => {
@@ -47,7 +47,7 @@ export default function GitHubPage() {
 
   return (
     <div className="bg-[#030712] min-h-screen text-slate-200 w-full pt-10 pb-20">
-      <AnimatedSection>
+      <AnimatedSection showGrid={true}>
         <div className="mb-10 md:mb-16 max-w-4xl mx-auto text-center px-4">
           <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest bg-blue-500/10 border border-blue-500/20 text-blue-400 font-mono mb-3 md:mb-4">
             Open Source
@@ -66,7 +66,7 @@ export default function GitHubPage() {
           </div>
         ) : data ? (
           <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
-            
+
             {/* Profile Overview */}
             <div className="flex flex-col md:flex-row items-center justify-between p-6 md:p-8 rounded-3xl border border-slate-800 bg-gradient-to-r from-[#0b0f19] to-[#030712] shadow-xl text-center md:text-left">
               <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 mb-6 md:mb-0">
@@ -107,7 +107,7 @@ export default function GitHubPage() {
                   <div className="text-[10px] sm:text-sm font-medium text-slate-500 mt-1">Public Repositories</div>
                 </div>
               </div>
-              
+
               <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-800 bg-[#0b0f19] flex flex-col gap-2 sm:gap-3 hover:border-amber-500/30 transition-colors group">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
                   <Star size={20} className="sm:w-6 sm:h-6" />
@@ -117,7 +117,7 @@ export default function GitHubPage() {
                   <div className="text-[10px] sm:text-sm font-medium text-slate-500 mt-1">Total Stars Earned</div>
                 </div>
               </div>
-              
+
               <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-800 bg-[#0b0f19] flex flex-col gap-2 sm:gap-3 hover:border-blue-500/30 transition-colors group">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
                   <Users size={20} className="sm:w-6 sm:h-6" />
@@ -127,7 +127,7 @@ export default function GitHubPage() {
                   <div className="text-[10px] sm:text-sm font-medium text-slate-500 mt-1">Followers</div>
                 </div>
               </div>
-              
+
               <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-800 bg-[#0b0f19] flex flex-col gap-2 sm:gap-3 hover:border-emerald-500/30 transition-colors group">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
                   <GitCommit size={20} className="sm:w-6 sm:h-6" />
@@ -142,20 +142,20 @@ export default function GitHubPage() {
 
             {/* Layout for Languages and Repos */}
             <div className="grid lg:grid-cols-3 gap-8">
-              
+
               {/* Top Languages */}
               <div className="lg:col-span-1 space-y-4 sm:space-y-6">
                 <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-slate-800 bg-[#0b0f19]">
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6 flex items-center gap-2">
                     <Terminal size={18} className="text-blue-500 sm:w-5 sm:h-5" /> Top Languages
                   </h3>
-                  
+
                   {data.topLanguages.length > 0 ? (
                     <div className="space-y-4 sm:space-y-5">
                       {data.topLanguages.map((lang, index) => {
                         const totalCount = data.topLanguages.reduce((acc, curr) => acc + curr.count, 0);
                         const percentage = ((lang.count / totalCount) * 100).toFixed(1);
-                        
+
                         return (
                           <div key={index} className="space-y-1.5 sm:space-y-2">
                             <div className="flex justify-between text-xs sm:text-sm">
@@ -163,8 +163,8 @@ export default function GitHubPage() {
                               <span className="text-slate-500">{percentage}%</span>
                             </div>
                             <div className="w-full bg-slate-900 rounded-full h-1.5 sm:h-2">
-                              <div 
-                                className={`h-1.5 sm:h-2 rounded-full ${getLanguageColor(lang.name)}`} 
+                              <div
+                                className={`h-1.5 sm:h-2 rounded-full ${getLanguageColor(lang.name)}`}
                                 style={{ width: `${percentage}%` }}
                               ></div>
                             </div>
@@ -176,15 +176,15 @@ export default function GitHubPage() {
                     <p className="text-slate-500 text-sm">No language data available.</p>
                   )}
                 </div>
-                
+
                 {/* GitHub Contribution Graph Image (Fallback to a generated image or external service if desired) */}
                 <div className="hidden sm:flex p-6 rounded-3xl border border-slate-800 bg-[#0b0f19] flex-col items-center justify-center text-center">
-                   <h3 className="text-xs sm:text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">Contributions</h3>
-                   <img 
-                      src={`https://ghchart.rshah.org/3b82f6/${username}`} 
-                      alt="GitHub Contribution Chart" 
-                      className="w-full opacity-80 mix-blend-screen hover:opacity-100 transition-opacity"
-                   />
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-400 mb-4 uppercase tracking-widest">Contributions</h3>
+                  <img
+                    src={`https://ghchart.rshah.org/3b82f6/${username}`}
+                    alt="GitHub Contribution Chart"
+                    className="w-full opacity-80 mix-blend-screen hover:opacity-100 transition-opacity"
+                  />
                 </div>
               </div>
 
@@ -202,10 +202,10 @@ export default function GitHubPage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   {data.recentRepos.length > 0 ? (
                     data.recentRepos.map((repo) => (
-                      <a 
-                        key={repo.id} 
-                        href={repo.html_url} 
-                        target="_blank" 
+                      <a
+                        key={repo.id}
+                        href={repo.html_url}
+                        target="_blank"
                         rel="noreferrer"
                         className="flex flex-col p-6 rounded-2xl border border-slate-800 bg-[#0b0f19] hover:border-slate-600 transition-all hover:-translate-y-1 group shadow-lg"
                       >
@@ -237,7 +237,7 @@ export default function GitHubPage() {
                 </div>
               </div>
             </div>
-            
+
           </div>
         ) : (
           <div className="p-12 border border-slate-800 rounded-3xl bg-[#0b0f19] text-center max-w-2xl mx-auto">

@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import GridBackground from "@/components/ui/GridBackground";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import {
   MapPin,
@@ -78,7 +79,7 @@ export default function DSAPage() {
             <div key={cIndex} className="flex flex-col gap-1">
               {Array.from({ length: rows }).map((_, rIndex) => {
                 const rand = Math.random();
-                let bgClass = "bg-[#3e3e3e]";
+                let bgClass = "bg-slate-700";
                 if (rand > 0.95) bgClass = "bg-[#39d353]";
                 else if (rand > 0.85) bgClass = "bg-[#26a641]";
                 else if (rand > 0.75) bgClass = "bg-[#006d32]";
@@ -114,7 +115,8 @@ export default function DSAPage() {
 
   if (loading) {
     return (
-      <div className="bg-[#1a1a1a] min-h-screen flex justify-center items-center">
+      <div className="bg-transparent min-h-screen relative flex justify-center items-center">
+        <GridBackground />
         <div className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
@@ -122,7 +124,7 @@ export default function DSAPage() {
 
   if (!stats) {
     return (
-      <div className="bg-[#1a1a1a] min-h-screen flex justify-center items-center text-white">
+      <div className="bg-transparent min-h-screen relative flex justify-center items-center text-white">
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">Profile Unavailable</h2>
           <p className="text-gray-400 mb-6">Could not load LeetCode data.</p>
@@ -148,13 +150,14 @@ export default function DSAPage() {
   }, {});
 
   return (
-    <div className="bg-[#1a1a1a] min-h-screen text-[#eff2f6] w-full font-sans">
-      <AnimatedSection>
+    <div className="bg-transparent min-h-screen relative text-[#eff2f6] w-full font-sans">
+
+      <AnimatedSection showGrid={true}>
         <div className="max-w-[1200px] mx-auto px-4 flex flex-col lg:flex-row gap-6">
           {/* Left Column */}
           <div className="w-full lg:w-[300px] flex flex-col gap-4">
             {/* Profile Info */}
-            <div className="bg-[#282828] rounded-xl p-4 shadow-sm">
+            <div className="bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-xl p-4 shadow-sm">
               <div className="flex gap-4 items-center">
                 <img
                   src={
@@ -256,7 +259,7 @@ export default function DSAPage() {
                     {stats.profile.skillTags.map((tag, i) => (
                       <span
                         key={i}
-                        className="px-2.5 py-1 bg-[#3e3e3e] text-[#eff2f6] text-xs rounded-full"
+                        className="px-2.5 py-1 bg-slate-700 text-[#eff2f6] text-xs rounded-full"
                       >
                         {tag}
                       </span>
@@ -266,7 +269,7 @@ export default function DSAPage() {
             </div>
 
             {/* Community Stats */}
-            <div className="bg-[#282828] rounded-xl p-4 shadow-sm">
+            <div className="bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-xl p-4 shadow-sm">
               <h2 className="text-[#eff2f6] font-semibold mb-4 text-sm">
                 Community Stats
               </h2>
@@ -299,14 +302,14 @@ export default function DSAPage() {
             </div>
 
             {/* Languages */}
-            <div className="bg-[#282828] rounded-xl p-4 shadow-sm">
+            <div className="bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-xl p-4 shadow-sm">
               <h2 className="text-[#eff2f6] font-semibold mb-4 text-sm">
                 Languages
               </h2>
               <div className="space-y-3 text-sm">
                 {stats.languageProblemCount?.slice(0, 3).map((lang, i) => (
                   <div key={i} className="flex justify-between items-center">
-                    <span className="bg-[#3e3e3e] px-2.5 py-1 rounded-full text-xs text-[#eff2f6]">
+                    <span className="bg-slate-700 px-2.5 py-1 rounded-full text-xs text-[#eff2f6]">
                       {lang.languageName}
                     </span>
                     <span className="text-gray-400">
@@ -321,7 +324,7 @@ export default function DSAPage() {
             </div>
 
             {/* Skills */}
-            <div className="bg-[#282828] rounded-xl p-4 shadow-sm">
+            <div className="bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-xl p-4 shadow-sm">
               <h2 className="text-[#eff2f6] font-semibold mb-4 text-sm">
                 Skills
               </h2>
@@ -335,7 +338,7 @@ export default function DSAPage() {
                   {stats.tagProblemCounts?.advanced?.slice(0, 3).map((tag) => (
                     <span
                       key={tag.tagName}
-                      className="px-2.5 py-1 bg-[#3e3e3e] text-[#eff2f6] text-xs rounded-full"
+                      className="px-2.5 py-1 bg-slate-700 text-[#eff2f6] text-xs rounded-full"
                     >
                       {tag.tagName}{" "}
                       <span className="text-gray-400 ml-1">
@@ -357,7 +360,7 @@ export default function DSAPage() {
                     .map((tag) => (
                       <span
                         key={tag.tagName}
-                        className="px-2.5 py-1 bg-[#3e3e3e] text-[#eff2f6] text-xs rounded-full"
+                        className="px-2.5 py-1 bg-slate-700 text-[#eff2f6] text-xs rounded-full"
                       >
                         {tag.tagName}{" "}
                         <span className="text-gray-400 ml-1">
@@ -379,7 +382,7 @@ export default function DSAPage() {
                     .map((tag) => (
                       <span
                         key={tag.tagName}
-                        className="px-2.5 py-1 bg-[#3e3e3e] text-[#eff2f6] text-xs rounded-full"
+                        className="px-2.5 py-1 bg-slate-700 text-[#eff2f6] text-xs rounded-full"
                       >
                         {tag.tagName}{" "}
                         <span className="text-gray-400 ml-1">
@@ -395,7 +398,7 @@ export default function DSAPage() {
           {/* Right Column */}
           <div className="flex-1 flex flex-col gap-4 w-full">
             {/* Top Section */}
-            <div className="bg-[#282828] rounded-xl p-4 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between relative overflow-hidden">
+            <div className="bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-xl p-4 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between relative overflow-hidden">
               <div className="flex gap-8 z-10 relative">
                 <div>
                   <div className="text-gray-400 text-xs mb-1">
@@ -446,7 +449,7 @@ export default function DSAPage() {
             {/* Middle Row Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Solved Stats Card */}
-              <div className="bg-[#282828] rounded-xl p-6 shadow-sm flex items-center justify-between sm:justify-evenly gap-4">
+              <div className="bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-xl p-6 shadow-sm flex items-center justify-between sm:justify-evenly gap-4">
                 <div className="relative w-32 h-32 flex-shrink-0">
                   <svg
                     viewBox="0 0 100 100"
@@ -506,7 +509,7 @@ export default function DSAPage() {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <div className="bg-[#3e3e3e]/40 rounded-lg px-4 py-2 w-full max-w-[120px]">
+                  <div className="bg-slate-700/40 rounded-lg px-4 py-2 w-full max-w-[120px]">
                     <div className="text-[#00b8a3] text-xs font-medium mb-0.5">
                       Easy
                     </div>
@@ -517,7 +520,7 @@ export default function DSAPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="bg-[#3e3e3e]/40 rounded-lg px-4 py-2 w-full max-w-[120px]">
+                  <div className="bg-slate-700/40 rounded-lg px-4 py-2 w-full max-w-[120px]">
                     <div className="text-[#ffc01e] text-xs font-medium mb-0.5">
                       Med.
                     </div>
@@ -528,7 +531,7 @@ export default function DSAPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="bg-[#3e3e3e]/40 rounded-lg px-4 py-2 w-full max-w-[120px]">
+                  <div className="bg-slate-700/40 rounded-lg px-4 py-2 w-full max-w-[120px]">
                     <div className="text-[#ef4743] text-xs font-medium mb-0.5">
                       Hard
                     </div>
@@ -544,7 +547,7 @@ export default function DSAPage() {
 
               {/* Badges Card */}
               <div
-                className="bg-[#282828] rounded-xl p-6 shadow-sm relative overflow-hidden flex flex-col cursor-pointer hover:bg-[#2c2c2c] transition-colors"
+                className="bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-xl p-6 shadow-sm relative overflow-hidden flex flex-col cursor-pointer hover:bg-slate-800/90 transition-colors"
                 onClick={() => setShowBadgeModal(true)}
               >
                 <div className="flex justify-between items-start mb-6">
@@ -589,7 +592,7 @@ export default function DSAPage() {
             </div>
 
             {/* Heatmap Card */}
-            <div className="bg-[#282828] rounded-xl p-6 shadow-sm">
+            <div className="bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-xl p-6 shadow-sm">
               <div className="text-gray-400 text-sm mb-6 flex items-center">
                 <span className="text-[#eff2f6] font-semibold mr-1">454</span>{" "}
                 submissions in the past one year
@@ -607,46 +610,42 @@ export default function DSAPage() {
             </div>
 
             {/* Submissions & Solutions List */}
-            <div className="bg-[#282828] rounded-xl shadow-sm overflow-hidden flex flex-col">
+            <div className="bg-slate-800/80 backdrop-blur-md border border-slate-700/50 rounded-xl shadow-sm overflow-hidden flex flex-col">
               {/* Tabs */}
-              <div className="flex gap-2 p-2 bg-[#2c2c2c] border-b border-[#3e3e3e] overflow-x-auto custom-scrollbar">
+              <div className="flex gap-2 p-2 bg-slate-800/90 border-b border-slate-700 overflow-x-auto custom-scrollbar">
                 <button
                   onClick={() => setActiveTab("recent")}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm rounded-md font-medium whitespace-nowrap transition-colors ${
-                    activeTab === "recent"
-                      ? "text-[#eff2f6] bg-[#3e3e3e]"
-                      : "text-gray-400 hover:bg-[#3e3e3e]/50 hover:text-[#eff2f6]"
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm rounded-md font-medium whitespace-nowrap transition-colors ${activeTab === "recent"
+                    ? "text-[#eff2f6] bg-slate-700"
+                    : "text-gray-400 hover:bg-slate-700/50 hover:text-[#eff2f6]"
+                    }`}
                 >
                   <Activity size={16} /> Recent AC
                 </button>
                 <button
                   onClick={() => setActiveTab("list")}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm rounded-md font-medium whitespace-nowrap transition-colors ${
-                    activeTab === "list"
-                      ? "text-[#eff2f6] bg-[#3e3e3e]"
-                      : "text-gray-400 hover:bg-[#3e3e3e]/50 hover:text-[#eff2f6]"
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm rounded-md font-medium whitespace-nowrap transition-colors ${activeTab === "list"
+                    ? "text-[#eff2f6] bg-slate-700"
+                    : "text-gray-400 hover:bg-slate-700/50 hover:text-[#eff2f6]"
+                    }`}
                 >
                   <List size={16} /> List
                 </button>
                 <button
                   onClick={() => setActiveTab("solutions")}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm rounded-md font-medium whitespace-nowrap transition-colors ${
-                    activeTab === "solutions"
-                      ? "text-[#eff2f6] bg-[#3e3e3e]"
-                      : "text-gray-400 hover:bg-[#3e3e3e]/50 hover:text-[#eff2f6]"
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm rounded-md font-medium whitespace-nowrap transition-colors ${activeTab === "solutions"
+                    ? "text-[#eff2f6] bg-slate-700"
+                    : "text-gray-400 hover:bg-slate-700/50 hover:text-[#eff2f6]"
+                    }`}
                 >
                   <FileCheck2 size={16} /> Solutions
                 </button>
                 <button
                   onClick={() => setActiveTab("discuss")}
-                  className={`flex items-center gap-2 px-4 py-2 text-sm rounded-md font-medium whitespace-nowrap transition-colors ${
-                    activeTab === "discuss"
-                      ? "text-[#eff2f6] bg-[#3e3e3e]"
-                      : "text-gray-400 hover:bg-[#3e3e3e]/50 hover:text-[#eff2f6]"
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 text-sm rounded-md font-medium whitespace-nowrap transition-colors ${activeTab === "discuss"
+                    ? "text-[#eff2f6] bg-slate-700"
+                    : "text-gray-400 hover:bg-slate-700/50 hover:text-[#eff2f6]"
+                    }`}
                 >
                   <MessageCircle size={16} /> Discuss
                 </button>
@@ -685,7 +684,7 @@ export default function DSAPage() {
                         href={`https://leetcode.com/problems/${sub.titleSlug}/`}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center justify-between p-4 border-b border-[#3e3e3e]/50 last:border-0 hover:bg-[#3e3e3e]/30 transition-colors group"
+                        className="flex items-center justify-between p-4 border-b border-slate-700/50 last:border-0 hover:bg-slate-700/30 transition-colors group"
                       >
                         <span className="text-[#eff2f6] font-medium text-sm group-hover:text-blue-400 transition-colors">
                           {sub.title}
@@ -709,7 +708,7 @@ export default function DSAPage() {
                         href={`https://leetcode.com${sol.url}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center justify-between p-4 border-b border-[#3e3e3e]/50 last:border-0 hover:bg-[#3e3e3e]/30 transition-colors group"
+                        className="flex items-center justify-between p-4 border-b border-slate-700/50 last:border-0 hover:bg-slate-700/30 transition-colors group"
                       >
                         <span className="text-[#eff2f6] font-medium text-sm group-hover:text-blue-400 transition-colors">
                           <span className="font-semibold">
@@ -756,8 +755,8 @@ export default function DSAPage() {
       {/* Badge Modal */}
       {showBadgeModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
-          <div className="bg-[#282828] border border-[#3e3e3e] w-full max-w-2xl rounded-xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
-            <div className="flex justify-between items-center p-5 border-b border-[#3e3e3e]">
+          <div className="bg-slate-800/80 backdrop-blur-md border border-slate-700/50 border border-slate-700 w-full max-w-2xl rounded-xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden">
+            <div className="flex justify-between items-center p-5 border-b border-slate-700">
               <h2 className="text-[#eff2f6] text-xl font-bold">Badge List</h2>
               <button
                 onClick={() => setShowBadgeModal(false)}
