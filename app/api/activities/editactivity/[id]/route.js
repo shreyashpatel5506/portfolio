@@ -10,7 +10,7 @@ export async function PUT(req, { params }) {
 
   try {
     await connectMongo();
-    const { id } = params;
+    const { id } = await params;
     const formData = await req.formData();
 
     const title = formData.get("title");
