@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { FolderGit2, Code2, Briefcase, Award, GitPullRequest, ArrowRight, Home } from "lucide-react";
+import { FolderGit2, Code2, Briefcase, Award, GitPullRequest, ArrowRight, Home, Activity } from "lucide-react";
 
 export default function AdminHub() {
   const adminModules = [
@@ -10,6 +10,7 @@ export default function AdminHub() {
     { name: "Experience", path: "/admin/experience", icon: Briefcase, desc: "Manage work history" },
     { name: "Certificates", path: "/admin/certificates", icon: Award, desc: "Manage credentials" },
     { name: "Open Source", path: "/admin/opensource", icon: GitPullRequest, desc: "Manage PRs and contributions" },
+    { name: "Extra Activities", path: "/admin/activity", icon: Activity, desc: "Manage posts, ideas, and talks" },
   ];
 
   return (

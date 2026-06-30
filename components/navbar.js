@@ -51,6 +51,9 @@ export default function Navbar() {
           <a href="/github" className="hover:text-slate-200 transition-colors">
             GitHub
           </a>
+          <a href="/activities" className="hover:text-slate-200 transition-colors">
+            Activities
+          </a>
         </nav>
 
         {/* Desktop Call to Actions */}
@@ -117,6 +120,9 @@ export default function Navbar() {
           </a>
           <a href="/github" onClick={() => setIsOpen(false)}>
             GitHub
+          </a>
+          <a href="/activities" onClick={() => setIsOpen(false)}>
+            Activities
           </a>
         </div>
 
