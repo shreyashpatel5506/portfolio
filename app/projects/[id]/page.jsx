@@ -116,16 +116,32 @@ export default function ProjectDetails() {
           </div>
         </div>
 
-        {/* Hero Image */}
-        <div className="mt-10 md:mt-16 relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-800 shadow-2xl">
-          <Image
-            src={project.image}
-            fill
-            alt={project.title}
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-60"></div>
+        {/* Hero Section (Video or Image) */}
+        <div className="mt-10 md:mt-16 relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl sm:rounded-3xl border border-slate-800 shadow-2xl bg-black">
+          {project.video ? (
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              controls 
+              className="w-full h-full object-cover outline-none" 
+              poster={project.image}
+            >
+              <source src={project.video} />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <>
+              <Image
+                src={project.image}
+                fill
+                alt={project.title}
+                className="object-cover"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-60"></div>
+            </>
+          )}
         </div>
 
         {/* Content Layout */}
@@ -278,15 +294,17 @@ export default function ProjectDetails() {
               </div>
             )}
 
-            {/* Video Demo */}
-            {project.video && (
+            {/* Main Image View (shown here if Video is at the top) */}
+            {project.video && project.image && (
               <div className="space-y-4 md:space-y-6 pt-6 md:pt-8 border-t border-slate-800">
-                <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">Video Walkthrough</h2>
-                <div className="rounded-2xl overflow-hidden border border-slate-800 bg-black">
-                  <video controls className="w-full aspect-video outline-none" poster={project.image}>
-                    <source src={project.video} />
-                    Your browser does not support the video tag.
-                  </video>
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 md:mb-6">Project Image</h2>
+                <div className="relative aspect-video rounded-2xl overflow-hidden border border-slate-800 bg-slate-900">
+                  <Image 
+                    src={project.image} 
+                    fill 
+                    alt={`${project.title} Main Image`} 
+                    className="object-cover" 
+                  />
                 </div>
               </div>
             )}
