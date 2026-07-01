@@ -106,7 +106,7 @@ export default function Navbar() {
           >
             About
           </a>
-          <a href="/projects" onClick={() => setIsOpen(false)}>
+          <a href="/Projects" onClick={() => setIsOpen(false)}>
             Projects
           </a>
           <a href="/DSA" onClick={() => setIsOpen(false)}>
