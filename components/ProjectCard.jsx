@@ -27,7 +27,7 @@ const ProjectCard = ({ project }) => {
 
   return (
     <article
-      onClick={() => router.push(`/Projects/${project._id}`)}
+      onClick={() => router.push(`/projects/${project._id}`)}
       className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_0_40px_rgba(99,102,241,0.15)]"
     >
       {/* Image */}

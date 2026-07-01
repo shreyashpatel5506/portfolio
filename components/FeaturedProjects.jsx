@@ -35,7 +35,7 @@ export default function FeaturedProjects() {
           badge="Portfolio"
         />
         <Link 
-          href="/Projects" 
+          href="/projects" 
           className="hidden lg:flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-medium pb-16 transition-colors"
         >
           View all projects <ArrowRight size={18} />
@@ -54,7 +54,7 @@ export default function FeaturedProjects() {
 
       <div className="mt-12 flex justify-center lg:hidden">
         <Link 
-          href="/Projects" 
+          href="/projects" 
           className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-medium transition-colors border border-indigo-500/30 px-6 py-3 rounded-xl bg-indigo-500/10"
         >
           View all projects <ArrowRight size={18} />

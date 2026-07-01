@@ -28,12 +28,12 @@ export default function Navbar() {
             About
           </a>
           <a
-            href="/Projects"
+            href="/projects"
             className="hover:text-slate-200 transition-colors"
           >
             Projects
           </a>
-          <a href="/DSA" className="hover:text-slate-200 transition-colors">
+          <a href="/dsa" className="hover:text-slate-200 transition-colors">
             DSA
           </a>
           <a
@@ -106,10 +106,10 @@ export default function Navbar() {
           >
             About
           </a>
-          <a href="/Projects" onClick={() => setIsOpen(false)}>
+          <a href="/projects" onClick={() => setIsOpen(false)}>
             Projects
           </a>
-          <a href="/DSA" onClick={() => setIsOpen(false)}>
+          <a href="/dsa" onClick={() => setIsOpen(false)}>
             DSA
           </a>
           <a href="/experience" onClick={() => setIsOpen(false)}>

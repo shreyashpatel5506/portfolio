@@ -48,7 +48,7 @@ export default function ProjectDetails() {
     return (
       <div className="flex flex-col min-h-screen items-center justify-center bg-[#030712] text-white">
         <h2 className="text-2xl font-bold mb-4">Project not found</h2>
-        <button onClick={() => router.push("/Projects")} className="text-indigo-400 hover:underline">
+        <button onClick={() => router.push("/projects")} className="text-indigo-400 hover:underline">
           Return to projects
         </button>
       </div>
@@ -60,7 +60,7 @@ export default function ProjectDetails() {
       <AnimatedSection>
         {/* Navigation */}
         <button 
-          onClick={() => router.push("/Projects")}
+          onClick={() => router.push("/projects")}
           className="flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors mb-6 md:mb-10 group"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
