@@ -181,76 +181,78 @@ export default function CertificatesPage() {
               </div>
 
               {/* Details Section */}
-              <div className="w-full md:w-[40%] p-8 flex flex-col justify-center bg-gradient-to-b from-[#0b0f19] to-[#030712] border-l border-slate-800/50 overflow-y-auto max-h-[90vh] md:max-h-none">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-violet-500/10 border border-violet-500/20 text-violet-400 mb-6 shadow-inner">
-                  <ShieldCheck size={32} />
-                </div>
-
-                <h2 className="text-3xl font-extrabold text-white mb-2 leading-tight">
-                  {selectedCert.title}
-                </h2>
-                <p className="text-slate-400 text-lg mb-6">
-                  {selectedCert.description}
-                </p>
-                <p className="text-xl text-violet-400 font-medium mb-8">
-                  {selectedCert.issuer}
-                </p>
-
-                <div className="space-y-6 mb-10">
-                  <div className="flex flex-col">
-                    <span className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-1">
-                      Issue Date
-                    </span>
-                    <span className="text-slate-200 text-lg flex items-center gap-2">
-                      <Calendar size={18} className="text-slate-400" />
-                      {formatDate(selectedCert.issueDate)}
-                    </span>
+              <div className="w-full md:w-[40%] p-6 md:p-8 flex flex-col bg-gradient-to-b from-[#0b0f19] to-[#030712] border-t md:border-t-0 md:border-l border-slate-800/50 overflow-y-auto max-h-[50vh] md:max-h-full scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                <div className="flex-1 flex flex-col min-h-max pb-4">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-violet-500/10 border border-violet-500/20 text-violet-400 mb-6 shadow-inner shrink-0">
+                    <ShieldCheck size={32} />
                   </div>
 
-                  {selectedCert.expirationDate && (
+                  <h2 className="text-3xl font-extrabold text-white mb-2 leading-tight">
+                    {selectedCert.title}
+                  </h2>
+                  <p className="text-slate-400 text-lg mb-6 whitespace-pre-wrap">
+                    {selectedCert.description}
+                  </p>
+                  <p className="text-xl text-violet-400 font-medium mb-8">
+                    {selectedCert.issuer}
+                  </p>
+
+                  <div className="space-y-6 mb-10">
                     <div className="flex flex-col">
                       <span className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-1">
-                        Expiration Date
+                        Issue Date
                       </span>
                       <span className="text-slate-200 text-lg flex items-center gap-2">
                         <Calendar size={18} className="text-slate-400" />
-                        {formatDate(selectedCert.expirationDate)}
+                        {formatDate(selectedCert.issueDate)}
                       </span>
                     </div>
-                  )}
 
-                  {selectedCert.credentialId && (
-                    <div className="flex flex-col">
-                      <span className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-1">
-                        Credential ID
-                      </span>
-                      <span className="text-slate-200 text-lg font-mono bg-slate-900/50 px-3 py-1.5 rounded-lg border border-slate-800 w-max mt-1">
-                        {selectedCert.credentialId}
-                      </span>
+                    {selectedCert.expirationDate && (
+                      <div className="flex flex-col">
+                        <span className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-1">
+                          Expiration Date
+                        </span>
+                        <span className="text-slate-200 text-lg flex items-center gap-2">
+                          <Calendar size={18} className="text-slate-400" />
+                          {formatDate(selectedCert.expirationDate)}
+                        </span>
+                      </div>
+                    )}
+
+                    {selectedCert.credentialId && (
+                      <div className="flex flex-col">
+                        <span className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-1">
+                          Credential ID
+                        </span>
+                        <span className="text-slate-200 text-lg font-mono bg-slate-900/50 px-3 py-1.5 rounded-lg border border-slate-800 w-max mt-1">
+                          {selectedCert.credentialId}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {selectedCert.credentialUrl ? (
+                    <div className="mt-auto pt-6">
+                      <Link
+                        href={selectedCert.credentialUrl}
+                        target="_blank"
+                        className="w-full py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-violet-900/20"
+                      >
+                        Verify Credential <ExternalLink size={18} />
+                      </Link>
+                    </div>
+                  ) : (
+                    <div className="mt-auto pt-6">
+                      <button
+                        className="w-full py-4 bg-slate-800 text-slate-400 font-bold rounded-xl flex items-center justify-center gap-2 cursor-not-allowed border border-slate-700"
+                        disabled
+                      >
+                        No Verification URL
+                      </button>
                     </div>
                   )}
                 </div>
-
-                {selectedCert.credentialUrl ? (
-                  <div className="mt-auto pt-6">
-                    <Link
-                      href={selectedCert.credentialUrl}
-                      target="_blank"
-                      className="w-full py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-violet-900/20"
-                    >
-                      Verify Credential <ExternalLink size={18} />
-                    </Link>
-                  </div>
-                ) : (
-                  <div className="mt-auto pt-6">
-                    <button
-                      className="w-full py-4 bg-slate-800 text-slate-400 font-bold rounded-xl flex items-center justify-center gap-2 cursor-not-allowed border border-slate-700"
-                      disabled
-                    >
-                      No Verification URL
-                    </button>
-                  </div>
-                )}
               </div>
             </motion.div>
           </motion.div>
