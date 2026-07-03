@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 import {
   SiHtml5,
+  SiPhp,
   SiJavascript,
   SiTypescript,
   SiReact,
@@ -50,6 +51,7 @@ const iconMap = {
   expressjs: SiExpress,
   mongodb: SiMongodb,
   sql: SiMysql,
+  php:SiPhp,
   git: SiGit,
   github: SiGithub,
   docker: SiDocker,
@@ -77,6 +79,7 @@ const iconColors = {
   nodejs: "text-[#339933]",
   expressjs: "text-white",
   mongodb: "text-[#47A248]",
+  php:"text-[#47A248]",
   sql: "text-[#4479A1]",
   java: "text-[#007396]",
   python: "text-[#3776AB]",
