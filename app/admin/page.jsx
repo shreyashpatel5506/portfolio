@@ -26,6 +26,13 @@ export default function AdminHub() {
           </Link>
         </div>
 
+        <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-amber-100 mb-8">
+          <p className="font-semibold">Protected admin dashboard</p>
+          <p className="text-sm text-amber-100/80 mt-1">
+            Access is controlled by <code className="font-mono">ADMIN_USERNAME</code> and <code className="font-mono">ADMIN_PASSWORD</code> in your environment.
+          </p>
+        </div>
+
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {adminModules.map((module) => {
             const Icon = module.icon;
