@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { FolderGit2, Code2, Briefcase, Award, GitPullRequest, ArrowRight, Home, Activity } from "lucide-react";
+import { FolderGit2, Code2, Briefcase, Award, GitPullRequest, ArrowRight, Home, Activity, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function AdminHub() {
+  const router = useRouter();
   const adminModules = [
     { name: "Projects", path: "/admin/Project", icon: FolderGit2, desc: "Manage portfolio case studies" },
     { name: "Skills", path: "/admin/skill", icon: Code2, desc: "Manage tech stack categories" },
@@ -13,23 +15,34 @@ export default function AdminHub() {
     { name: "Extra Activities", path: "/admin/activity", icon: Activity, desc: "Manage posts, ideas, and talks" },
   ];
 
+  const handleLogout = async () => {
+    await fetch("/api/admin/logout", { method: "POST" });
+    router.replace("/admin/login");
+    router.refresh();
+  };
+
   return (
     <div className="bg-[#030712] min-h-screen text-slate-200 p-8">
       <div className="max-w-6xl mx-auto">
-        <div className="flex justify-between items-center mb-12">
+        <div className="flex justify-between items-center mb-12 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">Admin Dashboard</h1>
             <p className="text-slate-400">Manage your portfolio content dynamically.</p>
           </div>
-          <Link href="/" className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-medium bg-indigo-500/10 px-4 py-2 rounded-xl transition-colors">
-            <Home size={18} /> View Site
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-medium bg-indigo-500/10 px-4 py-2 rounded-xl transition-colors">
+              <Home size={18} /> View Site
+            </Link>
+            <button onClick={handleLogout} className="flex items-center gap-2 text-slate-200 hover:text-white font-medium bg-slate-800 px-4 py-2 rounded-xl transition-colors">
+              <LogOut size={18} /> Logout
+            </button>
+          </div>
         </div>
 
-        <div className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-amber-100 mb-8">
+        <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-emerald-100 mb-8">
           <p className="font-semibold">Protected admin dashboard</p>
-          <p className="text-sm text-amber-100/80 mt-1">
-            Access is controlled by <code className="font-mono">ADMIN_USERNAME</code> and <code className="font-mono">ADMIN_PASSWORD</code> in your environment.
+          <p className="text-sm text-emerald-100/80 mt-1">
+            You are signed in with a cookie-based session.
           </p>
         </div>
 
